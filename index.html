@@ -3,157 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Okinawa 2026 - Clean Edition</title>
+    <title>Okinawa 2026 - Official Plan</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         [v-cloak] { display: none; }
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f1f5f9; padding-bottom: 120px; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f1f5f9; padding-bottom: 40px; }
         .header-bg {
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?q=80&w=1000');
-            background-size: cover; background-position: center; height: 160px;
+            background-size: cover; background-position: center; height: 140px;
             display: flex; flex-direction: column; justify-content: center; align-items: center; color: white;
-            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; position: relative;
+            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
         }
-        .tab-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 85px; background: white; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-around; align-items: center; z-index: 100; }
-        .tab-btn { flex: 1; display: flex; flex-direction: column; align-items: center; color: #94a3b8; font-size: 11px; font-weight: bold; }
-        .tab-active { color: #0369a1 !important; }
-        .card { background: white; border-radius: 20px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 12px; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .sortable-ghost { opacity: 0.3; background: #e0f2fe; }
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-blur: 4px; z-index: 200; display: flex; align-items: flex-end; }
-        .modal-content { background: white; width: 100%; border-top-left-radius: 30px; border-top-right-radius: 30px; padding: 24px; max-height: 90vh; overflow-y: auto; }
-        input, select, textarea { width: 100%; background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 12px; font-weight: bold; margin-top: 4px; outline: none; }
+        .card { background: white; border-radius: 20px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 12px; transition: all 0.2s; border: 1px solid transparent; }
+        .card:active { transform: scale(0.98); background-color: #f0f9ff; border-color: #bae6fd; }
+        .map-tag { font-size: 10px; font-weight: 900; color: #0369a1; background: #f0f9ff; padding: 2px 8px; border-radius: 99px; display: inline-block; margin-top: 8px; }
     </style>
 </head>
 <body>
     <div id="app" v-cloak>
         <header class="header-bg shadow-lg">
-            <h1 class="text-2xl font-black tracking-widest text-white">沖繩夏日紀行</h1>
-            <div class="absolute bottom-4 right-6 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/30 flex items-center gap-2">
-                <span class="text-xs font-black text-white">2026.04.14 - 04.18</span>
-            </div>
+            <h1 class="text-2xl font-black tracking-widest text-white italic">OKINAWA 2026</h1>
+            <p class="text-[10px] font-bold text-white/80 tracking-widest mt-1">04.14 - 04.18</p>
         </header>
 
-        <main class="px-4 mt-6">
-            <div v-if="activeTab === 'plan'">
-                <div class="flex justify-between gap-2 mb-6">
-                    <button v-for="day in tripDays" @click="currentDate = day.date"
-                        :class="['flex-1 h-16 rounded-2xl flex flex-col items-center justify-center transition-all', currentDate === day.date ? 'bg-sky-800 text-white shadow-lg scale-105' : 'bg-white text-slate-400 shadow-sm border border-slate-100']">
-                        <span class="text-[9px] font-bold uppercase">{{ day.week }}</span>
-                        <span class="text-lg font-black">{{ day.dayNum }}</span>
-                    </button>
+        <main class="px-5 mt-6">
+            <div class="flex justify-between gap-2 mb-8">
+                <button v-for="day in tripDays" @click="currentDate = day.date"
+                    :class="['flex-1 h-16 rounded-2xl flex flex-col items-center justify-center transition-all', currentDate === day.date ? 'bg-sky-800 text-white shadow-lg scale-105' : 'bg-white text-slate-400 shadow-sm']">
+                    <span class="text-[9px] font-bold">{{ day.week }}</span>
+                    <span class="text-lg font-black">{{ day.dayNum }}</span>
+                </button>
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-sm font-black text-slate-400 mb-2 px-1 flex items-center gap-2">
+                    📅 {{ currentDate }} 行程安排
+                </h2>
+
+                <div v-if="itineraries[currentDate].length === 0" class="text-center py-20 text-slate-300 font-bold">
+                    本日尚無固定行程
                 </div>
-                
-                <div id="draggable-list">
-                    <div v-for="(item, index) in itineraries[currentDate]" :key="item.id || index" class="card" @click="openEditPlan(item, index)">
-                        <div class="flex gap-4">
-                            <div class="text-3xl flex items-center">{{ getIcon(item.category) }}</div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-start">
-                                    <h3 class="font-black text-slate-700 leading-tight">{{ item.name }}</h3>
-                                    <span class="text-[10px] font-black text-sky-600 bg-sky-50 px-2 py-0.5 rounded ml-2">{{ item.time }}</span>
-                                </div>
-                                <p class="text-[11px] text-slate-400 mt-2 leading-relaxed whitespace-pre-line">{{ item.note }}</p>
+
+                <div v-for="item in itineraries[currentDate]" :key="item.name" class="card" @click="openMap(item)">
+                    <div class="flex gap-4">
+                        <div class="text-3xl flex items-center justify-center w-10">{{ getIcon(item.category) }}</div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-black text-slate-700 text-lg leading-tight">{{ item.name }}</h3>
+                                <span v-if="item.time" class="text-[10px] font-black text-sky-600 bg-sky-50 px-2 py-0.5 rounded">{{ item.time }}</span>
                             </div>
-                            <div class="flex items-center text-slate-200">⋮⋮</div>
-                        </div>
-                    </div>
-                </div>
-                <button @click="openAddPlan" class="fixed right-6 bottom-24 w-14 h-14 bg-sky-800 text-white rounded-full shadow-xl text-3xl font-light z-50">+</button>
-            </div>
-
-            <div v-if="activeTab === 'food'">
-                <div class="sticky top-0 bg-[#f1f5f9] pt-2 pb-4 z-10">
-                    <h2 class="text-xl font-black text-slate-800 mb-4 px-1">🍱 沖繩 60 選 (那霸/中部)</h2>
-                    <div class="flex overflow-x-auto gap-2 no-scrollbar px-1">
-                        <button v-for="c in categories" @click="selectedCat = c" 
-                            :class="['px-5 py-2.5 rounded-full text-xs font-black transition-all whitespace-nowrap', selectedCat === c ? 'bg-sky-800 text-white shadow-md' : 'bg-white text-slate-400 border border-slate-200']">{{ c }}</button>
-                    </div>
-                </div>
-                <div class="space-y-4 pb-10">
-                    <div v-for="f in filteredFood" class="card border-b-4 border-slate-100" @click="addFoodToPlan(f)">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="font-black text-slate-700 text-base">{{ f.name }}</h3>
-                            <span class="text-[10px] bg-sky-50 text-sky-600 px-2 py-1 rounded-full font-black">{{ f.area }}</span>
-                        </div>
-                        <p class="text-[11px] text-slate-500 leading-relaxed">{{ f.desc }}</p>
-                        <div class="mt-3 pt-3 border-t border-slate-50 flex justify-between items-center text-[10px] text-slate-300 font-bold">
-                            <span>加入 D{{ tripDays.find(d=>d.date===currentDate).dayNum }} 行程</span>
-                            <span class="text-sky-600 text-lg">⊕</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div v-if="activeTab === 'info'" class="space-y-4 pb-10">
-                <h2 class="text-xl font-black text-slate-800">🧳 旅行重要資訊</h2>
-                <div class="card bg-red-50 border-l-8 border-red-500">
-                    <h3 class="font-black text-red-700">🆘 緊急救助</h3>
-                    <div class="mt-2 space-y-1 text-xs font-bold text-red-600">
-                        <p>📞 報警: 110 | 消防/救護: 119</p>
-                        <p>📞 駐日代表處(那霸): +81-98-862-2043</p>
-                    </div>
-                </div>
-                <div class="card border-l-8 border-indigo-600">
-                    <h3 class="font-black text-slate-700">🏨 住宿地址導航</h3>
-                    <div class="mt-4 space-y-6">
-                        <div @click="openMap('Maeda 1460-4, Onna, Okinawa, Japan')">
-                            <p class="text-[10px] font-black text-indigo-600 uppercase">4/14 Onna</p>
-                            <p class="text-sm font-bold text-slate-700">恩納村 Maeda 飯店</p>
-                            <p class="text-xs text-sky-600 mt-2 font-black underline underline-offset-4">📍 開啟 Google Maps 導航</p>
-                        </div>
-                        <div class="pt-4 border-t border-slate-100" @click="openMap('1249-8 Inamine, Ozato, Nanjo, Okinawa, Japan')">
-                            <p class="text-[10px] font-black text-indigo-600 uppercase">4/15-18 Nanjo</p>
-                            <p class="text-sm font-bold text-slate-700">南城市 Inamine 飯店</p>
-                            <p class="text-xs text-sky-600 mt-2 font-black underline underline-offset-4">📍 開啟 Google Maps 導航</p>
+                            <p class="text-[11px] text-slate-400 mt-2 leading-relaxed whitespace-pre-line font-medium">{{ item.note }}</p>
+                            <div v-if="item.category !== '航班'" class="map-tag">📍 點擊開啟地圖導航</div>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
-
-        <nav class="tab-nav">
-            <button @click="activeTab = 'plan'" :class="['tab-btn', activeTab === 'plan' ? 'tab-active' : '']">📍<span>行程</span></button>
-            <button @click="activeTab = 'food'" :class="['tab-btn', activeTab === 'food' ? 'tab-active' : '']">🍱<span>美食</span></button>
-            <button @click="activeTab = 'info'" :class="['tab-btn', activeTab === 'info' ? 'tab-active' : '']">🧳<span>資訊</span></button>
-        </nav>
-
-        <div v-if="showPlanModal" class="modal-overlay" @click.self="showPlanModal = false">
-            <div class="modal-content shadow-2xl">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-xl font-black text-slate-800">{{ isEdit ? '編輯項目' : '新增計畫' }}</h3>
-                    <button @click="showPlanModal = false" class="text-slate-300">✕</button>
-                </div>
-                <div class="space-y-4">
-                    <select v-model="formPlan.category"><option v-for="c in ['景點','住宿','美食','購物','航班','其他']">{{c}}</option></select>
-                    <input v-model="formPlan.name" placeholder="名稱">
-                    <input type="time" v-model="formPlan.time">
-                    <textarea v-model="formPlan.note" rows="5" placeholder="詳細備註..."></textarea>
-                    <div class="flex gap-3 pt-4">
-                        <button v-if="isEdit" @click="confirmDeletePlan" class="flex-1 py-4 bg-red-50 text-red-500 rounded-2xl font-black text-xs">刪除</button>
-                        <button @click="savePlan" class="flex-[2] py-4 bg-sky-800 text-white rounded-2xl font-black">確認儲存</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
-        const { createApp, ref, computed, onMounted, nextTick, watch } = Vue;
+        const { createApp, ref } = Vue;
         createApp({
             setup() {
-                const activeTab = ref('plan');
                 const currentDate = ref('2026-04-14');
-                const selectedCat = ref('拉麵');
-                const showPlanModal = ref(false);
-                const isEdit = ref(false);
-                const currentIdx = ref(null);
-                const formPlan = ref({});
-                const sortableInstance = ref(null);
-
                 const tripDays = [
                     { date: '2026-04-14', week: 'D1', dayNum: '14' },
                     { date: '2026-04-15', week: 'D2', dayNum: '15' },
@@ -162,120 +76,38 @@
                     { date: '2026-04-18', week: 'D5', dayNum: '18' }
                 ];
 
-                const categories = ['拉麵', '定食與沖繩麵', '燒肉或牛排', '甜點與咖啡'];
-                
-                // 完整 60 家美食
-                const foodList = [
-                    { name: '暖暮拉麵 牧志店', cat: '拉麵', area: '那霸', desc: '國際通排隊王，經典九州風味。' },
-                    { name: '通堂拉麵 小祿本店', cat: '拉麵', area: '那霸', desc: '經典男人麵(豚骨)與女人麵(鹽味)。' },
-                    { name: '琉球新麵 通堂 寄宮', cat: '拉麵', area: '那霸', desc: '本店人多時的最佳備案。' },
-                    { name: '拉麵 康龍', cat: '拉麵', area: '那霸', desc: '自選配料，國際通巷內。' },
-                    { name: '登龍門', cat: '拉麵', area: '那霸', desc: '濃厚擔擔麵聞名。' },
-                    { name: '天下一品 小祿店', cat: '拉麵', area: '那霸', desc: '湯頭濃如沾醬。' },
-                    { name: '荒海', cat: '拉麵', area: '那霸', desc: '特色魚介風味。' },
-                    { name: '雞湯拉麵屋 いしぐふー', cat: '拉麵', area: '浦添', desc: '清爽鮮甜雞湯。' },
-                    { name: 'Ryukyu Ramen Gomei', cat: '拉麵', area: '那霸', desc: '創意系拉麵首選。' },
-                    { name: '追風丸', cat: '拉麵', area: '北谷', desc: '北海道味噌風味。' },
-                    { name: '林屋拉麵', cat: '拉麵', area: '北谷', desc: '橫濱家系濃厚風格。' },
-                    { name: 'Stripes Noodles', cat: '拉麵', area: '北谷', desc: '牛排風味拉麵。' },
-                    { name: '武藏家拉麵', cat: '拉麵', area: '浦添', desc: '正統家系濃厚。' },
-                    { name: '麵家 宇和', cat: '拉麵', area: '浦添', desc: '魚介風味強。' },
-                    { name: '風雲拉麵', cat: '拉麵', area: '浦添', desc: '道地博多細麵。' },
-                    { name: '珀塔瑪飯糰 牧志店', cat: '定食與沖繩麵', area: '那霸', desc: '豬肉蛋飯糰始祖。' },
-                    { name: '甘味處 萬丸', cat: '定食與沖繩麵', area: '那霸', desc: '名古屋式划算早餐。' },
-                    { name: '味噌飯屋', cat: '定食與沖繩麵', area: '那霸', desc: '百年味噌老店定食。' },
-                    { name: '首里麵 (Shuri)', cat: '定食與沖繩麵', area: '那霸', desc: '強韌口感手工麵。' },
-                    { name: '米屋松倉', cat: '定食與沖繩麵', area: '宜野灣', desc: '頂級米食定食。' },
-                    { name: '高江洲蕎麥麵', cat: '定食與沖繩麵', area: '浦添', desc: '豆腐蕎麥麵始祖。' },
-                    { name: '濱屋蕎麥麵', cat: '定食與沖繩麵', area: '北谷', desc: '軟骨排骨神級美味。' },
-                    { name: '謝苅蕎麥麵', cat: '定食與沖繩麵', area: '北谷', desc: '海景氛圍滿分。' },
-                    { name: '楚邊蕎麥麵', cat: '定食與沖繩麵', area: '那霸', desc: '古民家大份量。' },
-                    { name: '步沙翁 (Ayumi)', cat: '定食與沖繩麵', area: '那霸', desc: '純粹沖繩點心。' },
-                    { name: '花笠食堂', cat: '定食與沖繩麵', area: '那霸', desc: '高CP值家常菜。' },
-                    { name: '波布食堂', cat: '定食與沖繩麵', area: '那霸', desc: '巨大炒麵山。' },
-                    { name: '傑克牛排 (Jack)', cat: '定食與沖繩麵', area: '那霸', desc: '老派洋食代表。' },
-                    { name: '食堂 炭火燒', cat: '定食與沖繩麵', area: '那霸', desc: '炭火魚料理。' },
-                    { name: '牧志市場食堂', cat: '定食與沖繩麵', area: '那霸', desc: '海鮮代客料理。' },
-                    { name: '琉球之牛 恩納店', cat: '燒肉或牛排', area: '恩納', desc: '頂級和牛融化口感。' },
-                    { name: '燒肉本部牧場', cat: '燒肉或牛排', area: '那霸', desc: '得獎本部牛專賣。' },
-                    { name: '燒肉王 (Kingu)', cat: '燒肉或牛排', area: '那霸', desc: '最強人氣吃到飽。' },
-                    { name: '肉屋 ししゃ', cat: '燒肉或牛排', area: '那霸', desc: '現切現烤享受。' },
-                    { name: '燒肉 88', cat: '燒肉或牛排', area: '那霸', desc: '水準穩定老牌。' },
-                    { name: 'Roins 那霸店', cat: '燒肉或牛排', area: '那霸', desc: '高級燒肉氛圍。' },
-                    { name: '七輪燒肉安安', cat: '燒肉或牛排', area: '那霸', desc: '平價燒肉代表。' },
-                    { name: '燒肉金城', cat: '燒肉或牛排', area: '北谷', desc: '石垣牛專門店。' },
-                    { name: '燒肉北谷龍', cat: '燒肉或牛排', area: '北谷', desc: '豪華海邊燒肉。' },
-                    { name: '琉球燒肉 NAKAMA', cat: '燒肉或牛排', area: '恩納', desc: '美式西部風。' },
-                    { name: '燒肉本舖 島牛', cat: '燒肉或牛排', area: '那霸', desc: '阿古豬必點。' },
-                    { name: '燒肉工房 團', cat: '燒肉或牛排', area: '小祿', desc: '在地人愛店。' },
-                    { name: '敘敘苑 PARCO', cat: '燒肉或牛排', area: '浦添', desc: '海景第一排。' },
-                    { name: 'Steak House 88', cat: '燒肉或牛排', area: '那霸', desc: '傳統美式牛排。' },
-                    { name: 'Blue Ocean Steak', cat: '燒肉或牛排', area: '北谷', desc: '精品熟成牛排。' },
-                    { name: '幸福鬆餅 瀨長島', cat: '甜點與咖啡', area: '豐見城', desc: '夕陽舒芙蕾。' },
-                    { name: 'oHacorte 港川', cat: '甜點與咖啡', area: '浦添', desc: '水果塔界女王。' },
-                    { name: 'Houki Boshi', cat: '甜點與咖啡', area: '浦添', desc: '黑糖可麗露。' },
-                    { name: 'ZHYVAGO COFFEE', cat: '甜點與咖啡', area: '北谷', desc: '美國村地標。' },
-                    { name: '猪頭咖啡', cat: '甜點與咖啡', area: '北谷', desc: '沙灘風咖啡館。' },
-                    { name: 'Blue Seal 牧志', cat: '甜點與咖啡', area: '那霸', desc: '經典紅芋冰淇淋。' },
-                    { name: 'Ball Donut Park', cat: '甜點與咖啡', area: '那霸', desc: '球型甜甜圈。' },
-                    { name: 'C&C Breakfast', cat: '甜點與咖啡', area: '那霸', desc: '巴西莓碗早餐。' },
-                    { name: '田芋起司蛋糕', cat: '甜點與咖啡', area: '那霸', desc: '特色田芋風味。' },
-                    { name: 'Maguro Base', cat: '甜點與咖啡', area: '那霸', desc: '清爽日本挫冰。' },
-                    { name: '港川冰淇淋', cat: '甜點與咖啡', area: '浦添', desc: '職人手工冰。' },
-                    { name: 'Coffee Potohoto', cat: '甜點與咖啡', area: '那霸', desc: '市場職人咖啡。' },
-                    { name: '甘味處 樂園', cat: '甜點與咖啡', area: '那霸', desc: '日式和菓子。' },
-                    { name: 'VONGO & ANCHOR', cat: '甜點與咖啡', area: '北谷', desc: '質感海景氛圍。' },
-                    { name: 'T&M Coffee', cat: '甜點與咖啡', area: '那霸', desc: '高品質手沖。' }
-                ];
-
+                // 固定行程資料
                 const itineraries = ref({
-                    '2026-04-14': [{ id: 101, category: '航班', name: '虎航 IT728 (KHH → OKA)', time: '15:45', note: '抵達 18:10\n代號：G23NJL、F5E9YC\n行李：10KG/60KG' }],
-                    '2026-04-15': [], '2026-04-16': [], '2026-04-17': [],
-                    '2026-04-18': [{ id: 102, category: '航班', name: '虎航 IT289 (OKA → KHH)', time: '14:00', note: '抵達 14:55\n代號：U1QDSB\n行李：10KG/75KG' }]
+                    '2026-04-14': [
+                        { category: '航班', name: '虎航 IT728', time: '15:45', note: '高雄 KHH → 沖繩 OKA\n抵達時間：18:10' },
+                        { category: '美食', name: '1. 晚餐：Yayoiken', note: 'Yayoiken Haninsuginowanten', addr: 'Yayoiken Haninsuginowanten Okinawa' },
+                        { category: '購物', name: '2. 超市採買', note: '讀谷村超市', addr: '205ｰ1 Uechi, Yomitan, Nakagami District, Okinawa 904-0321日本' },
+                        { category: '住宿', name: '3. 入住 Maeda 飯店', note: '恩納村住宿 (1晚)', addr: '1460-4 Maeda, Onna, Kunigami District, Okinawa 904-0417日本' }
+                    ],
+                    '2026-04-15': [
+                        { category: '景點', name: '1. 萬座毛', note: '象鼻岩海景', addr: '萬座毛' },
+                        { category: '景點', name: '2. 許田休息站', note: '必買門票與小吃', addr: '許田休息站' },
+                        { category: '景點', name: '3. 美麗海族館', note: '黑潮之海大水槽', addr: '美麗海族館' },
+                        { category: '購物', name: '4. AEON Mall Rycom', note: '大型購物中心', addr: 'Raikamu, Kitanakagusuku, Nakagami District, Okinawa 901-2306日本' },
+                        { category: '住宿', name: '5. 入住 Inamine 飯店', note: '南城市住宿 (連住3晚)', addr: 'Inamine-1249-8 Ōzato, Nanjo, Okinawa 901-1204日本' }
+                    ],
+                    '2026-04-16': [
+                        { category: '美食', name: '1. 泊港漁市場', note: '新鮮海鮮早午餐\n(導航至停車場)', addr: '1-chōme-3-3 Minatomachi, Naha, Okinawa 900-0001日本' },
+                        { category: '住宿', name: '5. 返回 Inamine 飯店', note: '南城市住宿', addr: 'Inamine-1249-8 Ōzato, Nanjo, Okinawa 901-1204日本' }
+                    ],
+                    '2026-04-17': [],
+                    '2026-04-18': []
                 });
 
-                const filteredFood = computed(() => foodList.filter(f => f.cat === selectedCat.value));
-
-                const initSortable = () => {
-                    const el = document.getElementById('draggable-list');
-                    if (!el || sortableInstance.value) return;
-                    sortableInstance.value = Sortable.create(el, {
-                        animation: 150, ghostClass: 'sortable-ghost', handle: '.card',
-                        onEnd: (evt) => {
-                            const list = [...itineraries.value[currentDate.value]];
-                            const [moved] = list.splice(evt.oldIndex, 1);
-                            list.splice(evt.newIndex, 0, moved);
-                            itineraries.value[currentDate.value] = list;
-                            localStorage.setItem('OKI_V8_CLEAN', JSON.stringify(itineraries.value));
-                        }
-                    });
-                };
-
-                watch([currentDate, activeTab], async () => { if (activeTab.value === 'plan') { await nextTick(); initSortable(); } });
-
-                const openAddPlan = () => { isEdit.value = false; formPlan.value = { id: Date.now(), category:'景點', name:'', time:'10:00', note:'' }; showPlanModal.value = true; };
-                const openEditPlan = (item, index) => { isEdit.value = true; currentIdx.value = index; formPlan.value = { ...item }; showPlanModal.value = true; };
-                const savePlan = () => {
-                    if(isEdit.value) itineraries.value[currentDate.value][currentIdx.value] = { ...formPlan.value };
-                    else itineraries.value[currentDate.value].push({ ...formPlan.value });
-                    localStorage.setItem('OKI_V8_CLEAN', JSON.stringify(itineraries.value)); showPlanModal.value = false;
-                };
-                const confirmDeletePlan = () => { if(confirm("刪除此項？")) { itineraries.value[currentDate.value].splice(currentIdx.value, 1); localStorage.setItem('OKI_V8_CLEAN', JSON.stringify(itineraries.value)); showPlanModal.value = false; } };
-                const addFoodToPlan = (f) => { 
-                    itineraries.value[currentDate.value].push({ id: Date.now(), category:'美食', name: f.name, time:'12:00', note: f.desc }); 
-                    localStorage.setItem('OKI_V8_CLEAN', JSON.stringify(itineraries.value)); activeTab.value = 'plan'; 
-                };
-
-                const openMap = (address) => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank');
                 const getIcon = (cat) => ({ '航班':'✈️','景點':'🏖️','住宿':'🏨','美食':'🍜','購物':'🛍️' }[cat] || '📍');
 
-                onMounted(() => {
-                    const saved = localStorage.getItem('OKI_V8_CLEAN');
-                    if(saved) itineraries.value = JSON.parse(saved);
-                    nextTick(() => initSortable());
-                });
+                const openMap = (item) => {
+                    if (item.category === '航班') return;
+                    const searchPoint = item.addr || item.name;
+                    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchPoint)}`, '_blank');
+                };
 
-                return { activeTab, currentDate, selectedCat, categories, tripDays, itineraries, filteredFood, openMap, addFoodToPlan, getIcon, openAddPlan, openEditPlan, savePlan, confirmDeletePlan, showPlanModal, formPlan, isEdit };
+                return { currentDate, tripDays, itineraries, getIcon, openMap };
             }
         }).mount('#app');
     </script>
