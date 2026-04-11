@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Okinawa 2026 - Ultra Travel Guide</title>
+    <title>Okinawa 2026 - Official Guide</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
@@ -16,22 +16,17 @@
             display: flex; justify-content: center; align-items: center; color: white;
             border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;
         }
-        /* 登機證 */
         .boarding-pass { background: white; border-radius: 16px; position: relative; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
         .boarding-pass::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: repeating-linear-gradient(45deg, #f87171, #f87171 10px, white 10px, white 20px); }
         .pass-font { font-family: 'VT323', monospace; text-transform: uppercase; }
         .ticket-stub { border-left: 2px dashed #e2e8f0; position: relative; }
         .ticket-stub::before, .ticket-stub::after { content: ''; position: absolute; left: -10px; width: 20px; height: 20px; background: #f8fafc; border-radius: 50%; }
         .ticket-stub::before { top: -10px; } .ticket-stub::after { bottom: -10px; }
-        /* 浮動分頁 */
         .sticky-subtabs { position: sticky; top: 0; z-index: 50; background: #f8fafce6; backdrop-filter: blur(8px); padding: 12px 0; }
-        /* 卡片設計 */
         .card { background: white; border-radius: 20px; padding: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); margin-bottom: 12px; border: 1px solid transparent; }
         .card:active { background-color: #f0f9ff; border-color: #bae6fd; }
         .map-tag { font-size: 10px; font-weight: 900; color: #0369a1; background: #e0f2fe; padding: 2px 10px; border-radius: 99px; margin-top: 8px; display: inline-block; }
-        /* 名產照片樣式 */
-        .souvenir-img { width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 8px; background: #f1f5f9; }
-        /* 底部導航 */
+        .souvenir-img { width: 100%; height: 110px; object-fit: cover; border-radius: 10px; margin-bottom: 6px; }
         .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; height: 75px; box-shadow: 0 -2px 15px rgba(0,0,0,0.1); z-index: 100; border-top-left-radius: 20px; border-top-right-radius: 20px; }
         .tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; font-size: 11px; font-weight: bold; }
         .tab-item.active { color: #0369a1; }
@@ -39,8 +34,8 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        <header class="header-bg">
-            <h1 class="text-lg font-black tracking-widest text-white italic">OKINAWA MASTER 2026</h1>
+        <header class="header-bg shadow-md">
+            <h1 class="text-lg font-black tracking-widest text-white italic">OKINAWA SUMMER 2026</h1>
         </header>
 
         <main class="px-5 mt-4">
@@ -52,6 +47,7 @@
                         <span class="text-lg font-black">{{ day.dayNum }}</span>
                     </button>
                 </div>
+
                 <div class="space-y-4">
                     <div v-for="item in itineraries[currentDate]">
                         <div v-if="item.category === '航班'" class="boarding-pass mb-4">
@@ -66,7 +62,7 @@
                                         <span>✈️</span>
                                         <p class="text-2xl font-black text-slate-950 pass-font">{{ item.to }}</p>
                                     </div>
-                                    <p class="text-center text-[10px] text-slate-400 mt-2 italic">{{ item.note }}</p>
+                                    <p class="text-center text-[10px] text-slate-400 mt-2 italic font-medium">{{ item.note }}</p>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +71,7 @@
                                 <div class="text-3xl flex items-center justify-center w-8">{{ getIcon(item.category) }}</div>
                                 <div class="flex-1">
                                     <h3 class="font-black text-slate-700 text-base leading-tight">{{ item.name }}</h3>
-                                    <p class="text-[11px] text-slate-400 mt-1">{{ item.note }}</p>
+                                    <p class="text-[11px] text-slate-400 mt-1 whitespace-pre-line">{{ item.note }}</p>
                                     <div class="map-tag">📍 開啟導航</div>
                                 </div>
                             </div>
@@ -143,6 +139,44 @@
                 const subTabs = [{id:'hotel',name:'住宿周邊'},{id:'food',name:'沿路餐廳'},{id:'souvenir',name:'名產推薦'}];
                 const tripDays = [{date:'2026-04-14',week:'D1',dayNum:'14'},{date:'2026-04-15',week:'D2',dayNum:'15'},{date:'2026-04-16',week:'D3',dayNum:'16'},{date:'2026-04-17',week:'D4',dayNum:'17'},{date:'2026-04-18',week:'D5',dayNum:'18'}];
 
+                const itineraries = ref({
+                    '2026-04-14': [
+                        { category: '航班', airline: 'Tigerair Taiwan', flightNo: 'IT728', time: '15:45', from: 'KHH', to: 'OKA', note: '抵達時間：18:10' },
+                        { category: '美食', name: '1. 晚餐：Yayoiken', note: '日式定食', addr: 'Yayoiken Haninsuginowanten' },
+                        { category: '購物', name: '2. 讀谷村超市', note: '205ｰ1 Uechi, Yomitan', addr: '205ｰ1 Uechi, Yomitan, Nakagami District, Okinawa' },
+                        { category: '住宿', name: '3. 恩納村 Maeda 飯店', note: '1460-4 Maeda, Onna', addr: '1460-4 Maeda, Onna, Kunigami District, Okinawa' }
+                    ],
+                    '2026-04-15': [
+                        { category: '景點', name: '1. 萬座毛', note: '象鼻岩', addr: 'Manzamo' },
+                        { category: '景點', name: '2. 許田休息站', note: '必買景點票券', addr: 'Kyoda Rest Area' },
+                        { category: '景點', name: '3. 美麗海族館', note: '黑潮之海鯨鯊', addr: 'Okinawa Churaumi Aquarium' },
+                        { category: '購物', name: '4. AEON Mall Raikam', note: '永旺夢樂城', addr: 'AEON Mall Okinawa Rycom' },
+                        { category: '住宿', name: '5. 南城市 Inamine 飯店', note: 'Inamine-1249-8', addr: 'Inamine-1249-8 Ōzato, Nanjo, Okinawa' }
+                    ],
+                    '2026-04-16': [
+                        { category: '美食', name: '1. 泊港漁市場', note: '停車場: 1-chōme-3-3 Minatomachi', addr: '1-chōme-3-3 Minatomachi, Naha, Okinawa' },
+                        { category: '景點', name: '2. 波上宮', note: '停車場: 2-chōme-18-15 Tsuji', addr: '2-chōme-18-15 Tsuji, Naha, Okinawa' },
+                        { category: '景點', name: '3. 玉泉洞', note: '鐘乳石洞公園', addr: 'Okinawa World Gyokusendo' },
+                        { category: '景點', name: '4. 瀨長島展望台', note: '看飛機起降', addr: 'Senaga Island' },
+                        { category: '購物', name: '5. San-A Naha Main Place', note: '新都心逛街', addr: 'San-A Naha Main Place' },
+                        { category: '購物', name: '6. 八重瀨町超市', note: '307 Iha, Yaese', addr: '307 Iha, Yaese, Shimajiri District, Okinawa' },
+                        { category: '住宿', name: '7. 南城市 Inamine 飯店', addr: 'Inamine-1249-8 Ōzato, Nanjo, Okinawa' }
+                    ],
+                    '2026-04-17': [
+                        { category: '美食', name: '1. 早餐 Furinkazan', note: '停車: 2-chōme-5-7 Kume', addr: '2-chōme-5-7 Kume, Naha, Okinawa' },
+                        { category: '其他', name: '2. みどり停車場', note: '國際通周邊停車', addr: 'みどり駐車場 那覇' },
+                        { category: '景點', name: '3. 國際通商店街', note: '沖繩最熱鬧街道', addr: '那霸國際通' },
+                        { category: '美食', name: '4. 第一牧志公設市場', note: '市場美食', addr: '第一牧志公設市場' },
+                        { category: '購物', name: '5. MEGA唐吉訶德', note: '免稅大採買', addr: 'MEGA唐吉訶德 豊見城店' },
+                        { category: '住宿', name: '6. 南城市 Inamine 飯店', addr: 'Inamine-1249-8 Ōzato, Nanjo, Okinawa' }
+                    ],
+                    '2026-04-18': [
+                        { category: '購物', name: '1. WORKMAN Yaese', note: '機能服飾', addr: 'WORKMAN Yaese' },
+                        { category: '美食', name: '2. 旅の終わりの朝ごはん', note: '最後的早餐', addr: '旅の終わりの朝ごはん 那覇' },
+                        { category: '航班', airline: 'Tigerair Taiwan', flightNo: 'IT289', time: '14:00', from: 'OKA', to: 'KHH', note: '返程高雄：14:55' }
+                    ]
+                });
+
                 const hotelPoints = [
                     { name: '前田共同店 (超市)', addr: 'Maeda Joint Store, Onna', icon: '🛍️', note: '恩納村最近的補給站' },
                     { name: 'JA Farmers Market Nanjo', addr: 'JA Farmers Market Nanjo', icon: '🍎', note: '南城市大型農產超市' },
@@ -152,59 +186,29 @@
                 const foodList = [
                     { name: 'Pork Tamago Onigiri (恩納店)', type: '飯糰', note: '沖繩經典豬肉蛋飯糰，必排美食。' },
                     { name: 'Ramen Danbo Naha', type: '拉麵', note: '經典暖暮拉麵，芝麻香氣迷人。' },
-                    { name: 'A&W Burger (美式漢堡)', type: '漢堡', note: '沖繩限定美式漢堡，Root Beer必喝。' },
+                    { name: 'A&W Burger', type: '漢堡', note: '沖繩限定美式漢堡，Root Beer必喝。' },
                     { name: 'Shimashabu Na-Kama', type: '涮涮鍋', note: '平價享受阿古豬(Agu Pork)的美味。' },
                     { name: 'Yayoiken Haninsuginowanten', type: '定食', note: '選擇多樣的平價日式定食。' },
-                    { name: 'Kishimoto Shokudo', type: '蕎麥麵', note: '百年沖繩麵老店，麵條Q彈、湯頭鮮美。' },
-                    { name: 'Yume No Chaya (濱邊之茶屋)', type: '咖啡/輕食', note: '南城市海邊景觀，享受悠閒下午。' },
-                    { name: 'Blue Seal Ice Cream', type: '甜點', note: '沖繩在地冰淇淋，推薦鹽屋風味。' },
-                    { name: 'Gourmet Sushi (北谷店)', type: '壽司', note: '平價迴轉壽司，食材新鮮、種類多。' },
-                    { name: 'Steak House 88', type: '牛排', note: '沖繩老字號牛排，份量足、在地人也愛。' }
+                    { name: 'Kishimoto Shokudo', type: '蕎麥麵', note: '百年沖繩麵老店，麵條Q彈。' },
+                    { name: 'Hamabe no Chaya', type: '咖啡', note: '南城市海邊景觀，放鬆心情首選。' },
+                    { name: 'Blue Seal Ice Cream', type: '甜點', note: '沖繩在地冰淇淋，推薦鹽味。' },
+                    { name: 'Gourmet Sushi (北谷店)', type: '壽司', note: '平價迴轉壽司，食材非常新鮮。' },
+                    { name: 'Steak House 88', type: '牛排', note: '老字號牛排，在地人與遊客都愛。' }
                 ];
 
                 const souvenirList = [
                     { name: '紅芋塔 (元祖)', desc: '經典紅芋泥與塔皮，必買伴手禮。', img: 'http://googleusercontent.com/image_collection/image_retrieval/8956490804171276766_0' },
                     { name: '雪鹽餅乾 (Chinsuko)', desc: '鹹甜交織，宮古島雪鹽特製。', img: 'http://googleusercontent.com/image_collection/image_retrieval/12587725344037731936_0' },
-                    { name: '石垣島辣油', desc: '拌麵、沾醬聖品，超市掃貨王。', img: 'http://googleusercontent.com/image_collection/image_retrieval/16610742021835595112_0' },
+                    { name: '石垣島辣油', desc: '拌麵沾醬聖品，超市掃貨王。', img: 'http://googleusercontent.com/image_collection/image_retrieval/16610742021835595112_0' },
                     { name: '沖繩黑糖糖果', desc: '純正黑糖，濃郁天然的甘甜味。', img: 'http://googleusercontent.com/image_collection/image_retrieval/4786684480422855038_0' },
                     { name: '泡盛辣椒油', desc: '微辣帶酒香，沖繩麵必加。', img: 'http://googleusercontent.com/image_collection/image_retrieval/2577060681433792680_0' },
-                    { name: 'Orion 沖繩限定啤酒', desc: '清爽口感，只有這裡才喝得到。', img: 'http://googleusercontent.com/image_collection/image_retrieval/9008262295126968607_0' },
+                    { name: 'Orion 限定啤酒', desc: '清爽口感，只有沖繩才喝得到。', img: 'http://googleusercontent.com/image_collection/image_retrieval/9008262295126968607_0' },
                     { name: '沖繩蝦餅', desc: '鹹香脆口，極具人氣的零食。', img: 'http://googleusercontent.com/image_collection/image_retrieval/2792779776796543529_0' },
                     { name: '苦瓜乾零食', desc: '苦甘平衡，意外好吃的健康零點。', img: 'http://googleusercontent.com/image_collection/image_retrieval/14566327462617263247_0' }
                 ];
 
-                const itineraries = ref({
-                    '2026-04-14': [
-                        { category: '航班', airline: 'Tigerair', flightNo: 'IT728', time: '15:45', from: 'KHH', to: 'OKA', note: '抵達 18:10' },
-                        { category: '美食', name: '晚餐：Yayoiken', addr: 'Yayoiken Haninsuginowanten' },
-                        { category: '住宿', name: '恩納村 Maeda 飯店', addr: '1460-4 Maeda, Onna' }
-                    ],
-                    '2026-04-15': [
-                        { category: '景點', name: '萬座毛', addr: 'Manzamo' },
-                        { category: '景點', name: '美麗海族館', addr: 'Churaumi Aquarium' },
-                        { category: '住宿', name: '南城市 Inamine 飯店', addr: 'Inamine-1249-8 Ōzato, Nanjo' }
-                    ],
-                    '2026-04-16': [
-                        { category: '美食', name: '泊港漁市場', addr: '1-chōme-3-3 Minatomachi, Naha' },
-                        { category: '景點', name: '波上宮', addr: '2-chōme-18-15 Tsuji, Naha' },
-                        { category: '購物', name: 'Naha Main Place', addr: 'San-A Naha Main Place' }
-                    ],
-                    '2026-04-17': [
-                        { category: '景點', name: '國際通', addr: '那霸國際通' },
-                        { category: '購物', name: 'MEGA唐吉訶德', addr: 'MEGA唐吉訶德 豊見城店' }
-                    ],
-                    '2026-04-18': [
-                        { category: '美食', name: '旅の終わりの朝ごはん', addr: '旅の終わりの朝ごはん' },
-                        { category: '航班', airline: 'Tigerair', flightNo: 'IT289', time: '14:00', from: 'OKA', to: 'KHH', note: '返程高雄 14:55' }
-                    ]
-                });
-
                 const getIcon = (cat) => ({ '景點':'🏖️','住宿':'🏨','美食':'🍜','購物':'🛍️','其他':'🅿️' }[cat] || '📍');
-                // 絕對正確的導航連結格式
-                const openMap = (query) => {
-                    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-                    window.open(url, '_blank');
-                };
+                const openMap = (query) => window.open(`http://googleusercontent.com/maps.google.com/?q=${encodeURIComponent(query)}`, '_blank');
 
                 return { activeMainTab, activeSubTab, subTabs, currentDate, tripDays, itineraries, hotelPoints, foodList, souvenirList, getIcon, openMap };
             }
