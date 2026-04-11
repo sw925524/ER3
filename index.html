@@ -3,20 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>沖繩 2026 - 最終確認行程</title>
+    <title>Okinawa 2026 - Digital Boarding Pass</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
     <style>
         [v-cloak] { display: none; }
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; padding-bottom: 40px; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f0f4f8; padding-bottom: 40px; }
         .header-bg {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?q=80&w=1000');
-            background-size: cover; background-position: center; height: 120px;
+            background-size: cover; background-position: center; height: 100px;
             display: flex; flex-direction: column; justify-content: center; align-items: center; color: white;
-            border-bottom-left-radius: 24px; border-bottom-right-radius: 24px;
+            border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;
         }
-        .card { background: white; border-radius: 20px; padding: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 12px; transition: all 0.2s; border: 1px solid transparent; cursor: pointer; }
+        
+        /* 登機證樣式 */
+        .boarding-pass {
+            background: white; border-radius: 16px; position: relative; overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;
+        }
+        .boarding-pass::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
+            background: repeating-linear-gradient(45deg, #f87171, #f87171 10px, white 10px, white 20px);
+        }
+        .pass-font { font-family: 'VT323', monospace; text-transform: uppercase; }
+        .ticket-stub { border-left: 2px dashed #e2e8f0; position: relative; }
+        .ticket-stub::before, .ticket-stub::after {
+            content: ''; position: absolute; left: -10px; width: 20px; height: 20px;
+            background: #f0f4f8; border-radius: 50%;
+        }
+        .ticket-stub::before { top: -10px; }
+        .ticket-stub::after { bottom: -10px; }
+
+        /* 天氣卡片 */
+        .weather-card {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            border-radius: 20px; padding: 16px; border: 1px solid #bae6fd;
+        }
+
+        .card { background: white; border-radius: 20px; padding: 18px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); margin-bottom: 12px; transition: all 0.2s; border: 1px solid transparent; cursor: pointer; }
         .card:active { transform: scale(0.97); background-color: #f0f9ff; border-color: #bae6fd; }
         .map-btn { font-size: 11px; font-weight: 900; color: #0284c7; background: #f0f9ff; padding: 4px 12px; border-radius: 99px; display: inline-flex; align-items: center; margin-top: 10px; }
     </style>
@@ -24,33 +49,87 @@
 <body>
     <div id="app" v-cloak>
         <header class="header-bg">
-            <h1 class="text-2xl font-black tracking-widest text-white italic">OKINAWA 2026</h1>
-            <p class="text-[10px] font-bold text-white/80 tracking-widest mt-1 uppercase">Final Itinerary</p>
+            <h1 class="text-xl font-black tracking-widest text-white italic">沖繩夏日紀行 2026</h1>
         </header>
 
         <main class="px-5 mt-6">
-            <div class="flex justify-between gap-2 mb-8">
+            <div class="flex justify-between gap-2 mb-6">
                 <button v-for="day in tripDays" @click="currentDate = day.date"
-                    :class="['flex-1 h-16 rounded-2xl flex flex-col items-center justify-center transition-all', currentDate === day.date ? 'bg-sky-800 text-white shadow-lg scale-105' : 'bg-white text-slate-400 shadow-sm border border-slate-100']">
-                    <span class="text-[9px] font-bold">{{ day.week }}</span>
+                    :class="['flex-1 h-14 rounded-xl flex flex-col items-center justify-center transition-all', currentDate === day.date ? 'bg-sky-800 text-white shadow-lg' : 'bg-white text-slate-400 border border-slate-100']">
+                    <span class="text-[9px] font-bold uppercase pass-font">{{ day.week }}</span>
                     <span class="text-lg font-black">{{ day.dayNum }}</span>
                 </button>
             </div>
 
+            <div class="weather-card mb-8 shadow-inner flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <span class="text-5xl">☀️</span>
+                    <div>
+                        <p class="text-xs font-bold text-sky-900/60 uppercase pass-font">Okinawa Naha / {{ currentDate }}</p>
+                        <p class="text-2xl font-black text-sky-950">Sunny / 28°C</p>
+                    </div>
+                </div>
+                <div class="text-right text-sky-900/70">
+                    <p class="text-[10px] font-black uppercase pass-font">Sunset</p>
+                    <p class="text-lg font-black">18:50</p>
+                </div>
+            </div>
+
             <div class="space-y-4">
-                <div v-for="item in itineraries[currentDate]" :key="item.name" class="card" @click="openMap(item)">
-                    <div class="flex gap-4">
+                <div v-for="item in itineraries[currentDate]" :key="item.name" :class="item.category === '航班' ? '' : 'card'" @click="item.category === '航班' ? null : openMap(item)">
+                    
+                    <div v-if="item.category === '航班'" class="boarding-pass mb-6 shadow-xl">
+                        <div class="flex p-5 pb-3 justify-between items-center border-b border-slate-100">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-black px-2 py-0.5 bg-slate-900 text-white rounded pass-font">{{ item.flightNo }}</span>
+                                <span class="text-lg font-black text-slate-900">{{ item.time }}</span>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase pass-font">{{ item.airline }}</span>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-1 p-5 space-y-3">
+                                <div class="flex justify-between items-center text-center">
+                                    <div class="w-20">
+                                        <p class="text-[10px] font-bold text-slate-400 uppercase pass-font">From</p>
+                                        <p class="text-3xl font-black text-slate-950 pass-font">{{ item.from }}</p>
+                                        <p class="text-[10px] text-slate-500 font-medium">高雄 KHH</p>
+                                    </div>
+                                    <span class="text-xl">✈️</span>
+                                    <div class="w-20">
+                                        <p class="text-[10px] font-bold text-slate-400 uppercase pass-font">To</p>
+                                        <p class="text-3xl font-black text-slate-950 pass-font">{{ item.to }}</p>
+                                        <p class="text-[10px] text-slate-500 font-medium">沖繩 OKA</p>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-50 rounded-lg p-3 text-[11px] text-slate-500 leading-relaxed font-medium whitespace-pre-line border border-slate-100">
+                                    {{ item.note }}
+                                </div>
+                            </div>
+                            
+                            <div class="w-24 p-5 ticket-stub flex flex-col justify-between items-center bg-slate-50/50">
+                                <div class="text-center">
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase pass-font">Class</p>
+                                    <p class="text-base font-black text-slate-950 pass-font">ECONOMY</p>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase pass-font">Gate</p>
+                                    <p class="text-2xl font-black text-sky-700 pass-font">--</p>
+                                </div>
+                                <img src="https://bwipjs-api.metafloor.com/?bcid=code128&text=IT728OKA2026&scale=1&height=10&rotate=N&includetext" class="w-full mt-2 opacity-70">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-else class="flex gap-4">
                         <div class="text-3xl flex items-center justify-center w-10">{{ getIcon(item.category) }}</div>
                         <div class="flex-1">
                             <div class="flex justify-between items-start">
                                 <h3 class="font-black text-slate-700 text-base leading-tight">{{ item.name }}</h3>
-                                <span v-if="item.time" class="text-[10px] font-black text-white bg-sky-800 px-2 py-0.5 rounded">{{ item.time }}</span>
                             </div>
                             <p class="text-[11px] text-slate-400 mt-2 leading-relaxed whitespace-pre-line font-medium">{{ item.note }}</p>
                             
-                            <div v-if="item.category !== '航班'" class="map-btn">
-                                📍 啟動 Google Maps 導航
-                            </div>
+                            <div class="map-btn">📍 開啟地圖導航</div>
                         </div>
                     </div>
                 </div>
@@ -73,49 +152,46 @@
 
                 const itineraries = ref({
                     '2026-04-14': [
-                        { category: '航班', name: '虎航 IT728', time: '15:45', note: '高雄 KHH → 沖繩 OKA\n抵達時間：18:10' },
-                        { category: '美食', name: '1. 晚餐：Yayoiken', note: '日式定食晚餐', addr: 'Yayoiken Haninsuginowanten Okinawa' },
-                        { category: '購物', name: '2. 讀谷村超市', note: '205ｰ1 Uechi, Yomitan, Nakagami District, Okinawa', addr: '205ｰ1 Uechi, Yomitan, Nakagami District, Okinawa 904-0321日本' },
-                        { category: '住宿', name: '3. 恩納村 Maeda 飯店', note: '入住 1460-4 Maeda, Onna', addr: '1460-4 Maeda, Onna, Kunigami District, Okinawa 904-0417日本' }
+                        { category: '航班', airline: 'Tigerair Taiwan', flightNo: 'IT728', time: '15:45', from: 'KHH', to: 'OKA', note: '抵達 OKA: 18:10\n(模擬 4/14 天氣預報良好)' },
+                        { category: '美食', name: '1. 晚餐：Yayoiken', note: 'Haninsuginowanten', addr: 'Yayoiken Haninsuginowanten Okinawa' },
+                        { category: '購物', name: '2. 讀谷村超市', note: '讀谷村 205ｰ1 Uechi', addr: '205ｰ1 Uechi, Yomitan, Nakagami District, Okinawa 904-0321日本' },
+                        { category: '住宿', name: '3. 恩納村 Maeda 飯店', note: 'Maeda 1460-4', addr: '1460-4 Maeda, Onna, Kunigami District, Okinawa 904-0417日本' }
                     ],
                     '2026-04-15': [
-                        { category: '景點', name: '1. 萬座毛', note: '象鼻岩海景', addr: 'Manzamo' },
-                        { category: '景點', name: '2. 許田休息站', note: '採購票券', addr: 'Kyoda Rest Area' },
-                        { category: '景點', name: '3. 美麗海族館', note: '黑潮之海', addr: 'Okinawa Churaumi Aquarium' },
-                        { category: '購物', name: '4. AEON Mall Raikam', note: '永旺夢樂城', addr: 'Raikamu, Kitanakagusuku, Nakagami District, Okinawa 901-2306日本' },
-                        { category: '住宿', name: '5. 南城市 Inamine 飯店', note: '入住休息 (連住三晚)', addr: 'Inamine-1249-8 Ōzato, Nanjo, Okinawa 901-1204日本' }
+                        { category: '景點', name: '1. 萬座毛', note: '象鼻岩', addr: 'Manzamo' },
+                        { category: '景點', name: '2. 許田休息站', note: '採購票券與點心', addr: 'Kyoda Rest Area' },
+                        { category: '景點', name: '3. 美麗海族館', note: '海洋博公園', addr: 'Okinawa Churaumi Aquarium' },
+                        { category: '購物', name: '4. AEON Mall Rycom', note: '永旺夢樂城', addr: 'Raikamu, Kitanakagusuku, Nakagami District, Okinawa 901-2306日本' },
+                        { category: '住宿', name: '5. 南城市 Inamine 飯店', note: '南城市 Inamine-1249-8', addr: 'Inamine-1249-8 Ōzato, Nanjo, Okinawa 901-1204日本' }
                     ],
                     '2026-04-16': [
-                        { category: '美食', name: '1. 泊港漁市場', note: '停車場：1-chōme-3-3 Minatomachi', addr: '1-chōme-3-3 Minatomachi, Naha, Okinawa 900-0001日本' },
-                        { category: '景點', name: '2. 波上宮', note: '停車場：2-chōme-18-15 Tsuji, Naha', addr: '2-chōme-18-15 Tsuji, Naha, Okinawa 900-0037日本' },
-                        { category: '景點', name: '3. 玉泉洞', note: '停車場：Maekawa Tamagusuku, Nanjo', addr: 'Maekawa Tamagusuku, Nanjo, Okinawa 901-0616日本' },
-                        { category: '景點', name: '4. 瀨長島展望台', note: '停車場：Senaga, Tomigusuku', addr: 'Senaga, Tomigusuku, Okinawa 901-0233日本' },
-                        { category: '購物', name: '5. San-A Naha Main Place', note: '大型購物商場', addr: 'San-A Naha Main Place' },
-                        { category: '購物', name: '6. 八重瀨町超市', note: '307 Iha, Yaese', addr: '307 Iha, Yaese, Shimajiri District, Okinawa 901-0405日本' },
-                        { category: '住宿', name: '7. 南城市 Inamine 飯店', note: '返回飯店休息', addr: 'Inamine-1249-8 Ōzato, Nanjo, Okinawa 901-1204日本' }
+                        { category: '美食', name: '1. 泊港漁市場', note: '停車場: 1-chōme-3-3 Minatomachi', addr: '1-chōme-3-3 Minatomachi, Naha, Okinawa 900-0001日本' },
+                        { category: '景點', name: '2. 波上宮', note: '停車場: 2-chōme-18-15 Tsuji', addr: '2-chōme-18-15 Tsuji, Naha, Okinawa 900-0037日本' },
+                        { category: '景點', name: '3. 玉泉洞', note: '停車場: Maekawa Tamagusuku', addr: 'Maekawa Tamagusuku, Nanjo, Okinawa 901-0616日本' },
+                        { category: '景點', name: '4. 瀨長島展望台', note: '停車場: Senaga', addr: 'Senaga, Tomigusuku, Okinawa 901-0233日本' },
+                        { category: '購物', name: '5. Naha Main Place', note: '新都心商圈', addr: 'San-A Naha Main Place' },
+                        { category: '購物', name: '6. 八重瀨町超市', note: '307 Iha, Yaese', addr: '307 Iha, Yaese, Shimajiri District, Okinawa 901-0405日本' }
                     ],
                     '2026-04-17': [
-                        { category: '美食', name: '1. 早餐 Furinkazan', note: '停車：2-chōme-5-7 Kume, Naha', addr: '2-chōme-5-7 Kume, Naha, Okinawa 900-0033日本' },
-                        { category: '其他', name: '2. みどり停車場', note: '市區停放（牧志地區200台）', addr: 'みどり駐車場 那覇' },
-                        { category: '景點', name: '3. 國際通商店街', note: '那霸最熱鬧街道', addr: '國際通' },
-                        { category: '美食', name: '4. 第一牧志公設市場', note: '沖繩人的廚房', addr: '那霸市第一牧志公設市場' },
-                        { category: '購物', name: '5. MEGA唐吉訶德 豊見城店', note: '驚安殿堂大採買', addr: 'MEGA唐吉訶德 豊見城店' },
-                        { category: '購物', name: '6. 八重瀨町超市', note: '307 Iha, Yaese', addr: '307 Iha, Yaese, Shimajiri District, Okinawa 901-0405日本' },
-                        { category: '住宿', name: '7. 南城市 Inamine 飯店', note: '返回飯店休息', addr: 'Inamine-1249-8 Ōzato, Nanjo, Okinawa 901-1204日本' }
+                        { category: '美食', name: '1. 早餐 Furinkazan', note: '停車: 2-chōme-5-7 Kume', addr: '2-chōme-5-7 Kume, Naha, Okinawa 900-0033日本' },
+                        { category: '其他', name: '2. みどり停車場', note: '那霸牧志 (200台)', addr: 'みどり駐車場 那覇' },
+                        { category: '景點', name: '3. 國際通商店街', note: '市區逛街', addr: '國際通' },
+                        { category: '美食', name: '4. 第一牧志公設市場', note: '海鮮代客料理', addr: '那霸市第一牧志公設市場' },
+                        { category: '購物', name: '5. MEGA唐吉訶德 豊見城', note: '驚安殿堂', addr: 'MEGA唐吉訶德 豊見城店' }
                     ],
                     '2026-04-18': [
-                        { category: '購物', name: '1. WORKMAN Yaese', note: '八重瀨店', addr: 'WORKMAN Yaese' },
+                        { category: '購物', name: '1. WORKMAN Yaese', note: '戶外用品', addr: 'WORKMAN Yaese' },
                         { category: '其他', name: '2. みどり停車場', note: '最後採買停靠', addr: 'みどり駐車場 那覇' },
-                        { category: '美食', name: '3. 旅の終わりの朝ごはん', note: '最後的早餐', addr: '旅の終わりの朝ごはん 那覇' },
-                        { category: '航班', name: '虎航 IT289', time: '14:00', note: '沖繩 OKA → 高雄 KHH\n抵達時間：14:55', addr: 'Naha Airport' }
+                        { category: '航班', name: '虎航 IT289', airline: 'Tigerair Taiwan', flightNo: 'IT289', time: '14:00', from: 'OKA', to: 'KHH', note: '回程，預計抵達 KHH: 14:55' }
                     ]
                 });
 
-                const getIcon = (cat) => ({ '航班':'✈️','景點':'🏖️','住宿':'🏨','美食':'🍜','購物':'🛍️','其他':'🅿️' }[cat] || '📍');
+                const getIcon = (cat) => ({ '景點':'🏖️','住宿':'🏨','美食':'🍜','購物':'🛍️','其他':'🅿️' }[cat] || '📍');
 
                 const openMap = (item) => {
+                    if (item.category === '航班') return;
                     const query = encodeURIComponent(item.addr || item.name);
-                    window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
+                    window.open(`http://googleusercontent.com/maps.google.com/?q=${query}`, '_blank');
                 };
 
                 return { currentDate, tripDays, itineraries, getIcon, openMap };
