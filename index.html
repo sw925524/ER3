@@ -93,12 +93,16 @@
 
                     <div v-else class="card" @click="openMap(item.addr || item.name)">
                         <div class="flex justify-between items-start">
-                            <div>
+                            <div class="flex-1">
                                 <span class="text-[9px] font-black text-sky-700 bg-sky-50 px-2 py-0.5 rounded uppercase mb-1 inline-block">{{ item.category }}</span>
                                 <h3 class="font-black text-slate-700 text-base leading-tight">{{ item.name }}</h3>
                                 <p class="text-xs text-slate-400 mt-1 leading-snug">{{ item.note }}</p>
+                                <div v-if="item.specialNote" class="mt-3 p-2 bg-slate-50 rounded-lg border border-slate-100">
+                                    <p class="text-[10px] font-black text-sky-800 mb-1">🕒 表演與體驗時間：</p>
+                                    <p class="text-[10px] text-slate-500 leading-relaxed whitespace-pre-line">{{ item.specialNote }}</p>
+                                </div>
                             </div>
-                            <div class="text-2xl">{{ getIcon(item.category) }}</div>
+                            <div class="text-2xl ml-2">{{ getIcon(item.category) }}</div>
                         </div>
                         <div class="map-btn shadow-sm">地圖導航 ➔</div>
                     </div>
@@ -168,58 +172,58 @@
                 const itineraries = ref({
                     '2026-04-14': [
                         { category: '航班', flightNo: 'IT728', time: '15:45 - 18:10', from: 'KHH', to: 'OKA', luggage: '• 15kg: 喻3人\n• 30kg: 大姨夫妻\n• 15kg: 鐘先生' },
-                        { category: '美食', name: '晚餐：Yayoiken (彌生軒)', note: '連鎖平價定食，多樣選擇。', addr: 'Yayoiken Haninsuginowanten' },
-                        { category: '購物', name: '讀谷村超市 (補給)', note: '採購晚上零食與隔日備品。', addr: '205ｰ1 Uechi, Yomitan' },
+                        { category: '美食', name: '晚餐：Yayoiken (彌生軒)', note: '日式定食，適合抵達第一餐', addr: 'Yayoiken Haninsuginowanten' },
+                        { category: '購物', name: '讀谷村超市 (補給)', note: '採購零食與隔日備品', addr: '205ｰ1 Uechi, Yomitan' },
                         { category: '住宿', name: '恩納村 Maeda 飯店', addr: '1460-4 Maeda, Onna, Okinawa' }
                     ],
                     '2026-04-15': [
-                        { category: '景點', name: '萬座毛', note: '琉球國王讚嘆的草原與象鼻岩。', addr: 'Manzamo' },
-                        { category: '景點', name: '許田休息站', note: '推薦炸饅頭，可購買景點優惠券。', addr: 'Kyoda Rest Area' },
-                        { category: '景點', name: '美麗海族館', note: '世界級水族館，黑潮之海必看。', addr: 'Okinawa Churaumi Aquarium' },
-                        { category: '購物', name: 'AEON Mall Rycom', note: '沖繩最大購物中心。', addr: 'AEON Mall Okinawa Rycom' },
+                        { category: '景點', name: '萬座毛', note: '象鼻岩拍照勝地', addr: 'Manzamo' },
+                        { category: '景點', name: '許田休息站', note: '必買門票/小吃', addr: 'Kyoda Rest Area' },
+                        { 
+                            category: '景點', 
+                            name: '美麗海水族館', 
+                            note: '看巨大的鯨鯊與黑潮之海', 
+                            addr: 'Okinawa Churaumi Aquarium',
+                            specialNote: '🐳 鯨鯊餵食秀：15:00 / 17:00 (垂直站立進食)\n🐬 海豚秀：10:30/11:30/13:00/15:00/17:00\n🐟 鬼蝠魟餵食：09:30\n🖐️ 海豚餵食體驗：10:00/11:00/12:00/13:30/15:30 (需現場報名)'
+                        },
+                        { category: '購物', name: 'AEON Mall Rycom', note: '沖繩最大百貨', addr: 'AEON Mall Okinawa Rycom' },
                         { category: '住宿', name: '南城市 Inamine 飯店', addr: 'Inamine-1249-8 Ōzato, Nanjo' }
                     ],
                     '2026-04-16': [
-                        { category: '美食', name: '泊港漁市場', note: '現剖海鮮早餐首選。', addr: '1-chōme-3-3 Minatomachi, Naha' },
-                        { category: '景點', name: '波上宮', note: '懸崖邊的神社，那霸地標。', addr: 'Naminoue Shrine' },
-                        { category: '景點', name: '玉泉洞 & 王國村', note: '超壯觀鐘乳石，體驗琉球文化。', addr: 'Okinawa World' },
-                        { category: '景點', name: '瀨長島 Umikaji Terrace', note: '唯美白色建築，看飛機降落。', addr: 'Senaga Island' },
-                        { category: '購物', name: 'San-A Naha Main Place', note: '當地人最愛逛的百貨。', addr: 'San-A Naha Main Place' },
-                        { category: '購物', name: '八重瀨町超市', addr: '307 Iha, Yaese, Okinawa' },
+                        { category: '美食', name: '泊港漁市場', note: '新鮮生魚片早餐', addr: '1-chōme-3-3 Minatomachi, Naha' },
+                        { category: '景點', name: '波上宮', note: '海邊斷崖神社', addr: 'Naminoue Shrine' },
+                        { category: '景點', name: '玉泉洞 & 王國村', note: '壯觀鐘乳石洞', addr: 'Okinawa World' },
+                        { category: '景點', name: '瀨長島 Umikaji Terrace', note: '看飛機降落的白色小島', addr: 'Senaga Island' },
+                        { category: '購物', name: 'San-A Naha Main Place', note: '新都心逛街首選', addr: 'San-A Naha Main Place' },
                         { category: '住宿', name: '南城市 Inamine 飯店', addr: 'Inamine-1249-8 Ōzato, Nanjo' }
                     ],
                     '2026-04-17': [
                         { category: '美食', name: '早餐：Furinkazan', addr: '2-chōme-5-7 Kume, Naha' },
-                        { category: '其他', name: '🅿️ みどり停車場', note: '國際通逛街首選停車位。', addr: 'みどり駐車場 那覇' },
-                        { category: '景點', name: '國際通商店街', note: '伴手禮一條街。', addr: 'International Road Okinawa' },
+                        { category: '其他', name: '🅿️ みどり停車場', note: '國際通方便停車點', addr: 'みどり駐車場 那覇' },
+                        { category: '景點', name: '國際通商店街', addr: 'International Road Okinawa' },
                         { category: '美食', name: '第一牧志公設市場', addr: 'Makishi Public Market' },
-                        { category: '購物', name: 'MEGA 唐吉訶德', note: '24小時藥妝雜貨免稅店。', addr: 'MEGA Don Quijote Tomigusuku' },
+                        { category: '購物', name: 'MEGA 唐吉訶德', note: '伴手禮最後補給', addr: 'MEGA Don Quijote Tomigusuku' },
                         { category: '住宿', name: '南城市 Inamine 飯店', addr: 'Inamine-1249-8 Ōzato, Nanjo' }
                     ],
                     '2026-04-18': [
-                        { category: '購物', name: 'WORKMAN Yaese', note: '機能服飾大本營。', addr: 'WORKMAN Yaese' },
+                        { category: '購物', name: 'WORKMAN Yaese', note: '機能服飾大本營', addr: 'WORKMAN Yaese' },
                         { category: '美食', name: '旅の終わりの朝ごはん', addr: '旅の終わりの朝ごはん 那覇' },
                         { category: '航班', flightNo: 'IT289', time: '14:00 - 14:55', from: 'OKA', to: 'KHH', luggage: '• 20kg+20kg: 喻3人\n• 其餘每人各 20kg' }
                     ]
                 });
 
                 const hotelPoints = [
-                    { name: '前田共同店', addr: 'Maeda Joint Store, Onna', icon: '🛍️', note: '充滿當地氣息的小超市。' },
-                    { name: 'JA Farmers Market', addr: 'JA Farmers Market Nanjo', icon: '🍎', note: '買新鮮水果的好地方。' },
-                    { name: 'Drug Eleven', addr: 'Drug Eleven Ozato', icon: '💊', note: '必逛的便利藥妝。' }
+                    { name: '前田共同店', addr: 'Maeda Joint Store, Onna', icon: '🛍️', note: '恩納村補給站' },
+                    { name: 'JA Farmers Market', addr: 'JA Farmers Market Nanjo', icon: '🍎', note: '新鮮水果首選' },
+                    { name: 'Drug Eleven', addr: 'Drug Eleven Ozato', icon: '💊', note: '便利藥妝' }
                 ];
 
                 const foodList = [
-                    { name: '暖暮拉麵 (那霸)', type: '拉麵', note: '曾經的九州拉麵冠軍。' },
+                    { name: '暖暮拉麵 (那霸)', type: '拉麵', note: '經典必吃。' },
                     { name: 'Pork Tamago Onigiri', type: '飯糰', note: '經典午餐肉蛋飯糰。' },
-                    { name: 'A&W Burger', type: '漢堡', note: '美式復古風味速食。' },
+                    { name: 'A&W Burger', type: '漢堡', note: '美式漢堡。' },
                     { name: '傑克牛排 (Jack\'s)', type: '牛排', note: '沖繩代表性牛排館。' },
-                    { name: 'Blue Seal', type: '甜點', note: '沖繩特有的美味冰淇淋。' },
-                    { name: '琉球的牛', type: '燒肉', note: '入口即化的和牛（需預約）。' },
-                    { name: '濱邊之茶屋', type: '景觀', note: '坐在窗邊聽海浪喝咖啡。' },
-                    { name: 'Steak House 88', type: '牛排', note: '平價又大份量的選擇。' },
-                    { name: 'Gourmet Sushi', type: '壽司', note: '北谷美國村人氣迴轉壽司。' },
-                    { name: '牧志市場海鮮', type: '海產', note: '現挑現煮的新鮮美味。' }
+                    { name: 'Blue Seal', type: '甜點', note: '在地必吃冰淇淋。' }
                 ];
 
                 const getIcon = (cat) => ({ '景點':'🏖️','住宿':'🏨','美食':'🍜','購物':'🛍️','其他':'🚗' }[cat] || '📍');
