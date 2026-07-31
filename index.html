@@ -52,34 +52,29 @@
 </head>
 <body class="font-sans antialiased pb-24 max-w-md mx-auto min-h-screen border-x border-muji-border bg-muji-bg shadow-sm">
 
-  <header class="sticky top-0 z-30 bg-muji-bg/95 backdrop-blur border-b border-muji-border px-4 py-3">
-    <div class="flex items-center justify-between">
-      <div>
-        <h1 class="text-xl font-bold text-muji-dark tracking-wide">北歐三國之旅</h1>
-        <p class="text-sm text-muji-muted mt-0.5">2026.09.24 - 10.17 (24天)</p>
-      </div>
-      <div class="flex items-center gap-1.5 text-xs text-muji-accent bg-muji-accentLight px-3 py-1.5 rounded-full border border-muji-border font-medium">
-        <i data-lucide="compass" class="w-4 h-4"></i>
-        <span>芬蘭 • 挪威 • 瑞典</span>
-      </div>
-    </div>
+  <header class="sticky top-0 z-30 border-b border-muji-border px-4 py-4 relative overflow-hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80');">
+    <div class="absolute inset-0 bg-black/55 backdrop-blur-[2px]"></div>
 
-    <div id="date-slider" class="flex gap-2 overflow-x-auto no-scrollbar mt-3 pt-1 pb-1 scroll-smooth">
+    <div class="relative z-10 space-y-3">
+      <div class="flex items-center justify-between text-white">
+        <div>
+          <h1 class="text-xl font-bold tracking-wide">北歐三國之旅</h1>
+          <p class="text-xs text-white/80 mt-0.5 font-medium">2026.09.24 - 10.17 (24天)</p>
+        </div>
+        <div class="flex items-center gap-1.5 text-xs text-white bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/30 font-medium">
+          <i data-lucide="compass" class="w-4 h-4"></i>
+          <span>芬蘭 • 挪威 • 瑞典</span>
+        </div>
       </div>
+
+      <div id="date-slider" class="flex gap-2 overflow-x-auto no-scrollbar pt-1 pb-1 scroll-smooth">
+        </div>
+    </div>
   </header>
 
   <main class="p-4 space-y-6">
 
     <section id="tab-itinerary" class="space-y-5">
-      <div class="relative rounded-3xl overflow-hidden shadow-sm border border-muji-border h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80');">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-        <div class="absolute bottom-4 left-4 right-4 text-white space-y-1">
-          <span class="bg-white/20 backdrop-blur px-2.5 py-1 rounded-md text-xs font-medium border border-white/30">NORDIC ADVENTURE 2026</span>
-          <h2 class="text-xl font-bold tracking-wide">追尋極光與壯麗峽灣</h2>
-          <p class="text-xs text-white/80">芬蘭極光小屋 • 挪威壯麗峽灣 • 瑞典文化巡禮</p>
-        </div>
-      </div>
-
       <div id="itinerary-detail-card">
         </div>
     </section>
@@ -706,12 +701,12 @@
       slider.innerHTML = tripData.map((item, idx) => {
         const isSelected = idx === selectedDayIndex;
         const displayDate = item.date.substring(5).replace('-', '/');
-        const activeClass = isSelected ? 'bg-muji-accent text-white border-muji-accent shadow-sm' : 'bg-muji-card text-muji-text border-muji-border hover:border-muji-accent';
+        const activeClass = isSelected ? 'bg-white text-muji-dark border-white shadow-md font-bold' : 'bg-white/15 text-white/90 border-white/20 hover:bg-white/30 backdrop-blur';
         return `
-          <button onclick="selectDay(${idx})" class="flex-shrink-0 px-3.5 py-2 rounded-xl text-center border transition-all ${activeClass}">
-            <div class="text-xs opacity-80 uppercase">${item.weekday}</div>
-            <div class="text-sm font-bold">${displayDate}</div>
-            <div class="text-[10px] mt-0.5 opacity-70">D${item.day}</div>
+          <button onclick="selectDay(${idx})" class="flex-shrink-0 px-3.5 py-1.5 rounded-xl text-center border transition-all ${activeClass}">
+            <div class="text-[10px] uppercase">${item.weekday}</div>
+            <div class="text-xs font-bold">${displayDate}</div>
+            <div class="text-[9px] opacity-75">D${item.day}</div>
           </button>
         `;
       }).join('');
