@@ -748,21 +748,32 @@
               <span>景點與活動細節 (${day.spots.length})</span>
             </div>
 
-            ${day.spots.map((spot, i) => `
-              <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-2.5">
-                <div class="flex justify-between items-start">
-                  <h3 class="text-base font-bold text-muji-dark">${i + 1}. ${spot.name}</h3>
-                  <span class="text-xs font-medium text-muji-accent bg-muji-accentLight px-2.5 py-0.5 rounded border border-muji-border flex-shrink-0">${spot.fee}</span>
+            ${day.spots.map((spot, i) => {
+              const spotMapUrl = `https://maps.google.com/?q=${encodeURIComponent(spot.name + ' ' + day.city)}`;
+              return `
+                <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-2.5 relative">
+                  <div class="flex justify-between items-start">
+                    <h3 class="text-base font-bold text-muji-dark">${i + 1}. ${spot.name}</h3>
+                    <span class="text-xs font-medium text-muji-accent bg-muji-accentLight px-2.5 py-0.5 rounded border border-muji-border flex-shrink-0">${spot.fee}</span>
+                  </div>
+                  
+                  <p class="text-sm text-muji-text leading-relaxed">${spot.desc}</p>
+                  
+                  <div class="pt-2 border-t border-muji-border flex items-center justify-between text-xs text-muji-muted font-medium">
+                    <div class="flex items-center gap-1.5">
+                      <i data-lucide="navigation" class="w-3.5 h-3.5 text-muji-accent"></i>
+                      <span>交通: ${spot.transport}</span>
+                    </div>
+
+                    <a href="${spotMapUrl}" target="_blank" class="flex items-center gap-1 bg-muji-bg px-2.5 py-1 rounded-lg border border-muji-border text-muji-accent hover:bg-muji-accentLight transition-all text-[11px] font-semibold flex-shrink-0">
+                      <i data-lucide="map" class="w-3 h-3"></i>
+                      <span>地圖</span>
+                      <i data-lucide="external-link" class="w-2.5 h-2.5"></i>
+                    </a>
+                  </div>
                 </div>
-                
-                <p class="text-sm text-muji-text leading-relaxed">${spot.desc}</p>
-                
-                <div class="pt-2 border-t border-muji-border flex items-center gap-1.5 text-xs text-muji-muted font-medium">
-                  <i data-lucide="navigation" class="w-3.5 h-3.5 text-muji-accent"></i>
-                  <span>交通: ${spot.transport}</span>
-                </div>
-              </div>
-            `).join('')}
+              `;
+            }).join('')}
           </div>
 
           <div class="bg-muji-card rounded-xl p-3.5 border border-muji-border flex justify-between items-center text-xs">
