@@ -96,8 +96,7 @@
         </div>
       </div>
 
-      <div class="space-y-3" id="flight-list">
-        </div>
+      <div class="space-y-3" id="flight-list"></div>
     </section>
 
     <section id="tab-hotels" class="hidden space-y-4">
@@ -106,8 +105,7 @@
         <h2 class="text-base font-medium text-muji-dark">住宿預訂資訊</h2>
       </div>
 
-      <div class="space-y-3" id="hotel-list">
-        </div>
+      <div class="space-y-3" id="hotel-list"></div>
     </section>
 
     <section id="tab-accounting" class="hidden space-y-4">
@@ -156,7 +154,7 @@
 
           <div>
             <label class="block text-xs text-muji-muted mb-1">備註說明</label>
-            <input type="text" id="exp-note" placeholder="例如: 聖誕老人村明信片" class="w-full text-xs p-2 rounded-lg border border-muji-border bg-muji-bg focus:outline-none focus:border-muji-accent">
+            <input type="text" id="exp-note" placeholder="例如: 聖誕老人村門票/明信片" class="w-full text-xs p-2 rounded-lg border border-muji-border bg-muji-bg focus:outline-none focus:border-muji-accent">
           </div>
 
           <div class="text-xs text-muji-muted bg-muji-bg p-2 rounded border border-muji-border flex justify-between">
@@ -176,8 +174,7 @@
           <span id="total-expense-twd" class="text-sm font-semibold text-muji-accent">NT$ 0</span>
         </div>
 
-        <div id="expense-list" class="space-y-2 max-h-80 overflow-y-auto no-scrollbar">
-          </div>
+        <div id="expense-list" class="space-y-2 max-h-80 overflow-y-auto no-scrollbar"></div>
       </div>
     </section>
 
@@ -203,152 +200,221 @@
   </nav>
 
   <script>
-    const EUR_RATE = 35; // Default exchange rate
+    const EUR_RATE = 35;
 
+    // Detailed Itinerary Data with Individual Spot Cards
     const tripData = [
       {
-        day: 1, date: "2026-09-24", weekday: "週四", location: "赫爾辛基 (機上)", city: "Helsinki", lat: 60.1699, lon: 24.9384,
-        transport: "高鐵接送、飛機 (JL802/JL8664 10:55-14:55, JL6877 21:50-04:40)",
-        schedule: ["高鐵站接送前往桃園機場", "搭乘航班飛往東京轉機 (10:55-14:55)", "轉乘 JL6877/JL6801 飛往赫爾辛基", "夜宿機上"],
-        hotel: "夜宿機上", note: "準備迎向北歐之旅"
+        day: 1, date: "2026-09-24", weekday: "週四", location: "台北飛往東京轉機至芬蘭", city: "Helsinki", lat: 60.1699, lon: 24.9384,
+        hotel: "夜宿機上", hotelAddress: "",
+        spots: [
+          { name: "高鐵接送前往桃園機場", transport: "高鐵專車接送", desc: "前往桃園機場辦理登機與託運手續。", fee: "免額外付費" },
+          { name: "桃園 TPE ➔ 東京 NRT", transport: "飛機 JL802 / JL8664", desc: "起飛時間 10:55 - 14:55 / 12:45 - 17:15，於東京成田轉機。", fee: "已含機票" },
+          { name: "東京 NRT ➔ 赫爾辛基 HEL", transport: "飛機 JL6877 / JL6801", desc: "起飛時間 21:50 - 04:40 (+1)，跨國長途飛行夜宿機上。", fee: "已含機票" }
+        ]
       },
       {
-        day: 2, date: "2026-09-25", weekday: "週五", location: "赫爾辛基", city: "Helsinki", lat: 60.1699, lon: 24.9384,
-        transport: "機場快線(1day pass)、Tram 1/2/5號、HSL渡輪、VR夜舖火車",
-        schedule: ["抵達赫爾辛基，中央車站寄放行李", "參觀頌歌中央圖書館 (Oodi) & 岩石教堂", "漫步參議院廣場、赫爾辛基主教座堂、烏斯佩斯基大教堂", "老市集大廳 (Old Market Hall) 與愛斯普拉納地公園", "搭乘 HSL 渡輪探訪芬蘭堡 (Suomenlinna World Heritage)", "返回中央車站搭乘夜舖火車 (23:05-11:00) 前往羅瓦涅米"],
-        hotel: "VR臥舖火車", note: "購買 HSL 1Day Pass 划算"
+        day: 2, date: "2026-09-25", weekday: "週五", location: "赫爾辛基市區 & 芬蘭堡", city: "Helsinki", lat: 60.1699, lon: 24.9384,
+        hotel: "VR臥舖火車", hotelAddress: "Helsinki Central Station",
+        spots: [
+          { name: "赫爾辛基中央車站寄放行李", transport: "機場快線 I/P線 (約30m)", desc: "搭乘機場快線至中央車站寄放行李，展開市區巡禮。", fee: "1 Day Pass 含" },
+          { name: "頌歌中央圖書館 (Oodi)", transport: "步行 2m / Tram 1號", desc: "全台芬蘭最美的現代建築圖書館，體驗極簡建築之美。", fee: "免費" },
+          { name: "岩石教堂 (Temppeliaukio)", transport: "Tram 1號 (約15m)", desc: "開鑿於天然岩石中的特殊教堂，採光與音響極佳。", fee: "約 8€" },
+          { name: "參議院廣場 & 赫爾辛基主教座堂", transport: "Tram 2/3號 (約10m)", desc: "赫爾辛基最具代表性的白色大教堂與地標廣場。", fee: "自由捐款 / 免費" },
+          { name: "烏斯佩斯基大教堂 & 老市集大廳", transport: "步行 (約15m)", desc: "北歐最大東正教堂，順遊老市集大廳品嚐在地美食與煙燻鮭魚。", fee: "免費" },
+          { name: "芬蘭堡 (Suomenlinna)", transport: "HSL 渡輪 (約15m)", desc: "搭乘渡輪前往世界文化遺產，參觀芬蘭堡教堂、大庭院與國王門。", fee: "1 Day Pass 含" },
+          { name: "VR 夜舖火車前往羅瓦涅米", transport: "夜舖火車 (23:05-11:00)", desc: "搭乘經典 VR 雙層臥舖火車，前往北極圈羅瓦涅米 (約12h)。", fee: "已預訂車票" }
+        ]
       },
       {
-        day: 3, date: "2026-09-26", weekday: "週六", location: "羅瓦涅米", city: "Rovaniemi", lat: 66.5039, lon: 25.7294,
-        transport: "火車抵達、租車自駕",
-        schedule: ["11:00 抵達羅瓦涅米火車站", "辦理租車自駕手續", "造訪聖誕老人村 (Santa Claus Village)：跨越北極圈線、寄明信片、合照", "前往極光小屋 Check-in"],
-        hotel: "Apukka Resort", hotelAddress: "Tutkijantie 28, 96900 Rovaniemi, FI", note: "拍照約 40€"
+        day: 3, date: "2026-09-26", weekday: "週六", location: "羅瓦涅米 (拜訪聖誕老人)", city: "Rovaniemi", lat: 66.5039, lon: 25.7294,
+        hotel: "Apukka Resort 極光小屋", hotelAddress: "Tutkijantie 28, 96900 Rovaniemi, FI",
+        spots: [
+          { name: "抵達羅瓦涅米 & 市區取車", transport: "火車抵達 / 租車自駕", desc: "11:00 抵達火車站後辦理自駕租車手續，於市區午餐與採買。", fee: "租車費用" },
+          { name: "聖誕老人村 (Santa Claus Village)", transport: "租車自駕 (約15m)", desc: "跨越北極圈線標誌、寄出蓋有北極圈郵戳明信片、體驗雪橇與合照。", fee: "拍照約 40€" },
+          { name: "Apukka Resort 極光小屋 Check-in", transport: "租車自駕", desc: "入住特色極光玻璃小屋，夜晚可等待並追尋美麗極光。", fee: "已預訂住宿" }
+        ]
       },
       {
-        day: 4, date: "2026-09-27", weekday: "週日", location: "特羅姆瑟", city: "Tromso", lat: 69.6492, lon: 18.9553,
-        transport: "自駕還車 -> 飛機 DY381 (09:45-10:05) -> 特羅姆瑟租車自駕",
-        schedule: ["飯店早餐後前往羅瓦涅米機場還車", "搭乘 DY381 飛往特羅姆瑟 (09:45-10:05)", "特羅姆瑟機場租車", "打卡北極之門 (Gateway to the Arctic) & 特羅姆瑟主教堂", "造訪北極大教堂 (Arctic Cathedral)", "搭乘 Fjellheisen 纜車登高俯瞰壯麗峽灣夜景", "探訪極北麥當勞與世界最小酒吧"],
-        hotel: "Staying Apt 3 - New and modern", hotelAddress: "16 Kaare Moursunds veg, 9007 特羅姆瑟, 挪威", note: "纜車不需預約"
+        day: 4, date: "2026-09-27", weekday: "週日", location: "特羅姆瑟 (北極圈門戶)", city: "Tromso", lat: 69.6492, lon: 18.9553,
+        hotel: "Staying Apt 3 - New and modern", hotelAddress: "16 Kaare Moursunds veg, 9007 特羅姆瑟, 挪威",
+        spots: [
+          { name: "飛往特羅姆瑟 DY381", transport: "飛機 (09:45-10:05)", desc: "羅瓦涅米機場還車後搭機飛往挪威特羅姆瑟，抵達後重新取車自駕。", fee: "已含機票" },
+          { name: "北極之門 & 特羅姆瑟主教堂", transport: "租車自駕 (約15m)", desc: "打卡 Gateway to the Arctic 與極北木造主教堂，漫步市區。", fee: "免費" },
+          { name: "北極大教堂 (Arctic Cathedral)", transport: "租車自駕 (約10m)", desc: "特羅姆瑟標誌性三角形建築，極具現代感的景點教堂。", fee: "約 70 NOK" },
+          { name: "Fjellheisen 纜車觀景台", transport: "租車自駕 (約10m)", desc: "搭乘纜車登上 Storsteinen 山頂，俯瞰特羅姆瑟全景與峽灣夜景。", fee: "約 495-595 NOK" },
+          { name: "極北麥當勞 & 世界最小酒吧", transport: "租車自駕 (約10m)", desc: "打卡全世界最北邊的麥當勞之一以及極具特色的極北迷你酒吧。", fee: "自由消費" }
+        ]
       },
       {
-        day: 5, date: "2026-09-28", weekday: "週一", location: "夏日島 & 塞尼亞島", city: "Senja", lat: 69.3000, lon: 17.5000,
-        transport: "租車自駕、12:45 渡輪 (Bremsholmen - Botnhamn)",
-        schedule: ["驅車前往 Sommarøy 夏日島巡禮與午餐", "12:45 駕駛上渡輪前往塞尼亞島 (需提早30m抵達)", "挑戰 Tungeneset 惡魔之舌海岸步道", "造訪 Bergsbotn Viewing Platform 懸空觀景台", "行經 Finnsnes 塞尼亞大橋前往飯店"],
-        hotel: "Fjellkysten旅館", hotelAddress: "Soløyveien 190, 9357 滕內沃爾, 挪威", note: "渡輪需提前半小時排隊"
+        day: 5, date: "2026-09-28", weekday: "週一", location: "夏日島 & 塞尼亞島秘境", city: "Senja", lat: 69.3000, lon: 17.5000,
+        hotel: "Fjellkysten 旅館", hotelAddress: "Soløyveien 190, 9357 滕內沃爾, 挪威",
+        spots: [
+          { name: "Sommarøy 夏日島巡禮", transport: "租車自駕 (約1h)", desc: "欣賞北極圈內的白沙灘與蔚藍海水，於島上享用午餐。", fee: "免費" },
+          { name: "渡輪前往塞尼亞島 (Botnhamn)", transport: "渡輪 (12:45 開船 / 45m)", desc: "從 Bremsholmen 碼頭開車上渡輪，需提早 30 分鐘抵達碼頭排隊。", fee: "渡輪現場刷卡" },
+          { name: "Tungeneset 惡魔之舌步道", transport: "租車自駕 (約30m)", desc: "木棧道直達海岸岩石，遠眺著名的「魔鬼之牙」鋸齒狀山峰。", fee: "免費" },
+          { name: "Bergsbotn 懸空觀景台", transport: "租車自駕 (約20m)", desc: "44 公尺長的懸空鋼構平台，俯瞰壯麗的峽灣與盤山公路景色。", fee: "免費" },
+          { name: "塞尼亞大橋 (Finnsnes) 前往飯店", transport: "租車自駕 (約1.5h)", desc: "經過塞尼亞大橋跨海公路，驅車前往 Fjellkysten 旅館住宿。", fee: "免費" }
+        ]
       },
       {
-        day: 6, date: "2026-09-29", weekday: "週二", location: "羅浮敦群島 (斯沃爾維爾)", city: "Svolvaer", lat: 68.2343, lon: 14.5682,
-        transport: "租車自駕 (約 4 小時)",
-        schedule: ["飯店早餐後驅車長途前往羅浮敦群島", "中途停靠 Lødingen Coop 超市採買", "Austnesfjorden rest area 休息賞景", "抵達斯沃爾維爾 Check-in"],
-        hotel: "Rorbuene Svolvær Havn", hotelAddress: "Vesterøyveien 52-57, 8300 斯沃爾韋爾, 挪威", note: "經典漁村木屋住宿"
+        day: 6, date: "2026-09-29", weekday: "週二", location: "啟程前往羅浮敦群島", city: "Svolvaer", lat: 68.2343, lon: 14.5682,
+        hotel: "Rorbuene Svolvær Havn", hotelAddress: "Vesterøyveien 52-57, 8300 斯沃爾韋爾, 挪威",
+        spots: [
+          { name: "長途驅車前往羅浮敦群島", transport: "租車自駕 (約4h)", desc: "離開飯店後沿 E10 景觀公路前往斯沃爾維爾，沿途景色極佳。", fee: "加油費自理" },
+          { name: "Lødingen Coop 超市補給", transport: "租車自駕途經", desc: "中途停靠 Lødingen 超市採買食材與零食休閒。", fee: "自由消費" },
+          { name: "Austnesfjorden 觀景休息區", transport: "租車自駕途經", desc: "欣賞峽灣小教堂與靜謐海灣景緻，拍照休息。", fee: "免費" }
+        ]
       },
       {
-        day: 7, date: "2026-09-30", weekday: "週三", location: "羅浮敦群島 (南部絕景)", city: "Reine", lat: 67.9333, lon: 13.0833,
-        transport: "租車自駕 (約 3.5 小時)",
-        schedule: ["挑戰 Reinebringen 步道俯瞰絕美羅浮敦群島 (約 2h15m)", "探訪群島最南端 Å 奧鎮漁村", "拍攝 Hamnøy 傳統紅色小屋與 Sakrisøy 黃色小屋", "品嚐 Anita's Seafood 漢堡"],
-        hotel: "Rorbuene Svolvær Havn (連住)", hotelAddress: "Vesterøyveien 52-57, 8300 斯沃爾韋爾, 挪威", note: "步道需注意防滑與體力"
+        day: 7, date: "2026-09-30", weekday: "週三", location: "羅浮敦群島南部絕景", city: "Reine", lat: 67.9333, lon: 13.0833,
+        hotel: "Rorbuene Svolvær Havn (連住)", hotelAddress: "Vesterøyveien 52-57, 8300 斯沃爾韋爾, 挪威",
+        spots: [
+          { name: "Reinebringen 步道健行", transport: "租車自駕 (約2h15m)", desc: "挑戰千階階梯步道（約2h15m），俯瞰 Reine 漁村絕美鳥瞰景致。", fee: "免費 (注意防滑)" },
+          { name: "Å 奧鎮 (世界名字最短的小鎮)", transport: "租車自駕 (約15m)", desc: "探訪羅浮敦 E10 公路終點的傳統漁村與鱈魚乾晾曬架。", fee: "免費" },
+          { name: "Hamnøy & Sakrisøy 紅黃小屋打卡", transport: "租車自駕 (約20m)", desc: "拍攝經典明信片紅黃色傳統漁村 Rorbuer 小屋，並於 Anita's 享用堡類晚餐。", fee: "自由消費" }
+        ]
       },
       {
-        day: 8, date: "2026-10-01", weekday: "週四", location: "羅浮敦群島 (特色地標)", city: "Svolvaer", lat: 68.2343, lon: 14.5682,
-        transport: "租車自駕",
-        schedule: ["造訪著名的 Henningsvær Football Stadium 海邊足球場", "漫步 Kabelvåg breakwater 防波堤", "斯沃爾維爾鎮上自由散步"],
-        hotel: "Rorbuene Svolvær Havn (連住)", hotelAddress: "Vesterøyveien 52-57, 8300 斯沃爾韋爾, 挪威", note: "享受漁村慢活步調"
+        day: 8, date: "2026-10-01", weekday: "週四", location: "羅浮敦群島特色地標", city: "Svolvaer", lat: 68.2343, lon: 14.5682,
+        hotel: "Rorbuene Svolvær Havn (連住)", hotelAddress: "Vesterøyveien 52-57, 8300 斯沃爾韋爾, 挪威",
+        spots: [
+          { name: "Henningsvær 海邊足球場", transport: "租車自駕 (約3.5h)", desc: "全球著名的岩礁海邊足球場，順遊亨寧斯韋爾文青小鎮。", fee: "免費" },
+          { name: "Kabelvåg 防波堤 (Breakwater)", transport: "租車自駕 (約15m)", desc: "漫步於海邊防波堤，欣賞絕美海景與波浪聲響。", fee: "免費" }
+        ]
       },
       {
-        day: 9, date: "2026-10-02", weekday: "週五", location: "博根 (往回開途徑)", city: "Bogen", lat: 68.5262, lon: 17.0086,
-        transport: "租車自駕 (約 3 小時)",
-        schedule: ["開始返程往北驅車", "中途停靠 Lødingen 與 Gullesfjorden 峽灣休閒區域", "抵達 Bogen 休息與 Check-in"],
-        hotel: "KAB Guesthouse", hotelAddress: "33 Niingsveien, 8533 博根, 挪威", note: "輕鬆休養日"
+        day: 9, date: "2026-10-02", weekday: "週五", location: "羅浮敦返程途徑 (博根)", city: "Bogen", lat: 68.5262, lon: 17.0086,
+        hotel: "KAB Guesthouse", hotelAddress: "33 Niingsveien, 8533 博根, 挪威",
+        spots: [
+          { name: "返程車程 & Gullesfjorden 峽灣", transport: "租車自駕 (約3h)", desc: "驅車往東北方向返程，中途於 Gullesfjorden 峽灣休息賞景。", fee: "免費" },
+          { name: "抵達 KAB Guesthouse Check-in", transport: "租車自駕", desc: "入住博根舒適民宿，進行體力恢復與休養。", fee: "已預訂住宿" }
+        ]
       },
       {
-        day: 10, date: "2026-10-03", weekday: "週六", location: "特羅姆瑟山谷", city: "Tromso", lat: 69.6492, lon: 18.9553,
-        transport: "租車自駕 (約 3 小時)",
-        schedule: ["行經 Lapphaugen Turiststasjon 休息站", "驅車返回特羅姆瑟地區", "入住 Tromsdalen 心臟地帶溫馨民宿"],
-        hotel: "House in the heart of tromsdalen", hotelAddress: "1 Fugløyvegen, 9020 特羅姆瑟, 挪威", note: "準備明日飛往奧斯陸"
+        day: 10, date: "2026-10-03", weekday: "週六", location: "特羅姆瑟山谷地區", city: "Tromso", lat: 69.6492, lon: 18.9553,
+        hotel: "House in the heart of tromsdalen", hotelAddress: "1 Fugløyvegen, 9020 特羅姆瑟, 挪威",
+        spots: [
+          { name: "Lapphaugen Turiststasjon 休息站", transport: "租車自駕 (約3h)", desc: "中途停靠山谷休息站，欣賞沿途北歐荒野自然風光。", fee: "免費" },
+          { name: "Tromsdalen 民宿 Check-in", transport: "租車自駕 (約20m)", desc: "返抵特羅姆瑟山谷心臟地帶民宿，準備明日飛往奧斯陸。", fee: "已預訂住宿" }
+        ]
       },
       {
-        day: 11, date: "2026-10-04", weekday: "週日", location: "奧斯陸", city: "Oslo", lat: 59.9139, lon: 10.7522,
-        transport: "自駕還車 -> 飛機 (TOS-OSL 12:55-14:50) -> 奧斯陸租車自駕",
-        schedule: ["特羅姆瑟機場還車", "搭乘航班 TOS-OSL (12:55-14:50) 飛抵首都奧斯陸", "奧斯陸機場取車自駕", "參觀奧斯陸歌劇院 (Oslo Opera House)", "遊覽維格蘭雕塑公園 (Vigeland Park 憤怒的小孩)"],
-        hotel: "Spacious Five Bedroom Central Oslo", hotelAddress: "Korsgata 30B, 0551 奧斯陸, 挪威", note: "市區停車請善用 Paleet P-hus"
+        day: 11, date: "2026-10-04", weekday: "週日", location: "飛往奧斯陸 (Oslo)", city: "Oslo", lat: 59.9139, lon: 10.7522,
+        hotel: "Spacious Five Bedroom Central Oslo", hotelAddress: "Korsgata 30B, 0551 奧斯陸, 挪威",
+        spots: [
+          { name: "特羅姆瑟 ➔ 奧斯陸 TOS-OSL", transport: "飛機 (12:55-14:50)", desc: "特羅姆瑟機場還車後搭機飛抵奧斯陸，於奧斯陸機場重新取車自駕。", fee: "已含機票" },
+          { name: "奧斯陸歌劇院 (Oslo Opera House)", transport: "租車自駕 (約50m)", desc: "白雪般傾斜大樓斜坡建築，可直接步行走上屋頂俯瞰峽灣。", fee: "免費" },
+          { name: "維格蘭雕塑公園 (Vigeland Park)", transport: "租車自駕 (約20m)", desc: "欣賞著名的「憤怒的小孩 (Sinnataggen)」與生命之輪雕塑。", fee: "免費" }
+        ]
       },
       {
-        day: 12, date: "2026-10-05", weekday: "週一", location: "奧斯陸 -> 格里姆斯塔", city: "Oslo", lat: 59.9139, lon: 10.7522,
-        transport: "租車自駕 (長途 4 小時)",
-        schedule: ["奧斯陸市政廳 (Oslo Rådhus) 外觀", "參觀挪威國家博物館 (National Museum)", "漫步王宮廣場與花園 (Slottsparken)", "下午開車南下前往格里姆斯塔 (Grimstad)"],
-        hotel: "Grimstad Vertshus", hotelAddress: "Frivoldveien 11-13, 4877 格里姆斯塔, 挪威", note: "博物館建議預約"
+        day: 12, date: "2026-10-05", weekday: "週一", location: "奧斯陸文化巡禮 ➔ 格里姆斯塔", city: "Oslo", lat: 59.9139, lon: 10.7522,
+        hotel: "Grimstad Vertshus", hotelAddress: "Frivoldveien 11-13, 4877 格里姆斯塔, 挪威",
+        spots: [
+          { name: "奧斯陸市政廳 & 挪威國家博物館", transport: "租車自駕 / 步行", desc: "參觀諾貝爾和平獎頒獎地市政廳，以及國家博物館（賞孟克《吶喊》）。", fee: "博物館約 200 NOK" },
+          { name: "王宮與花園 (Slottsparken)", transport: "步行 (約15m)", desc: "漫步挪威王宮花園，欣賞典雅的皇室建築與林陰大道。", fee: "免費" },
+          { name: "驅車南下前往格里姆斯塔", transport: "租車自駕 (約4h)", desc: "下午驅車南下前往南部海岸小鎮 Grimstad 入住飯店。", fee: "加油/過路費自理" }
+        ]
       },
       {
-        day: 13, date: "2026-10-06", weekday: "週二", location: "斯塔萬格", city: "Stavanger", lat: 58.9700, lon: 5.7331,
-        transport: "租車自駕 (約 3 小時)",
-        schedule: ["參觀 Sverd i fjell 巨劍紀念碑", "彩色街 Øvre Holmegate 漫步午茶", "遊覽 Gamle Stavanger 老城區木造建築", "造訪斯塔萬格主教座堂"],
-        hotel: "Central Guest House", hotelAddress: "Lysefjordgata 12, 4014 斯塔萬格, 挪威", note: "市區停車可預約免費或路邊"
+        day: 13, date: "2026-10-06", weekday: "週二", location: "斯塔萬格 (Stavanger)", city: "Stavanger", lat: 58.9700, lon: 5.7331,
+        hotel: "Central Guest House", hotelAddress: "Lysefjordgata 12, 4014 斯塔萬格, 挪威",
+        spots: [
+          { name: "巨劍紀念碑 (Sverd i fjell)", transport: "租車自駕 (約3h)", desc: "佇立於海邊岩石上的 3 把巨大青銅劍，紀念挪威統一歷史。", fee: "免費" },
+          { name: "彩色街 Øvre Holmegate", transport: "租車自駕 (約15m)", desc: "繽紛多彩塗鴉建築街區，極具活力，適合漫步與午茶咖啡。", fee: "自由消費" },
+          { name: "Gamle Stavanger 老城區", transport: "步行 (約10m)", desc: "保存完好的 18 世紀白色木造建築群，充滿古典溫馨氣氛。", fee: "免費" }
+        ]
       },
       {
-        day: 14, date: "2026-10-07", weekday: "週三", location: "布道台 (聖壇岩)", city: "Stavanger", lat: 58.9700, lon: 5.7331,
-        transport: "租車自駕",
-        schedule: ["驅車至 Preikestolen Parking (P1)", "展開聖壇岩 (Preikestolen) 健行 (來回約 4-5 小時)", "俯瞰壯麗呂瑟峽灣景色", "返回斯塔萬格住宿"],
-        hotel: "Central Guest House (連住)", hotelAddress: "Lysefjordgata 12, 4014 斯塔萬格, 挪威", note: "穿著舒適健行鞋，準備充足水份"
+        day: 14, date: "2026-10-07", weekday: "週三", location: "挑戰聖壇岩 (Preikestolen)", city: "Stavanger", lat: 58.9700, lon: 5.7331,
+        hotel: "Central Guest House (連住)", hotelAddress: "Lysefjordgata 12, 4014 斯塔萬格, 挪威",
+        spots: [
+          { name: "驅車前往 Preikestolen P1 停車場", transport: "租車自駕 (約40m)", desc: "早起驅車前往布道台登山口停車場 P1 準備健行。", fee: "停車費約 250 NOK" },
+          { name: "聖壇岩 (Preikestolen) 健行", transport: "徒步健行 (約 4-5h 來回)", desc: "挑戰挪威三大奇石之一，站在 604 公尺懸崖頂端俯瞰呂瑟峽灣絕景。", fee: "免費 (準備健行裝備)" }
+        ]
       },
       {
-        day: 15, date: "2026-10-08", weekday: "週四", location: "卑爾根 (跳島渡輪)", city: "Bergen", lat: 60.3929, lon: 5.3242,
-        transport: "租車自駕 + 兩段渡輪 (Mortavika-Arsvågen, Sandvikvåg-Halhjem)",
-        schedule: ["開車至 Mortavika 碼頭搭乘渡輪至 Arsvågen", "經 Sandvikvåg 換搭渡輪至 Halhjem", "抵達卑爾根，參觀世界遺產布呂根 (Bryggen)", "參觀卑爾根主教座堂與魚市場 (Fishmarket)"],
-        hotel: "City Centrum Villa Apartments w parking", hotelAddress: "Forskjønnelsen 41, Bergenhus, 5018 卑爾根, 挪威", note: "渡輪排隊需注意手煞車與船班"
+        day: 15, date: "2026-10-08", weekday: "週四", location: "峽灣跳島渡輪 ➔ 卑爾根", city: "Bergen", lat: 60.3929, lon: 5.3242,
+        hotel: "City Centrum Villa Apartments w parking", hotelAddress: "Forskjønnelsen 41, Bergenhus, 5018 卑爾根, 挪威",
+        spots: [
+          { name: "Mortavika – Arsvågen 雙段渡輪", transport: "租車自駕 + 渡輪", desc: "開車上渡輪橫渡峽灣（Mortavika-Arsvågen 與 Sandvikvåg-Halhjem）。", fee: "AutoPass/現場刷卡" },
+          { name: "世界遺產布呂根 (Bryggen)", transport: "租車自駕 (約35m)", desc: "探訪卑爾根最具代表性的彩色木造漢薩同盟商館建築群。", fee: "免費" },
+          { name: "卑爾根魚市場 (Fishmarket)", transport: "步行 (約10m)", desc: "造訪熱鬧海邊魚市場，享用新鮮帝王蟹與帝王蝦海鮮晚餐。", fee: "自由餐費" }
+        ]
       },
       {
-        day: 16, date: "2026-10-09", weekday: "週五", location: "卑爾根", city: "Bergen", lat: 60.3929, lon: 5.3242,
-        transport: "租車自駕、Fløibanen 纜車、徒步",
-        schedule: ["參觀卑爾根胡斯城堡 (Bergenhus Fortress)", "搭乘 Fløibanen 佛萊恩山纜車登頂俯瞰卑爾根全景", "體驗徒步沿步道下山", "市區採買與休息"],
-        hotel: "City Centrum Villa Apartments w parking (連住)", hotelAddress: "Forskjønnelsen 41, Bergenhus, 5018 卑爾根, 挪威", note: "纜車票可現場買"
+        day: 16, date: "2026-10-09", weekday: "週五", location: "卑爾根 (佛萊恩山俯瞰)", city: "Bergen", lat: 60.3929, lon: 5.3242,
+        hotel: "City Centrum Villa Apartments w parking (連住)", hotelAddress: "Forskjønnelsen 41, Bergenhus, 5018 卑爾根, 挪威",
+        spots: [
+          { name: "卑爾根胡斯城堡 (Bergenhus)", transport: "租車自駕 / 步行", desc: "參觀挪威保存最古老的石造城堡之一。", fee: "外圍免費 / 堡內門票" },
+          { name: "佛萊恩山纜車 (Fløibanen)", transport: "纜車 (約10m)", desc: "搭乘纜車登頂 Fløyen 山，俯瞰卑爾根港灣與七山環繞全景，隨後體驗徒步下山。", fee: "約 70-105 NOK" }
+        ]
       },
       {
-        day: 17, date: "2026-10-10", weekday: "週六", location: "沃斯 -> 弗洛姆", city: "Flam", lat: 60.8608, lon: 7.1118,
-        transport: "租車自駕、Flåm-Gudvangen 峽灣遊船",
-        schedule: ["前往 Voss 小鎮（可視天氣搭乘纜車）", "驅車前往 Flåm 弗洛姆", "搭乘峽灣遊船 Flåm ➔ Gudvangen 飽覽松恩峽灣美景", "搭乘接駁巴士返回 Flåm", "超市採買與晚餐"],
-        hotel: "Flåm Holiday Home", hotelAddress: "Brekkevegen 24, 5743 弗洛姆, 挪威", note: "遊船需事先預約確認"
+        day: 17, date: "2026-10-10", weekday: "週六", location: "沃斯 ➔ 弗洛姆峽灣遊船", city: "Flam", lat: 60.8608, lon: 7.1118,
+        hotel: "Flåm Holiday Home", hotelAddress: "Brekkevegen 24, 5743 弗洛姆, 挪威",
+        spots: [
+          { name: "Voss 小鎮漫步", transport: "租車自駕 (約1.5h)", desc: "中途停靠極限運動小鎮 Voss，視天氣狀況可搭乘觀光纜車。", fee: "免費" },
+          { name: "松恩峽灣遊船 (Flåm ➔ Gudvangen)", transport: "觀光遊船 (約2h)", desc: "搭乘極致美景遊船穿越納柔伊峽灣 (Nærøyfjord)，下船後搭乘巴士返 Flåm。", fee: "約 415-435 NOK" }
+        ]
       },
       {
-        day: 18, date: "2026-10-11", weekday: "週日", location: "弗洛姆 -> 高爾", city: "Gol", lat: 60.6996, lon: 8.9503,
-        transport: "租車自駕、Flåmsbana 高山鐵路觀光火車",
-        schedule: ["搭乘著名的 Flåmsbana 弗洛姆高山小火車 (Flåm - Myrdal)", "火車於 Kjosfossen 瀑布站停靠 10 分鐘拍照", "返回弗洛姆市區自由活動", "驅車前往 Gol (高爾) 入住景觀小木屋"],
-        hotel: "New Cab in With Views Of Tisleiefjorden", hotelAddress: "3550 高爾, 挪威", note: "高山小火車去程 09:00 或 11:45"
+        day: 18, date: "2026-10-11", weekday: "週日", location: "弗洛姆高山火車 ➔ 高爾", city: "Gol", lat: 60.6996, lon: 8.9503,
+        hotel: "New Cab in With Views Of Tisleiefjorden", hotelAddress: "3550 高爾, 挪威",
+        spots: [
+          { name: "Flåmsbana 高山小火車", transport: "高山觀光火車 (Flåm-Myrdal)", desc: "搭乘世界上最陡峭的標準軌鐵路，途經 Kjosfossen 瀑布停靠 10 分鐘拍照。", fee: "約 550-650 NOK" },
+          { name: "驅車前往 Gol 景觀木屋", transport: "租車自駕 (約2.2h)", desc: "結束弗洛姆行程後，開車前往 Gol 山區景觀小木屋 Check-in。", fee: "免費" }
+        ]
       },
       {
-        day: 19, date: "2026-10-12", weekday: "週一", location: "斯德哥爾摩", city: "Stockholm", lat: 59.3293, lon: 18.0686,
-        transport: "自駕 (3h) -> 奧斯陸機場還車 -> 飛機 SK882 (16:10-17:10) -> SL大眾運輸",
-        schedule: ["早餐後驅車返回奧斯陸機場 (約 13:00 還車)", "搭乘 SK882 飛往瑞典斯德哥爾摩 (16:10-17:10)", "搭乘 SL 電車/巴士前往市區飯店"],
-        hotel: "Generator Stockholm", hotelAddress: "Torsgatan 10, 北島區, 11123 斯德哥爾摩, 瑞典", note: "注意還車前車輛加油"
+        day: 19, date: "2026-10-12", weekday: "週一", location: "告別挪威 ➔ 飛往斯德哥爾摩", city: "Stockholm", lat: 59.3293, lon: 18.0686,
+        hotel: "Generator Stockholm", hotelAddress: "Torsgatan 10, 北島區, 11123 斯德哥爾摩, 瑞典",
+        spots: [
+          { name: "奧斯陸機場還車", transport: "租車自駕 (約3h)", desc: "早餐後驅車返回奧斯陸機場，於 13:00 前完成車輛加油與還車。", fee: "車輛加油自理" },
+          { name: "奧斯陸 OSL ➔ 斯德哥爾摩 ARN", transport: "飛機 SK882 (16:10-17:10)", desc: "搭乘北歐航空 SK882 飛往瑞典首都斯德哥爾摩。", fee: "已含機票" },
+          { name: "搭乘 SL 交通工具至 Generator", transport: "SL 電車/巴士", desc: "抵達斯德哥爾摩後搭乘大眾運輸前往 Generator Stockholm 辦理入住。", fee: "使用 SL 交通卡" }
+        ]
       },
       {
-        day: 20, date: "2026-10-13", weekday: "週二", location: "斯德哥爾摩 (市區巡禮)", city: "Stockholm", lat: 59.3293, lon: 18.0686,
-        transport: "SL 24h Travelcard (7號電車, 67號巴士, 82號渡輪, 地鐵)",
-        schedule: ["參觀瓦薩沉船博物館 (Vasa Museum)", "搭乘渡輪前往老城區 (Gamla Stan)", "漫步老城區大廣場、斯德哥爾摩大教堂、王宮、諾貝爾博物館", "地鐵藝術車站巡禮"],
-        hotel: "Generator Stockholm (連住)", hotelAddress: "Torsgatan 10, 北島區, 11123 斯德哥爾摩, 瑞典", note: "建議購買 SL 24小時交通券"
+        day: 20, date: "2026-10-13", weekday: "週二", location: "斯德哥爾摩 (瓦薩博物館 & 老城區)", city: "Stockholm", lat: 59.3293, lon: 18.0686,
+        hotel: "Generator Stockholm (連住)", hotelAddress: "Torsgatan 10, 北島區, 11123 斯德哥爾摩, 瑞典",
+        spots: [
+          { name: "瓦薩沉船博物館 (Vasa Museum)", transport: "SL 7號電車 / 67號巴士", desc: "參觀 17 世紀戰艦 Vasa 號，打撈完整重現的震撼沉船史詩。", fee: "約 190-200 SEK" },
+          { name: "82號渡輪前往老城區 (Gamla Stan)", transport: "FERRY 82號渡輪", desc: "搭乘渡輪飽覽群島風光，直達老城區 (Gamla Stan) 入口。", fee: "SL 24h Pass 含" },
+          { name: "大廣場、大教堂、王宮 & 諾貝爾博物館", transport: "步行漫步", desc: "穿梭中世紀石板路巷弄，打卡彩色大廣場建築與斯德哥爾摩王宮。", fee: "門票視場館而定" }
+        ]
       },
       {
-        day: 21, date: "2026-10-14", weekday: "週三", location: "塔林客詩麗雅號郵輪", city: "Stockholm", lat: 59.3293, lon: 18.0686,
-        transport: "步行、SL 交通、塔林客詩麗雅號過夜郵輪",
-        schedule: ["斯德哥爾摩市區最後採買", "前往郵輪碼頭辦理登船", "搭乘塔林客詩麗雅號 (Tallink Silja Line) 體驗波羅的海巡航"],
-        hotel: "塔林客詩麗雅號 (Tallink Silja Line)", hotelAddress: "Stockholm Värtahamnen 碼頭", note: "享受船上設施與巡航"
+        day: 21, date: "2026-10-14", weekday: "週三", location: "波羅的海過夜郵輪 (塔林客)", city: "Stockholm", lat: 59.3293, lon: 18.0686,
+        hotel: "塔林客矽麗雅號 (Tallink Silja Line)", hotelAddress: "Stockholm Värtahamnen 碼頭",
+        spots: [
+          { name: "斯德哥爾摩市區最後巡禮與採買", transport: "SL 大眾運輸", desc: "市區進行購物與最後採買。", fee: "自由消費" },
+          { name: "登船塔林客矽麗雅號 (Tallink Silja)", transport: "步行 / 專車前往碼頭", desc: "登上過夜奢華郵輪，穿越波羅的海，享受船上表演與設施。", fee: "已預訂郵輪艙房" }
+        ]
       },
       {
-        day: 22, date: "2026-10-15", weekday: "週四", location: "機上 (返程)", city: "Helsinki", lat: 60.1699, lon: 24.9384,
-        transport: "郵輪抵港 -> 赫爾辛基萬塔機場 -> 飛機 (轉機)",
-        schedule: ["郵輪抵達赫爾辛基", "搭乘機場快線前往萬塔機場", "辦理退稅與登機手續", "搭乘長途航班準備返航"],
-        hotel: "夜宿機上", note: "提前 3 小時抵達機場辦理退稅"
+        day: 22, date: "2026-10-15", weekday: "週四", location: "赫爾辛基抵港 ➔ 啟程返航", city: "Helsinki", lat: 60.1699, lon: 24.9384,
+        hotel: "夜宿機上", hotelAddress: "",
+        spots: [
+          { name: "郵輪抵達赫爾辛基 & 快線至機場", transport: "機場快線", desc: "郵輪抵達芬蘭赫爾辛基後，搭乘快線前往萬塔機場 (HEL)。", fee: "快線票價" },
+          { name: "機場辦理海關退稅與登機", transport: "步行", desc: "提前 3 小時抵達機場完成退稅手續並搭機準備返航。", fee: "免額外付費" }
+        ]
       },
       {
-        day: 23, date: "2026-10-16", weekday: "週五", location: "東京成田", city: "Tokyo", lat: 35.7720, lon: 140.3929,
-        transport: "飛機抵達、飯店接駁車",
-        schedule: ["抵達日本東京成田機場", "搭乘接駁車入住成田東武機場酒店", "充分休息，準備明日最終回台行程"],
-        hotel: "成田東武機場酒店", hotelAddress: "成田國際機場附近", note: "好好休息恢復體力"
+        day: 23, date: "2026-10-16", weekday: "週五", location: "抵達東京成田機場", city: "Tokyo", lat: 35.7720, lon: 140.3929,
+        hotel: "成田東武機場酒店", hotelAddress: "日本成田機場周邊",
+        spots: [
+          { name: "抵達東京成田 NRT & 飯店接駁", transport: "飯店免費接駁巴士", desc: "班機抵達東京成田，搭乘接駁車入住成田東武機場酒店休息。", fee: "免費接駁" }
+        ]
       },
       {
-        day: 24, date: "2026-10-17", weekday: "週六", location: "台北 (溫暖的家)", city: "Taipei", lat: 25.0330, lon: 121.5654,
-        transport: "飛機成田-台北、高鐵接送",
-        schedule: ["搭乘航班返抵台北桃園國際機場", "高鐵接送返回溫暖的家", "結束圓滿的 24 天北歐三國之旅！"],
-        hotel: "溫暖的家", note: "平安順利歸家"
+        day: 24, date: "2026-10-17", weekday: "週六", location: "東京 ➔ 返抵台北 (溫暖的家)", city: "Taipei", lat: 25.0330, lon: 121.5654,
+        hotel: "溫暖的家", hotelAddress: "",
+        spots: [
+          { name: "東京成田 ➔ 桃園 TPE", transport: "飛機", desc: "搭乘班機返抵台北桃園國際機場。", fee: "已含機票" },
+          { name: "高鐵專車接送返家", transport: "高鐵接送", desc: "搭乘專車返回溫暖的家，結束 24 天完美豐富的北歐之旅！", fee: "免額外付費" }
+        ]
       }
     ];
 
@@ -378,7 +444,7 @@
       { date: "10/10", name: "Flåm Holiday Home", address: "Brekkevegen 24, 5743 弗洛姆, 挪威", rooms: "1棟", breakfast: "廚房自理", washer: "有", parking: "免費" },
       { date: "10/11", name: "New Cab in With Views Of Tisleiefjorden", address: "3550 高爾, 挪威", rooms: "1棟", breakfast: "廚房自理", washer: "有", parking: "免費" },
       { date: "10/12-10/13", name: "Generator Stockholm (連住2晚)", address: "Torsgatan 10, 北島區, 11123 斯德哥爾摩, 瑞典", rooms: "3間", breakfast: "無", washer: "無", parking: "無租車" },
-      { date: "10/14", name: "塔林客詩麗雅號 (Tallink Silja)", address: "波羅的海過夜郵輪", rooms: "3艙房", breakfast: "供餐", washer: "無", parking: "無" },
+      { date: "10/14", name: "塔林客矽麗雅號 (Tallink Silja)", address: "波羅的海過夜郵輪", rooms: "3艙房", breakfast: "供餐", washer: "無", parking: "無" },
       { date: "10/16", name: "成田東武機場酒店", address: "日本成田機場周邊", rooms: "3間", breakfast: "有", washer: "無", parking: "無" }
     ];
 
@@ -405,7 +471,7 @@
           return result;
         }
       } catch (e) {
-        console.warn("Weather API fetch error", e);
+        console.warn("Weather fetch error", e);
       }
       return { minTemp: 3, maxTemp: 11, icon: "cloud" };
     }
@@ -450,8 +516,8 @@
       const mapBtn = day.hotelAddress ? `<a href="https://maps.google.com/?q=${encodeURIComponent(day.hotelAddress)}" target="_blank" class="text-muji-accent hover:underline flex items-center gap-0.5"><span>地圖</span><i data-lucide="external-link" class="w-3 h-3"></i></a>` : '';
 
       container.innerHTML = `
-        <div class="bg-muji-card rounded-xl p-4 border border-muji-border shadow-sm space-y-4">
-          <div class="flex justify-between items-start border-b border-muji-border pb-3">
+        <div class="space-y-4">
+          <div class="bg-muji-card rounded-xl p-4 border border-muji-border shadow-sm flex justify-between items-start">
             <div>
               <div class="flex items-center gap-2">
                 <span class="text-xs font-semibold text-muji-accent bg-muji-accentLight px-2 py-0.5 rounded">Day ${day.day}</span>
@@ -465,30 +531,30 @@
             </div>
           </div>
 
-          <div class="bg-muji-bg p-3 rounded-lg border border-muji-border space-y-1">
-            <div class="flex items-center gap-1.5 text-xs font-medium text-muji-accent">
-              <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
-              <span>每日交通安排</span>
-            </div>
-            <p class="text-xs text-muji-dark leading-relaxed pl-5">${day.transport}</p>
-          </div>
-
-          <div class="space-y-2">
-            <div class="flex items-center gap-1.5 text-xs font-medium text-muji-dark mb-1">
+          <div class="space-y-3">
+            <div class="text-xs font-medium text-muji-muted px-1 flex items-center gap-1">
               <i data-lucide="map-pin" class="w-3.5 h-3.5 text-muji-accent"></i>
-              <span>詳細景點與活動</span>
+              <span>景點與活動細節 (${day.spots.length})</span>
             </div>
-            <ul class="space-y-2 pl-2">
-              ${day.schedule.map(s => `
-                <li class="flex items-start gap-2 text-xs text-muji-text leading-relaxed">
-                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-muji-accent mt-1.5 flex-shrink-0"></span>
-                  <span>${s}</span>
-                </li>
-              `).join('')}
-            </ul>
+
+            ${day.spots.map((spot, i) => `
+              <div class="bg-muji-card rounded-xl p-3.5 border border-muji-border shadow-sm space-y-2">
+                <div class="flex justify-between items-start">
+                  <h3 class="text-sm font-semibold text-muji-dark">${i + 1}. ${spot.name}</h3>
+                  <span class="text-[10px] text-muji-accent bg-muji-accentLight px-2 py-0.5 rounded border border-muji-border flex-shrink-0">${spot.fee}</span>
+                </div>
+                
+                <p class="text-xs text-muji-text leading-relaxed">${spot.desc}</p>
+                
+                <div class="pt-2 border-t border-muji-border flex items-center gap-1.5 text-[11px] text-muji-muted">
+                  <i data-lucide="navigation" class="w-3 h-3 text-muji-accent"></i>
+                  <span>交通: ${spot.transport}</span>
+                </div>
+              </div>
+            `).join('')}
           </div>
 
-          <div class="pt-2 border-t border-muji-border flex justify-between items-center text-xs">
+          <div class="bg-muji-card rounded-xl p-3 border border-muji-border flex justify-between items-center text-xs">
             <div class="flex items-center gap-1.5 text-muji-muted">
               <i data-lucide="bed" class="w-4 h-4 text-muji-accent"></i>
               <span>預定住宿：</span>
