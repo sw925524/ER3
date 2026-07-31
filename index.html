@@ -180,29 +180,25 @@
 
   </main>
 
-  <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-muji-card border-t border-muji-border z-30 px-2 py-1.5 flex justify-around items-center text-xs">
-    <button onclick="switchTab('itinerary')" id="nav-itinerary" class="flex flex-col items-center gap-0.5 p-1 text-muji-accent">
-      <i data-lucide="calendar" class="w-5 h-5"></i>
-      <span>行程</span>
-    </button>
+  <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-muji-card border-t border-muji-border z-30 px-6 py-2 flex justify-around items-center text-xs">
     <button onclick="switchTab('flights')" id="nav-flights" class="flex flex-col items-center gap-0.5 p-1 text-muji-muted">
       <i data-lucide="plane" class="w-5 h-5"></i>
-      <span>航班</span>
+      <span>航班資訊</span>
     </button>
     <button onclick="switchTab('hotels')" id="nav-hotels" class="flex flex-col items-center gap-0.5 p-1 text-muji-muted">
       <i data-lucide="home" class="w-5 h-5"></i>
-      <span>住宿</span>
+      <span>住宿地點</span>
     </button>
     <button onclick="switchTab('accounting')" id="nav-accounting" class="flex flex-col items-center gap-0.5 p-1 text-muji-muted">
       <i data-lucide="wallet" class="w-5 h-5"></i>
-      <span>記帳</span>
+      <span>記帳功能</span>
     </button>
   </nav>
 
   <script>
     const EUR_RATE = 35;
 
-    // Detailed Itinerary Data with Individual Spot Cards
+    // Detailed Itinerary Data
     const tripData = [
       {
         day: 1, date: "2026-09-24", weekday: "週四", location: "台北飛往東京轉機至芬蘭", city: "Helsinki", lat: 60.1699, lon: 24.9384,
@@ -218,7 +214,7 @@
         hotel: "VR臥舖火車", hotelAddress: "Helsinki Central Station",
         spots: [
           { name: "赫爾辛基中央車站寄放行李", transport: "機場快線 I/P線 (約30m)", desc: "搭乘機場快線至中央車站寄放行李，展開市區巡禮。", fee: "1 Day Pass 含" },
-          { name: "頌歌中央圖書館 (Oodi)", transport: "步行 2m / Tram 1號", desc: "全台芬蘭最美的現代建築圖書館，體驗極簡建築之美。", fee: "免費" },
+          { name: "頌歌中央圖書館 (Oodi)", transport: "步行 2m / Tram 1號", desc: "全芬蘭最美的現代建築圖書館，體驗極簡建築之美。", fee: "免費" },
           { name: "岩石教堂 (Temppeliaukio)", transport: "Tram 1號 (約15m)", desc: "開鑿於天然岩石中的特殊教堂，採光與音響極佳。", fee: "約 8€" },
           { name: "參議院廣場 & 赫爾辛基主教座堂", transport: "Tram 2/3號 (約10m)", desc: "赫爾辛基最具代表性的白色大教堂與地標廣場。", fee: "自由捐款 / 免費" },
           { name: "烏斯佩斯基大教堂 & 老市集大廳", transport: "步行 (約15m)", desc: "北歐最大東正教堂，順遊老市集大廳品嚐在地美食與煙燻鮭魚。", fee: "免費" },
@@ -390,7 +386,7 @@
         hotel: "塔林客矽麗雅號 (Tallink Silja Line)", hotelAddress: "Stockholm Värtahamnen 碼頭",
         spots: [
           { name: "斯德哥爾摩市區最後巡禮與採買", transport: "SL 大眾運輸", desc: "市區進行購物與最後採買。", fee: "自由消費" },
-          { name: "登船塔林客矽麗雅號 (Tallink Silja)", transport: "步行 / 專車前往碼頭", desc: "登上過夜奢華郵輪，穿越波羅的海，享受船上表演與設施。", fee: "已預訂郵輪艙房" }
+          { name: "登船塔林客矽麗雅號 (Tallink Silja)", transport: "步行 / 專車前往碼頭", desc: "登上過夜奢華郵輪，穿越波羅的海前往赫爾辛基，享受船上設施。", fee: "已預訂郵輪艙房" }
         ]
       },
       {
@@ -398,34 +394,35 @@
         hotel: "夜宿機上", hotelAddress: "",
         spots: [
           { name: "郵輪抵達赫爾辛基 & 快線至機場", transport: "機場快線", desc: "郵輪抵達芬蘭赫爾辛基後，搭乘快線前往萬塔機場 (HEL)。", fee: "快線票價" },
-          { name: "機場辦理海關退稅與登機", transport: "步行", desc: "提前 3 小時抵達機場完成退稅手續並搭機準備返航。", fee: "免額外付費" }
+          { name: "赫爾辛基 HEL ➔ 東京成田 NRT", transport: "飛機 JL6800 (17:45 - 13:05 +1)", desc: "提前抵達機場辦理退稅手續，搭乘 JL6800 班機返航東京。", fee: "已含機票" }
         ]
       },
       {
         day: 23, date: "2026-10-16", weekday: "週五", location: "抵達東京成田機場", city: "Tokyo", lat: 35.7720, lon: 140.3929,
         hotel: "成田東武機場酒店", hotelAddress: "日本成田機場周邊",
         spots: [
-          { name: "抵達東京成田 NRT & 飯店接駁", transport: "飯店免費接駁巴士", desc: "班機抵達東京成田，搭乘接駁車入住成田東武機場酒店休息。", fee: "免費接駁" }
+          { name: "抵達東京成田 NRT (13:05)", transport: "飯店免費接駁巴士", desc: "班機順利抵達東京成田機場，搭乘接駁車入住成田東武機場酒店休息。", fee: "免費接駁" }
         ]
       },
       {
         day: 24, date: "2026-10-17", weekday: "週六", location: "東京 ➔ 返抵台北 (溫暖的家)", city: "Taipei", lat: 25.0330, lon: 121.5654,
         hotel: "溫暖的家", hotelAddress: "",
         spots: [
-          { name: "東京成田 ➔ 桃園 TPE", transport: "飛機", desc: "搭乘班機返抵台北桃園國際機場。", fee: "已含機票" },
+          { name: "東京成田 NRT ➔ 桃園 TPE", transport: "飛機 JL8663 (08:55 - 11:35)", desc: "搭乘 JL8663 班機返抵台北桃園國際機場。", fee: "已含機票" },
           { name: "高鐵專車接送返家", transport: "高鐵接送", desc: "搭乘專車返回溫暖的家，結束 24 天完美豐富的北歐之旅！", fee: "免額外付費" }
         ]
       }
     ];
 
+    // Updated Flight Data
     const flightData = [
       { date: "09/24", code: "JL802 / JL8664", route: "TPE 桃園 ➔ NRT 東京成田", time: "10:55 - 14:55 / 12:45 - 17:15" },
       { date: "09/24", code: "JL6877 / JL6801", route: "NRT 東京成田 ➔ HEL 赫爾辛基", time: "21:50 - 04:40 (+1) / 23:05 - 05:55 (+1)" },
       { date: "09/27", code: "DY381 (挪威航空)", route: "RVN 羅瓦涅米 ➔ TOS 特羅姆瑟", time: "09:45 - 10:05" },
       { date: "10/04", code: "SAS / 挪航", route: "TOS 特羅姆瑟 ➔ OSL 奧斯陸", time: "12:55 - 14:50" },
       { date: "10/12", code: "SK882 (北歐航空)", route: "OSL 奧斯陸 ➔ ARN 斯德哥爾摩", time: "16:10 - 17:10" },
-      { date: "10/15", code: "JL / AY (芬航日航)", route: "HEL 赫爾辛基 ➔ NRT 東京成田", time: "依機票時間" },
-      { date: "10/17", code: "JL / CI", route: "NRT 東京成田 ➔ TPE 桃園", time: "依機票時間" }
+      { date: "10/15", code: "JL6800 (日本航空)", route: "HEL 赫爾辛基 ➔ NRT 東京成田", time: "17:45 - 13:05 (+1)" },
+      { date: "10/17", code: "JL8663 (日本航空)", route: "NRT 東京成田 ➔ TPE 桃園", time: "08:55 - 11:35" }
     ];
 
     const hotelData = [
@@ -569,6 +566,8 @@
 
     function selectDay(index) {
       selectedDayIndex = index;
+      // Switch back to itinerary view when clicking dates
+      switchTab('itinerary');
       renderDateSlider();
       renderItineraryDetail();
     }
@@ -722,14 +721,18 @@
       tabs.forEach(t => {
         document.getElementById(`tab-${t}`).classList.add('hidden');
         const navBtn = document.getElementById(`nav-${t}`);
-        navBtn.classList.remove('text-muji-accent');
-        navBtn.classList.add('text-muji-muted');
+        if (navBtn) {
+          navBtn.classList.remove('text-muji-accent');
+          navBtn.classList.add('text-muji-muted');
+        }
       });
 
       document.getElementById(`tab-${tabName}`).classList.remove('hidden');
       const activeNav = document.getElementById(`nav-${tabName}`);
-      activeNav.classList.add('text-muji-accent');
-      activeNav.classList.remove('text-muji-muted');
+      if (activeNav) {
+        activeNav.classList.add('text-muji-accent');
+        activeNav.classList.remove('text-muji-muted');
+      }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
