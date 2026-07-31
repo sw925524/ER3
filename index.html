@@ -333,8 +333,8 @@
         hotel: "夜宿機上", hotelAddress: "",
         spots: [
           { name: "高鐵接送前往桃園機場", transport: "高鐵專車接送", desc: "前往桃園機場辦理登機與託運手續。", fee: "免額外付費" },
-          { name: "桃園 TPE ➔ 東京 NRT", transport: "飛機 JL802 / JL8664", desc: "起飛時間 10:55 - 14:55 / 12:45 - 17:15，於東京成田轉機。", fee: "已含機票" },
-          { name: "東京 NRT ➔ 赫爾辛基 HEL", transport: "飛機 JL6877 / JL6801", desc: "起飛時間 21:50 - 04:40 (+1)，跨國長途飛行夜宿機上。", fee: "已含機票" }
+          { name: "桃園 TPE ➔ 東京 NRT / HND", transport: "飛機 JL802 / JL8664", desc: "10:55-14:55 (成田 NRT) / 12:45-17:15 (成田 NRT)，轉乘至赫爾辛基。", fee: "已含機票" },
+          { name: "東京 HND / NRT ➔ 赫爾辛基 HEL", transport: "飛機 JL6877 / JL6801", desc: "JL6877 (羽田 HND 21:50-04:40+1) / JL6801 (成田 NRT 23:05-05:55+1)。", fee: "已含機票" }
         ]
       },
       {
@@ -542,49 +542,58 @@
       }
     ];
 
-    // Flight Visual Ticket Data
+    // Flight Ticket Data Corrected for JL6877 (HND - 羽田)
     const flightTicketData = [
       {
         date: "2026/09/24",
-        depCode: "TPE", depName: "桃園", depTime: "10:55",
-        arrCode: "NRT", arrName: "成田", arrTime: "14:55",
-        duration: "04h00m", code: "JL802 / JL8664"
+        tag: "妙，爸",
+        legs: [
+          { depCode: "TPE", depName: "桃園", depTime: "10:55", arrCode: "NRT", arrName: "成田", arrTime: "14:55", duration: "04h00m", code: "JL802" },
+          { depCode: "HND", depName: "羽田", depTime: "21:50", arrCode: "HEL", arrName: "赫爾辛基", arrTime: "04:40 (+1)", duration: "11h50m", code: "JL6877" }
+        ]
       },
       {
         date: "2026/09/24",
-        depCode: "NRT", depName: "成田", depTime: "21:50",
-        arrCode: "HEL", arrName: "赫爾辛基", arrTime: "04:40 (+1)",
-        duration: "11h50m", code: "JL6877 / JL6801"
+        tag: "",
+        legs: [
+          { depCode: "TPE", depName: "桃園", depTime: "12:45", arrCode: "NRT", arrName: "成田", arrTime: "17:15", duration: "04h30m", code: "JL8664" },
+          { depCode: "NRT", depName: "成田", depTime: "23:05", arrCode: "HEL", arrName: "赫爾辛基", arrTime: "05:55 (+1)", duration: "11h50m", code: "JL6801" }
+        ]
       },
       {
         date: "2026/09/27",
-        depCode: "RVN", depName: "羅瓦涅米", depTime: "09:45",
-        arrCode: "TOS", arrName: "特羅姆瑟", arrTime: "10:05",
-        duration: "01h20m", code: "DY381 (挪威航空)"
+        tag: "",
+        legs: [
+          { depCode: "RVN", depName: "羅瓦涅米", depTime: "09:45", arrCode: "TOS", arrName: "特羅姆瑟", arrTime: "10:05", duration: "01h20m", code: "DY381 (挪威航空)" }
+        ]
       },
       {
         date: "2026/10/04",
-        depCode: "TOS", depName: "特羅姆瑟", depTime: "12:55",
-        arrCode: "OSL", arrName: "奧斯陸", arrTime: "14:50",
-        duration: "01h55m", code: "SAS / 挪航"
+        tag: "",
+        legs: [
+          { depCode: "TOS", depName: "特羅姆瑟", depTime: "12:55", arrCode: "OSL", arrName: "奧斯陸", arrTime: "14:50", duration: "01h55m", code: "SAS / 挪航" }
+        ]
       },
       {
         date: "2026/10/12",
-        depCode: "OSL", depName: "奧斯陸", depTime: "16:10",
-        arrCode: "ARN", arrName: "斯德哥爾摩", arrTime: "17:10",
-        duration: "01h00m", code: "SK882 (北歐航空)"
+        tag: "",
+        legs: [
+          { depCode: "OSL", depName: "奧斯陸", depTime: "16:10", arrCode: "ARN", arrName: "斯德哥爾摩", arrTime: "17:10", duration: "01h00m", code: "SK882 (北歐航空)" }
+        ]
       },
       {
         date: "2026/10/15",
-        depCode: "HEL", depName: "赫爾辛基", depTime: "17:45",
-        arrCode: "NRT", arrName: "成田", arrTime: "13:05 (+1)",
-        duration: "12h20m", code: "JL6800 (日本航空)"
+        tag: "",
+        legs: [
+          { depCode: "HEL", depName: "赫爾辛基", depTime: "17:45", arrCode: "NRT", arrName: "成田", arrTime: "13:05 (+1)", duration: "12h20m", code: "JL6800 (日本航空)" }
+        ]
       },
       {
         date: "2026/10/17",
-        depCode: "NRT", depName: "成田", depTime: "08:55",
-        arrCode: "TPE", arrName: "桃園", arrTime: "11:35",
-        duration: "03h40m", code: "JL8663 (日本航空)"
+        tag: "",
+        legs: [
+          { depCode: "NRT", depName: "成田", depTime: "08:55", arrCode: "TPE", arrName: "桃園", arrTime: "11:35", duration: "03h40m", code: "JL8663 (日本航空)" }
+        ]
       }
     ];
 
@@ -608,7 +617,6 @@
       { date: "10/16", name: "成田東武機場酒店", address: "日本成田機場周邊", rooms: "3間", breakfast: "有", washer: "無", parking: "無" }
     ];
 
-    // Packing Checklist Categories and Items (From Image 2 & Image 3)
     const checklistData = [
       {
         category: "文件類",
@@ -774,39 +782,50 @@
       renderItineraryDetail();
     }
 
-    // Render Flight Visual Tickets (Matching Design Prompt Image)
+    // Render Flight Tickets with Upward Airplane & HND Correction
     function renderFlightTickets() {
       const list = document.getElementById('flight-ticket-list');
-      list.innerHTML = flightTicketData.map(t => `
-        <div class="bg-muji-card rounded-3xl p-5 border border-muji-border shadow-sm space-y-3 relative overflow-hidden">
-          <div class="text-center text-[11px] text-muji-muted font-medium tracking-wide">
-            ${t.date} • ${t.code}
-          </div>
+      list.innerHTML = flightTicketData.map(t => {
+        const tagBadge = t.tag ? `<span class="bg-muji-accent text-white px-2 py-0.5 rounded-md font-medium text-[10px]">${t.tag}</span>` : '';
+        
+        const legsHtml = t.legs.map(leg => `
+          <div class="space-y-1 pt-1 first:pt-0 border-t border-muji-border first:border-0">
+            <div class="text-center text-[10px] text-muji-accent font-semibold font-mono">${leg.code}</div>
+            <div class="flex justify-between items-center text-center">
+              <div class="w-24 text-left">
+                <div class="text-2xl font-bold text-muji-dark tracking-tight font-mono">${leg.depCode}</div>
+                <div class="text-lg font-semibold text-muji-dark">${leg.depTime}</div>
+                <span class="inline-block mt-0.5 text-[10px] text-white bg-muji-green px-2 py-0.5 rounded-full">${leg.depName}</span>
+              </div>
 
-          <div class="flex justify-between items-center text-center">
-            <div class="w-24 text-left">
-              <div class="text-2xl font-bold text-muji-dark tracking-tight font-mono">${t.depCode}</div>
-              <div class="text-lg font-semibold text-muji-dark">${t.depTime}</div>
-              <span class="inline-block mt-1 text-[10px] text-white bg-muji-green px-2 py-0.5 rounded-full">${t.depName}</span>
-            </div>
+              <div class="flex-1 px-2 flex flex-col items-center">
+                <span class="text-[10px] text-muji-muted mb-1 font-mono">${leg.duration}</span>
+                <div class="w-full flex items-center gap-1">
+                  <div class="h-[1px] bg-muji-border flex-1 border-b border-dashed border-muji-muted"></div>
+                  <i data-lucide="plane" class="w-4 h-4 text-muji-blue transform -rotate-45"></i>
+                  <div class="h-[1px] bg-muji-border flex-1 border-b border-dashed border-muji-muted"></div>
+                </div>
+              </div>
 
-            <div class="flex-1 px-2 flex flex-col items-center">
-              <span class="text-[10px] text-muji-muted mb-1 font-mono">${t.duration}</span>
-              <div class="w-full flex items-center gap-1">
-                <div class="h-[1px] bg-muji-border flex-1 border-b border-dashed border-muji-muted"></div>
-                <i data-lucide="plane" class="w-4 h-4 text-muji-blue transform rotate-90"></i>
-                <div class="h-[1px] bg-muji-border flex-1 border-b border-dashed border-muji-muted"></div>
+              <div class="w-24 text-right">
+                <div class="text-2xl font-bold text-muji-dark tracking-tight font-mono">${leg.arrCode}</div>
+                <div class="text-lg font-semibold text-muji-dark">${leg.arrTime}</div>
+                <span class="inline-block mt-0.5 text-[10px] text-white bg-muji-orange px-2 py-0.5 rounded-full">${leg.arrName}</span>
               </div>
             </div>
-
-            <div class="w-24 text-right">
-              <div class="text-2xl font-bold text-muji-dark tracking-tight font-mono">${t.arrCode}</div>
-              <div class="text-lg font-semibold text-muji-dark">${t.arrTime}</div>
-              <span class="inline-block mt-1 text-[10px] text-white bg-muji-orange px-2 py-0.5 rounded-full">${t.arrName}</span>
-            </div>
           </div>
-        </div>
-      `).join('');
+        `).join('');
+
+        return `
+          <div class="bg-muji-card rounded-3xl p-5 border border-muji-border shadow-sm space-y-3 relative overflow-hidden">
+            <div class="flex justify-between items-center text-xs text-muji-muted font-medium border-b border-muji-border pb-2">
+              <span class="font-semibold text-muji-dark">${t.date}</span>
+              ${tagBadge}
+            </div>
+            ${legsHtml}
+          </div>
+        `;
+      }).join('');
       lucide.createIcons();
     }
 
@@ -849,7 +868,6 @@
       lucide.createIcons();
     }
 
-    // Packing Checklist Logic (LocalStorage)
     function getSavedChecklist() {
       return JSON.parse(localStorage.getItem('nordic_checklist') || '{}');
     }
@@ -903,13 +921,11 @@
         `;
       }).join('');
 
-      // Update progress bar
       const percent = totalCount > 0 ? Math.round((checkedCount / totalCount) * 100) : 0;
       document.getElementById('checklist-progress-text').textContent = `${checkedCount} / ${totalCount} (${percent}%)`;
       document.getElementById('checklist-progress-bar').style.width = `${percent}%`;
     }
 
-    // Expense Logic (LocalStorage)
     function getExpenses() {
       return JSON.parse(localStorage.getItem('nordic_expenses') || '[]');
     }
