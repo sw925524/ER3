@@ -1,237 +1,1052 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Okinawa Master 2026</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
-    <style>
-        [v-cloak] { display: none; }
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f0f4f8; padding-bottom: 90px; }
-        .header-bg {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?q=80&w=1000');
-            background-size: cover; background-position: center; height: 100px;
-            display: flex; justify-content: center; align-items: center; color: white;
-            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
-        }
-        /* 機票樣式 */
-        .ticket-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 2px solid #e2e8f0; margin-bottom: 20px; }
-        .ticket-header { background: #0369a1; color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
-        .ticket-body { padding: 20px; display: flex; justify-content: space-between; align-items: center; position: relative; }
-        .ticket-divider { border-top: 2px dashed #e2e8f0; position: relative; margin: 0 15px; }
-        .ticket-footer { background: #f8fafc; padding: 12px 15px; font-size: 11px; color: #64748b; }
-        .pass-font { font-family: 'VT323', monospace; }
-        
-        /* 行程卡片 */
-        .card { background: white; border-radius: 18px; padding: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 12px; border-left: 5px solid #0369a1; }
-        .map-btn { font-size: 11px; font-weight: 900; color: white; background: #0369a1; padding: 4px 12px; border-radius: 99px; display: inline-block; margin-top: 8px; }
-        
-        /* 底部導航 */
-        .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; height: 75px; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 100; border-top-left-radius: 25px; border-top-right-radius: 25px; }
-        .tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; }
-        .tab-item.active { color: #0369a1; font-weight: bold; }
-        
-        /* 天氣標籤 */
-        .weather-badge { background: #e0f2fe; color: #0369a1; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; display: inline-flex; align-items: center; gap: 6px; }
-    </style>
-</head>
-<body>
-    <div id="app" v-cloak>
-        <header class="header-bg">
-            <h1 class="text-xl font-black tracking-widest italic uppercase">Okinawa Trip 2026</h1>
-        </header>
+日期	時間	交通		詳細行程	交通時間	需預訂/購買	費用	站名	備註	住宿地	餐食/廚房	洗衣	停車	地址												
+9/24	早	高鐵接送	高鐵-	高鐵接送	2H	高鐵票				飛機上	早	無	不需要													
+	中	飛機	"JL802
+JL8664"	"TPE搭飛機前往東京NRT
+10:55-14:55
+12:45-17:15"	3.5H																					
+	晚	飛機	"JL6877
+JL6801"	"HNA-HEL 21:50-04:40
+NRT-HEL 23:05-05:55"	13H																					
+9/25	早	"機場快線
+1day pass"	機場I線或P線	寄放行李逛逛中央車站	30m	1day pass	11€/1人	前往 Rautatieasema (中央車站站)		VR臥舖火車	無	無	不需要													
+	早	步行		頌歌中央圖書館 (Oodi Central Library)	2m/15m		free	上車站：Kansallismuseo (芬蘭國家博物館站)	從圖書館正門走出來，穿過草坪往議會大廈方向走，車站就在國家博物館前面的大街上。																	
+	早	Tram	Tram1號.2號	岩石教堂 (Temppeliaukio Church)	10m		8€/1人	終點站（靠近岩石教堂）： Sammonkatu																		
+	早	Tram	Tram2號	"參議院廣場
+赫爾辛基主教座堂 (Helsinki Cathedral)"	10m		自由捐獻	"上車站：Sammonkatu
+下車站：在 Senaatintori 站"	從主教座堂的大階梯走下來，穿過參議院廣場，沿著 Unioninkatu 或 Sofiankatu 街道向海邊方向直走，過個馬路就到了。																	
+	中	步行		"烏斯佩斯基大教堂 (Uspenski Cathedral)
+老市集大廳(Old Market Hall)
+市集廣場(Market Square)/午餐
+Esplanadi"	10min		free																			
+	中	HSL 渡輪		芬蘭堡教堂 (Suomenlinna Church)	15min		free	"找 Suomenlinna HSL-ferry 牌子
+下船碼頭：Main Quay"	就在市集廣場 (Market Square) 的碼頭邊，標示非常清楚（找 Suomenlinna HSL-ferry 牌子）。																	
+	中	步行		"大庭院 (The Great Courtyard)
+國王門 (King's Gate)"	15min		free																			
+	晚	HSL 渡輪		回到市集廣場	15min		free	"上船碼頭：Main Quay
+下船碼頭：Market Square / Kauppatori"																		
+	晚	Tram	Tram2號.5號	回中央車站 / 晚餐 / 拿行李			free	"上車站：Kauppatori
+下車站：Rautatieasema (中央車站站)"																		
+	晚	夜鋪火車		23:05-11:00	12H	臥鋪火車			通常在18.19號月台，須提前半小時抵達																	
+9/26	中	火車	租車自駕	租車市區午餐逛街	15m	租車				Apukka Resort	早	無	免費	Tutkijantie 28, 96900 羅瓦涅米, 芬蘭, Rovaniemi, FI												
+	中, 晚	租車自駕		聖誕老人村/拍照/明信片/雪橇/北極圈線	15m				聖誕老人村用晚餐/拍照40€																	
+																										
+	晚	租車自駕		極光小屋																						
+9/27	早	自駕機場還車		飯店早餐	15m					Staying Apt 3 - New and modern	廚房	有	免費	16 Kaare Moursunds veg, 9007 特羅姆瑟, 挪威												
+	早	飛機	DY381	RVN-TOS 09:45-10:05	1.5H																					
+	早	租車自駕	757900263	北極之門 Gateway to the Arctic	15m	租車																				
+			764865337																							
+	中	租車自駕		特羅姆瑟主教堂 Tromsø Cathedral	15m																					
+	中	租車自駕		特羅姆瑟市區午餐/閒逛																						
+	晚	租車自駕		北極大教堂 Arctic Cathedral	10m																					
+	晚	租車自駕		Fjellheisen纜車	10m	不須預約	495-595 nok																			
+	晚	租車自駕		極北麥當勞晚餐/世界最小酒吧	10m																					
+	晚	租車自駕		前往民宿	10m																					
+9/28	早	租車自駕		Sommarøy 夏日島 / 午餐	1h					Fjellkysten旅館	早	收費	免費	Soløyveien 190, 9357 滕內沃爾, 挪威												
+	中	租車自駕		12:45 開車上渡輪前往塞尼亞島	50m	不須預約	自動刷卡	"上船碼頭：Brensholmen ferjekai
+下船碼頭：Botnhamn ferjekai"	需提早半小時抵達碼頭																	
+	中	租車自駕		Tungeneset 惡魔之舌	45m																					
+	中	租車自駕		Bergsbotn Viewing Platform 懸空觀景台	20m																					
+	晚	租車自駕		Finnsnes  塞尼亞大橋 / 晚餐	1h																					
+	晚	租車自駕		前往飯店	1.5h																					
+9/29	早, 中, 晚	租車自駕		飯店早餐後開車前往羅浮敦-斯沃爾維爾	4h				"中途停靠Lødingen有coop
+Austnesfjorden rest area 休息站
+Sildpollneset 教堂"	Rorbuene Svolvær Havn	廚房	無	免費	Vesterøyveien 52- 57, 8300 斯沃爾韋爾, 挪威												
+9/30	早	租車自駕		雷納 Reinebringen步道	2h15m	不須預約																				
+	中	租車自駕		奧鎮	15m																					
+	中, 晚	租車自駕		"Hamnøy
+Sakrisøy
+回住宿"	2.5h				"Hamnøy 橋上：拍攝傳統紅色漁屋。
+Sakrisøy 黃色屋子：這著名的黃色漁屋。
+Anita's Sjømat 魚漢堡非常有口碑。
+雷納入口停車場：進入雷納村落前的 E10 路邊就有停車場，從這裡拍雷納村的全景非常美。"																	
+10/1	早	租車自駕		Henningsvær Football Stadium	50m																					
+	中	租車自駕		Kabelvåg breakwater	15m																					
+	晚	租車自駕		回住宿	25m																					
+10/2	早, 中	租車自駕		"往回開中途停靠Lødingen
+Gullesfjorden"	3h					KAB Guesthouse	廚房	有	免費	33 Niingsveien, 8533 博根, 挪威												
+10/3	中	租車自駕		Lapphaugen Turiststasjon AS	50m				可停靠休息	Recently renovated house in the heart of tromsdalen	廚房	有	免費	1 Fugløyvegen, 9020 特羅姆瑟, 挪威												
+	晚	租車自駕		回住宿	3h																					
+10/4	早	租車自駕		飯店早餐/機場還車/機場附近午餐	20m					Spacious Five Bedroom Central Oslo	無	有	路邊	Korsgata 30B, 0551 奧斯陸, 挪威												
+	早	飛機	妙	TOS-RVN-HEL 10:30-15:30																						
+	中	飛機	全員	TOS-OSL 12:55-14:50																						
+	中	租車自駕	788528363	奧斯陸歌劇院 (Oslo Opera House)	50m				公共停車場如 Paleet P-hus				220NOK													
+	中		778629203																							
+	晚	租車自駕		維格蘭雕塑公園 (Vigeland Park)	20m				"著名的憤怒的小孩(Sinnataggen) 
+生命之輪"																	
+	晚	租車自駕		回住宿	10m																					
+10/5	早	租車自駕		飯店早餐/奧斯陸市政廳 (Oslo Rådhus) 	15m	不須預約			"吶喊名畫
+將車停在 Aker Brygge P-hus 或 Paleet P-hus 室內停車場"	Grimstad Vertshus	早	有	免費	Frivoldveien 11-13, 4877 格里姆斯塔, 挪威												
+	中	租車自駕		"挪威國家博物館 (National Museum) 
+午餐"	15m	需購票並預約最早時段10:00	200nok		阿克爾碼頭 (Aker Brygge) 與 市政廳廣場 (Rådhusplassen) 區域，走路 5 分鐘內就有非常多餐飲選擇																	
+	晚	租車自駕		王宮廣場與花園 (Slottsparken)	15m	不須預約			中途停靠其他城市休息																	
+	晚	租車自駕		前往克莉斯蒂安桑的飯店	4h																					
+10/6	早, 中	租車自駕		"Public parking
+巨劍紀念碑 (Sverd i fjell)"	3.4h					Central Guest House	廚房	有	免費	Lysefjordgata 12, 4014 斯塔萬格, 挪威												
+	中	租車自駕		Øvre Holmegate / 晚餐	20m																					
+	中	租車自駕		Gamle Stavanger	15m																					
+	中	租車自駕		斯塔萬格主教座堂	10m																					
+	晚	租車自駕		回住宿	15m																					
+10/7	早	租車自駕		Preikestolen Parking (P1)	40m		250nok																			
+	早, 中	租車自駕		布道台（Preikestolen）健行	3-4h																					
+	晚	租車自駕		回住宿																						
+10/8	早	租車自駕		出發碼頭： Mortavika ferjekai	30m				"抵達碼頭時，隨便選一條看起來車較少的線道排隊即可。
+請務必拉緊手煞車、熄火。"	City Centrum Villa Apartments w parking	廚房	有	免費	Forskjønnelsen 4 1, Bergenhus, 5018 卑爾根, 挪威												
+	早	租車自駕		渡輪 Mortavika – Arsvågen 	25m	不須預約	自動刷卡																			
+	中	租車自駕		Arsvågen → Sandvikvåg 碼頭	1.5h																					
+	中	租車自駕		渡輪 Sandvikvåg – Halhjem 	45m	不須預約	自動刷卡																			
+	中	租車自駕		Halhjem 碼頭 → 卑爾根市區	35m																					
+	中	租車自駕		布呂根																						
+	晚	租車自駕		卑爾根主教座堂																						
+	晚	租車自駕		Fishmarket in Bergen																						
+	晚	租車自駕		回住宿																						
+10/9	早	租車自駕		Bergenhus Fortress		不須預約			堡內需門票																	
+	中	租車自駕		卑爾根佛萊恩山纜車（Fløibanen）		不須預約	70-105nok																			
+	晚	租車自駕		徒步下山	1h				回市區晚餐																	
+	晚	租車自駕		回住宿																						
+"10/10
+(六)"	早	租車自駕		前往VOSS小鎮(看天氣可搭纜車)	1.5H	不須預約	纜車單程415-435NOK			Brekkevegen 24, 5743 弗洛姆, 挪威	廚房	有	免費	Brekkevegen 24, 5743 弗洛姆, 挪威												
+	中	租車自駕		前往弗洛姆	1h10m																					
+	中	租車自駕		峽灣遊船 Flåm ➔ Gudvangen	2h	需預約	"船單程550-650nok
+終點站巴士120nok"	"check in-Flåm 碼道（Flåm Cruise Terminal）
+標示牌寫著 ""Fjord Cruise Nærøyfjord""
+下船後巴士站就在Fjordtell 飯店紀念品店前的停車場"																		
+	晚	租車自駕		超市買食物/市區晚餐	10m				最晚20:00關門																	
+10/11	早	租車自駕		"flam高山小火車 (需先開車去停車場)
+往返都會在Kjosfossen瀑布站停約10分鐘"				flam-myrdel 	"去程班次
+9:00-9:44
+11:45-12:28"	New Cab in With Views Of Tisleiefjorden	廚房	有	免費	"""3550 高爾, 挪威
+**需確認入住資料""
 
-        <main class="px-5 mt-4">
-            <div class="flex justify-between gap-2 mb-4 w-full">
-                <button v-for="day in tripDays" @click="currentDate = day.date"
-                    :class="['flex-1 h-16 rounded-2xl flex flex-col items-center justify-center transition-all', currentDate === day.date ? 'bg-sky-800 text-white shadow-lg scale-105' : 'bg-white text-slate-400 border border-slate-100']">
-                    <span class="text-[9px] font-bold uppercase">{{ day.week }}</span>
-                    <span class="text-lg font-black">{{ day.dayNum }}</span>
-                </button>
-            </div>
 
-            <div class="mb-5 text-center">
-                <div class="weather-badge shadow-sm">
-                    <span class="text-lg">{{ weatherData[currentDate].icon }}</span>
-                    <span>{{ weatherData[currentDate].desc }}</span>
-                    <span class="opacity-30">|</span>
-                    <span>{{ weatherData[currentDate].temp }}</span>
-                </div>
-            </div>
-
-            <div v-if="activeMainTab === 'schedule'">
-                <div v-for="item in itineraries[currentDate]">
-                    <div v-if="item.category === '航班'" class="ticket-card">
-                        <div class="ticket-header">
-                            <span class="text-[10px] font-black tracking-tighter uppercase">Official Boarding Pass</span>
-                            <span class="pass-font text-lg leading-none">{{ item.flightNo }}</span>
-                        </div>
-                        <div class="ticket-body">
-                            <div class="text-center">
-                                <div class="text-3xl font-black text-slate-800 pass-font">{{ item.from }}</div>
-                                <div class="text-[9px] text-slate-400 font-bold uppercase">KHH</div>
-                            </div>
-                            <div class="flex-1 flex flex-col items-center px-2">
-                                <div class="text-sky-600 text-lg mb-1">✈️</div>
-                                <div class="w-full border-t-2 border-dashed border-slate-100"></div>
-                                <div class="text-[10px] text-slate-500 mt-1 font-bold">{{ item.time }}</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-3xl font-black text-slate-800 pass-font">{{ item.to }}</div>
-                                <div class="text-[9px] text-slate-400 font-bold uppercase">OKA</div>
-                            </div>
-                        </div>
-                        <div class="ticket-divider"></div>
-                        <div class="ticket-footer">
-                            <p class="font-black text-slate-700 mb-1">🧳 託運行李配額：</p>
-                            <p class="whitespace-pre-line leading-relaxed text-slate-500 font-medium">{{ item.luggage }}</p>
-                            <p class="mt-2 text-sky-800 font-black border-t border-slate-100 pt-2">⚠️ 手提行李：每人限 10 KG</p>
-                        </div>
-                    </div>
-
-                    <div v-else class="card" @click="openMap(item.addr || item.name)">
-                        <div class="flex justify-between items-start">
-                            <div class="flex-1">
-                                <span class="text-[9px] font-black text-sky-700 bg-sky-50 px-2 py-0.5 rounded uppercase mb-1 inline-block">{{ item.category }}</span>
-                                <h3 class="font-black text-slate-700 text-base leading-tight">{{ item.name }}</h3>
-                                <p class="text-xs text-slate-400 mt-1 leading-snug">{{ item.note }}</p>
-                                <div v-if="item.specialNote" class="mt-3 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                                    <p class="text-[10px] font-black text-sky-800 mb-1">🕒 表演與體驗時間：</p>
-                                    <p class="text-[10px] text-slate-500 leading-relaxed whitespace-pre-line">{{ item.specialNote }}</p>
-                                </div>
-                            </div>
-                            <div class="text-2xl ml-2">{{ getIcon(item.category) }}</div>
-                        </div>
-                        <div class="map-btn shadow-sm">地圖導航 ➔</div>
-                    </div>
-                </div>
-            </div>
-
-            <div v-if="activeMainTab === 'info'">
-                <div class="flex gap-2 mb-4">
-                    <button @click="activeSubTab = 'hotel'" :class="['flex-1 py-3 rounded-xl font-bold text-sm', activeSubTab === 'hotel' ? 'bg-sky-800 text-white shadow-md' : 'bg-white text-slate-400']">🏨 補給據點</button>
-                    <button @click="activeSubTab = 'food'" :class="['flex-1 py-3 rounded-xl font-bold text-sm', activeSubTab === 'food' ? 'bg-sky-800 text-white shadow-md' : 'bg-white text-slate-400']">🍜 必吃推薦</button>
-                </div>
-                
-                <div v-if="activeSubTab === 'hotel'" class="space-y-3">
-                    <div class="card" v-for="h in hotelPoints" @click="openMap(h.addr)">
-                        <h4 class="font-bold text-slate-700">{{ h.icon }} {{ h.name }}</h4>
-                        <p class="text-xs text-slate-400">{{ h.note }}</p>
-                        <div class="map-btn">導航 ➔</div>
-                    </div>
-                </div>
-
-                <div v-if="activeSubTab === 'food'" class="space-y-3">
-                    <div class="card" v-for="f in foodList" @click="openMap(f.name)">
-                        <div class="flex justify-between items-center">
-                            <h4 class="font-bold text-slate-700">{{ f.name }}</h4>
-                            <span class="text-[9px] font-black bg-orange-100 text-orange-600 px-2 py-0.5 rounded-lg uppercase">{{ f.type }}</span>
-                        </div>
-                        <p class="text-xs text-slate-400 mt-1">{{ f.note }}</p>
-                        <div class="map-btn">導航美食 ➔</div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <nav class="tab-bar">
-            <div class="tab-item" :class="{active: activeMainTab === 'schedule'}" @click="activeMainTab = 'schedule'">
-                <span class="text-2xl">📅</span><span class="text-[10px] mt-1 font-bold">每日行程</span>
-            </div>
-            <div class="tab-item" :class="{active: activeMainTab === 'info'}" @click="activeMainTab = 'info'">
-                <span class="text-2xl">💡</span><span class="text-[10px] mt-1 font-bold">懶人包</span>
-            </div>
-        </nav>
-    </div>
-
-    <script>
-        const { createApp, ref } = Vue;
-        createApp({
-            setup() {
-                const activeMainTab = ref('schedule');
-                const activeSubTab = ref('hotel');
-                const currentDate = ref('2026-04-14');
-                const tripDays = [
-                    {date:'2026-04-14',week:'Day 1',dayNum:'14'},
-                    {date:'2026-04-15',week:'Day 2',dayNum:'15'},
-                    {date:'2026-04-16',week:'Day 3',dayNum:'16'},
-                    {date:'2026-04-17',week:'Day 4',dayNum:'17'},
-                    {date:'2026-04-18',week:'Day 5',dayNum:'18'}
-                ];
-
-                const weatherData = {
-                    '2026-04-14': { desc: '多雲時晴', temp: '22°C - 26°C', icon: '⛅' },
-                    '2026-04-15': { desc: '晴朗', temp: '23°C - 27°C', icon: '☀️' },
-                    '2026-04-16': { desc: '局部短暫雨', temp: '21°C - 25°C', icon: '🌦️' },
-                    '2026-04-17': { desc: '多雲', temp: '22°C - 26°C', icon: '☁️' },
-                    '2026-04-18': { desc: '晴時多雲', temp: '23°C - 27°C', icon: '🌤️' }
-                };
-
-                const itineraries = ref({
-                    '2026-04-14': [
-                        { category: '航班', flightNo: 'IT728', time: '15:45 - 18:10', from: 'KHH', to: 'OKA', luggage: '• 15kg: 喻3人\n• 30kg: 大姨夫妻\n• 15kg: 鐘先生' },
-                        { category: '美食', name: '晚餐：Yayoiken (彌生軒)', note: '日式定食，適合抵達第一餐', addr: 'Yayoiken Haninsuginowanten' },
-                        { category: '購物', name: '讀谷村超市 (補給)', note: '採購零食與隔日備品', addr: '205ｰ1 Uechi, Yomitan' },
-                        { category: '住宿', name: '恩納村 Maeda 飯店', addr: '1460-4 Maeda, Onna, Okinawa' }
-                    ],
-                    '2026-04-15': [
-                        { category: '景點', name: '萬座毛', note: '象鼻岩拍照勝地', addr: 'Manzamo' },
-                        { category: '景點', name: '許田休息站', note: '必買門票/小吃', addr: 'Kyoda Rest Area' },
-                        { 
-                            category: '景點', 
-                            name: '美麗海水族館', 
-                            note: '看巨大的鯨鯊與黑潮之海', 
-                            addr: 'Okinawa Churaumi Aquarium',
-                            specialNote: '🐳 鯨鯊餵食秀：15:00 / 17:00 (垂直站立進食)\n🐬 海豚秀：10:30/11:30/13:00/15:00/17:00\n🐟 鬼蝠魟餵食：09:30\n🖐️ 海豚餵食體驗：10:00/11:00/12:00/13:30/15:30 (需現場報名)'
-                        },
-                        { category: '購物', name: 'AEON Mall Rycom', note: '沖繩最大百貨', addr: 'AEON Mall Okinawa Rycom' },
-                        { category: '住宿', name: '南城市 Inamine 飯店', addr: 'Inamine-1249-8 Ōzato, Nanjo' }
-                    ],
-                    '2026-04-16': [
-                        { category: '美食', name: '泊港漁市場', note: '新鮮生魚片早餐', addr: '1-chōme-3-3 Minatomachi, Naha' },
-                        { category: '景點', name: '波上宮', note: '海邊斷崖神社', addr: 'Naminoue Shrine' },
-                        { category: '景點', name: '玉泉洞 & 王國村', note: '壯觀鐘乳石洞', addr: 'Okinawa World' },
-                        { category: '景點', name: '瀨長島 Umikaji Terrace', note: '看飛機降落的白色小島', addr: 'Senaga Island' },
-                        { category: '購物', name: 'San-A Naha Main Place', note: '新都心逛街首選', addr: 'San-A Naha Main Place' },
-                        { category: '住宿', name: '南城市 Inamine 飯店', addr: 'Inamine-1249-8 Ōzato, Nanjo' }
-                    ],
-                    '2026-04-17': [
-                        { category: '美食', name: '早餐：Furinkazan', addr: '2-chōme-5-7 Kume, Naha' },
-                        { category: '其他', name: '🅿️ みどり停車場', note: '國際通方便停車點', addr: 'みどり駐車場 那覇' },
-                        { category: '景點', name: '國際通商店街', addr: 'International Road Okinawa' },
-                        { category: '美食', name: '第一牧志公設市場', addr: 'Makishi Public Market' },
-                        { category: '購物', name: 'MEGA 唐吉訶德', note: '伴手禮最後補給', addr: 'MEGA Don Quijote Tomigusuku' },
-                        { category: '住宿', name: '南城市 Inamine 飯店', addr: 'Inamine-1249-8 Ōzato, Nanjo' }
-                    ],
-                    '2026-04-18': [
-                        { category: '購物', name: 'WORKMAN Yaese', note: '機能服飾大本營', addr: 'WORKMAN Yaese' },
-                        { category: '美食', name: '旅の終わりの朝ごはん', addr: '旅の終わりの朝ごはん 那覇' },
-                        { category: '航班', flightNo: 'IT289', time: '14:00 - 14:55', from: 'OKA', to: 'KHH', luggage: '• 20kg+20kg: 喻3人\n• 其餘每人各 20kg' }
-                    ]
-                });
-
-                const hotelPoints = [
-                    { name: '前田共同店', addr: 'Maeda Joint Store, Onna', icon: '🛍️', note: '恩納村補給站' },
-                    { name: 'JA Farmers Market', addr: 'JA Farmers Market Nanjo', icon: '🍎', note: '新鮮水果首選' },
-                    { name: 'Drug Eleven', addr: 'Drug Eleven Ozato', icon: '💊', note: '便利藥妝' }
-                ];
-
-                const foodList = [
-                    { name: '暖暮拉麵 (那霸)', type: '拉麵', note: '經典必吃。' },
-                    { name: 'Pork Tamago Onigiri', type: '飯糰', note: '經典午餐肉蛋飯糰。' },
-                    { name: 'A&W Burger', type: '漢堡', note: '美式漢堡。' },
-                    { name: '傑克牛排 (Jack\'s)', type: '牛排', note: '沖繩代表性牛排館。' },
-                    { name: 'Blue Seal', type: '甜點', note: '在地必吃冰淇淋。' }
-                ];
-
-                const getIcon = (cat) => ({ '景點':'🏖️','住宿':'🏨','美食':'🍜','購物':'🛍️','其他':'🚗' }[cat] || '📍');
-                const openMap = (query) => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`, '_blank');
-
-                return { activeMainTab, activeSubTab, currentDate, tripDays, weatherData, itineraries, hotelPoints, foodList, getIcon, openMap };
-            }
-        }).mount('#app');
-    </script>
-</body>
-</html>
+"												
+	早	租車自駕						myrdel-flam	"回程班次
+10:15-11:05
+13:15-14:05"																	
+	中	租車自駕		flam市區午餐/購買晚餐																						
+	晚	租車自駕		開車前往住宿	2.2h																					
+10/12	早	租車自駕		"早餐後開車前往奧斯陸機場還車
+約下午13:00 還車"	3h				"9點左右要出門
+奧斯陸機場還車加油並搜尋p10"	Generator Stockholm	無	無	不需要	Torsgatan 10, 北島區, 11123 斯德哥爾摩, 瑞典												
+	中	飛機	sk882	OSL-ARN 16:10-17:10	1H																					
+	晚	SL電車或巴士				24-hour travelcard																				
+10/13	早	SL電車或巴士	"7號電車
+67號巴士"	瓦薩沈船博物館	參觀時間約2.5H	預約門票	190-200NOK	下車站：Nordiska museet/Vasamuseet	10點營業																	
+	中	渡輪 FERRY	82號	老城區；大廣場；大教堂；王宮；諾貝爾博物館	半天			"乘船處： Allmänna Gränd 碼頭
+目的地： Slussen (Räntmästartrappan)"	"博物館出來後向左手邊沿著水邊步行約 5-8 分鐘即可抵達
+下船的地方就是老城區 (Gamla Stan) 的南端入口"																	
+	晚	SL電車或巴士	"地鐵紅線13.14號
+綠線17.18.19號"					"起點站： Gamla Stan 站（老城區站)
+下車站： T-Centralen"	下車後跟著Vasagatan的指標走上到地面後，左轉沿著 Vasagatan 往北走																	
+10/14	早																									
+	中																									
+	晚																									
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
