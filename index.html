@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>北歐三國之旅 2026</title>
+  <!-- Google Fonts: Noto Sans TC & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
     tailwind.config = {
@@ -52,7 +55,9 @@
 </head>
 <body class="font-sans antialiased pb-24 max-w-md mx-auto min-h-screen border-x border-muji-border bg-muji-bg shadow-sm">
 
+  <!-- Header with Aurora Background Image -->
   <header class="sticky top-0 z-30 border-b border-muji-border px-4 py-4 relative overflow-hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80');">
+    <!-- Dark Gradient Overlay for Readability -->
     <div class="absolute inset-0 bg-black/55 backdrop-blur-[2px]"></div>
 
     <div class="relative z-10 space-y-3">
@@ -67,52 +72,64 @@
         </div>
       </div>
 
-      <div id="date-slider" class="flex gap-2 overflow-x-auto no-scrollbar pt-1 pb-1 scroll-smooth">
-        </div>
+      <!-- Date Navigation Slider with Glassmorphism -->
+      <div id="date-slider" class="flex gap-2 overflow-x-auto no-scrollbar pt-1 pb-1 scroll-smooth items-center">
+        <!-- Dates & THSR button populated dynamically -->
+      </div>
     </div>
   </header>
 
+  <!-- Main Content Area -->
   <main class="p-4 space-y-6">
 
+    <!-- TAB 1: ITINERARY (Includes THSR & Daily Schedules) -->
     <section id="tab-itinerary" class="space-y-5">
       <div id="itinerary-detail-card">
-        </div>
+        <!-- Content inserted dynamically -->
+      </div>
     </section>
 
+    <!-- TAB 2: FLIGHTS -->
     <section id="tab-flights" class="hidden space-y-5">
       <div class="flex items-center gap-2 mb-1">
         <i data-lucide="plane" class="w-6 h-6 text-muji-accent"></i>
         <h2 class="text-lg font-bold text-muji-dark">主要航班資訊</h2>
       </div>
 
+      <!-- Luggage Rules Summary (Updated Baggage Allowance) -->
       <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-3">
         <div class="flex items-center gap-2 text-sm font-bold text-muji-dark border-b border-muji-border pb-2.5">
           <i data-lucide="briefcase" class="w-4 h-4 text-muji-accent"></i> 行李託運與隨身限制
         </div>
         <div class="grid grid-cols-2 gap-3 text-sm">
-          <div class="bg-muji-bg p-3 rounded-xl border border-muji-border">
-            <span class="text-muji-muted block text-xs mb-1">國際段 (日航/芬航)</span>
-            <p class="font-semibold text-muji-dark">託運: 23kg × 2件/人</p>
-            <p class="text-muji-muted text-xs mt-0.5">手提: 10kg 以內</p>
+          <div class="bg-muji-bg p-3 rounded-xl border border-muji-border space-y-1">
+            <span class="text-muji-accent font-bold block text-xs">國際段 (日航/芬航)</span>
+            <p class="font-semibold text-muji-dark text-xs leading-tight">商務艙: 32kg × 3件/人</p>
+            <p class="font-semibold text-muji-dark text-xs leading-tight">經濟艙: 23kg × 2件/人</p>
+            <p class="text-muji-muted text-[11px] pt-0.5">手提: 10kg 以內</p>
           </div>
-          <div class="bg-muji-bg p-3 rounded-xl border border-muji-border">
-            <span class="text-muji-muted block text-xs mb-1">歐內段 (挪航/SAS)</span>
-            <p class="font-semibold text-muji-dark">託運: 23kg × 1件/人</p>
-            <p class="text-muji-muted text-xs mt-0.5">隨身手提包 1件</p>
+          <div class="bg-muji-bg p-3 rounded-xl border border-muji-border space-y-1">
+            <span class="text-muji-accent font-bold block text-xs">歐內段 (挪航/SAS)</span>
+            <p class="font-semibold text-muji-dark text-xs leading-tight">託運: 23kg × 1件/人</p>
+            <p class="text-muji-muted text-[11px] pt-1.5">隨身手提包 1件</p>
           </div>
         </div>
       </div>
 
+      <!-- Ticket Cards -->
       <div class="space-y-4" id="flight-ticket-list">
-        </div>
+        <!-- Dynamically Generated Ticket Cards -->
+      </div>
     </section>
 
+    <!-- TAB 3: CAR RENTALS -->
     <section id="tab-cars" class="hidden space-y-5">
       <div class="flex items-center gap-2 mb-1">
         <i data-lucide="car" class="w-6 h-6 text-muji-accent"></i>
         <h2 class="text-lg font-bold text-muji-dark">租車資訊細節</h2>
       </div>
 
+      <!-- Rental 1 -->
       <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-3.5">
         <div class="flex justify-between items-center border-b border-muji-border pb-3">
           <div class="flex items-center gap-2">
@@ -156,6 +173,7 @@
         </div>
       </div>
 
+      <!-- Rental 2 -->
       <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-3.5">
         <div class="flex justify-between items-center border-b border-muji-border pb-3">
           <div class="flex items-center gap-2">
@@ -200,6 +218,7 @@
       </div>
     </section>
 
+    <!-- TAB 4: ACCOMMODATIONS -->
     <section id="tab-hotels" class="hidden space-y-5">
       <div class="flex items-center gap-2 mb-1">
         <i data-lucide="hotel" class="w-6 h-6 text-muji-accent"></i>
@@ -209,6 +228,7 @@
       <div class="space-y-3.5" id="hotel-list"></div>
     </section>
 
+    <!-- TAB 5: PACKING CHECKLIST -->
     <section id="tab-checklist" class="hidden space-y-5">
       <div class="flex items-center justify-between mb-1">
         <div class="flex items-center gap-2">
@@ -218,6 +238,7 @@
         <button onclick="resetChecklist()" class="text-xs text-muji-accent underline font-medium">重設清單</button>
       </div>
 
+      <!-- Progress bar -->
       <div class="bg-muji-card p-4 rounded-2xl border border-muji-border shadow-sm space-y-2">
         <div class="flex justify-between text-sm font-semibold">
           <span class="text-muji-dark">準備進度</span>
@@ -229,9 +250,11 @@
       </div>
 
       <div class="space-y-4" id="packing-checklist-container">
-        </div>
+        <!-- Checklist categories rendered dynamically -->
+      </div>
     </section>
 
+    <!-- TAB 6: EXPENSES (Accounting) -->
     <section id="tab-accounting" class="hidden space-y-5">
       <div class="flex items-center justify-between mb-1">
         <div class="flex items-center gap-2">
@@ -241,6 +264,7 @@
         <div class="text-xs text-muji-muted font-medium">預設: 1 EUR = 35 TWD</div>
       </div>
 
+      <!-- Add Expense Form -->
       <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-3.5">
         <h3 class="text-base font-bold text-muji-dark">新增消費記錄</h3>
         <form id="expense-form" class="space-y-3.5">
@@ -292,6 +316,7 @@
         </form>
       </div>
 
+      <!-- Expense Summary & List -->
       <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-3.5">
         <div class="flex justify-between items-center border-b border-muji-border pb-2.5">
           <h3 class="text-base font-bold text-muji-dark">總花費統計</h3>
@@ -304,6 +329,7 @@
 
   </main>
 
+  <!-- Bottom Navigation Bar -->
   <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-muji-card border-t border-muji-border z-30 px-2 py-2 flex justify-around items-center text-xs font-medium">
     <button onclick="switchTab('flights')" id="nav-flights" class="flex flex-col items-center gap-1 p-1 text-muji-muted">
       <i data-lucide="plane" class="w-5 h-5"></i>
@@ -327,8 +353,40 @@
     </button>
   </nav>
 
+  <!-- Application Logic JavaScript -->
   <script>
     const EUR_RATE = 35;
+
+    // THSR Data Definition
+    const thsrGroups = [
+      {
+        date: "2026-09-23",
+        members: "爸媽喬儒",
+        route: "左營 ➔ 台北",
+        trainNo: "車次 842",
+        time: "16:25 - 18:39",
+        carNo: "車廂 4",
+        note: "前往台北住宿 (雀客旅館台北站前)"
+      },
+      {
+        date: "2026-09-24",
+        members: "喻",
+        route: "左營 ➔ 桃園",
+        trainNo: "車次 1602",
+        time: "06:40 - 08:16",
+        carNo: "車廂 5",
+        note: "前往桃園機場 TPE 航廈辦理登機"
+      },
+      {
+        date: "2026-09-24",
+        members: "佑欣",
+        route: "左營 ➔ 桃園",
+        trainNo: "車次 612",
+        time: "08:00 - 09:36",
+        carNo: "車廂 4",
+        note: "前往桃園機場 TPE 航廈辦理登機"
+      }
+    ];
 
     // Detailed Itinerary Data with Station Names & Notes
     const tripData = [
@@ -336,7 +394,7 @@
         day: 1, date: "2026-09-24", weekday: "週四", location: "台北飛往東京轉機至芬蘭", city: "Helsinki", lat: 60.1699, lon: 24.9384,
         hotel: "夜宿機上", hotelAddress: "",
         spots: [
-          { name: "高鐵專車接送前往桃園機場", transport: "高鐵專車接送", desc: "提前前往桃園國際機場辦理登機與託運手續。", fee: "免額外付費", note: "28天高鐵專車接送服務" },
+          { name: "高鐵接駁至桃園機場", transport: "台灣高鐵 / 接送專車", desc: "成員搭乘指定班次高鐵抵達桃園，搭接駁專車前往桃園機場航廈辦理報到託運。", fee: "已預訂車票", note: "請參考頂部【高鐵】卡片核對各自車次" },
           { name: "桃園 TPE ➔ 東京 NRT / HND", transport: "飛機 JL802 / JL8664", desc: "10:55-14:55 (JL802 成田 NRT) / 12:45-17:15 (JL8664 成田 NRT)，飛抵東京轉機。", fee: "已含機票", note: "準備轉乘跨國航班" },
           { name: "東京 HND / NRT ➔ 赫爾辛基 HEL", transport: "飛機 JL6877 / JL6801", desc: "JL6877 (羽田 HND 21:50-04:40+1) / JL6801 (成田 NRT 23:05-05:55+1)。", fee: "已含機票", note: "夜宿機上，隔日清晨抵達赫爾辛基" }
         ]
@@ -368,7 +426,7 @@
         day: 4, date: "2026-09-27", weekday: "週日", location: "特羅姆瑟 (北極圈門戶)", city: "Tromso", lat: 69.6492, lon: 18.9553,
         hotel: "Staying Apt 3 - New and modern", hotelAddress: "16 Kaare Moursunds veg, 9007 特羅姆瑟, 挪威",
         spots: [
-          { name: "飛往特羅姆瑟 DY381 & 機場取車", transport: "飛機 (09:45-10:05) + 自駕", desc: "羅瓦涅米機場還車後搭機飛往挪威特羅姆瑟，抵達機場辦理第1次租車取車。", fee: "已含機票", station: "Tromsø Airport Airport (特羅姆瑟機場航站樓內)", note: "5人座單號 764865337 / 7人座單號 757900263" },
+          { name: "飛往特羅姆瑟 DY381 & 機場取車", transport: "飛機 (09:45-10:05) + 自駕", desc: "羅瓦涅米機場還車後搭機飛往挪威特羅姆瑟，抵達機場辦理第1次租車取車。", fee: "已含機票", station: "Tromsø Airport (特羅姆瑟機場航站樓內)", note: "5人座單號 764865337 / 7人座單號 757900263" },
           { name: "北極之門 & 特羅姆瑟主教堂", transport: "租車自駕 (約15m)", desc: "打卡 Gateway to the Arctic 與極北木造主教堂，於特羅姆瑟市區散步午餐。", fee: "免費", note: "漫步市區港灣" },
           { name: "北極大教堂 (Arctic Cathedral)", transport: "租車自駕 (約10m)", desc: "特羅姆瑟標誌性三角形現代建築教堂，極具幾何線條美感。", fee: "約 70 NOK", note: "經典地標建築" },
           { name: "Fjellheisen 纜車觀景台", transport: "租車自駕 (約10m)", desc: "搭乘纜車登上 Storsteinen 山頂，俯瞰特羅姆瑟全景與壯麗峽灣夜景。", fee: "約 495-595 NOK", note: "不需預約，山頂夜景極佳" },
@@ -660,7 +718,8 @@
       }
     ];
 
-    let selectedDayIndex = 0;
+    // Global Selection: 'thsr' or integer index (0..23)
+    let selectedSelection = 0;
     let weatherCache = {};
 
     async function fetchWeather(lat, lon, dateStr) {
@@ -697,14 +756,32 @@
       return "cloud";
     }
 
+    // Render Date Slider with Special THSR button on the very left
     function renderDateSlider() {
       const slider = document.getElementById('date-slider');
-      slider.innerHTML = tripData.map((item, idx) => {
-        const isSelected = idx === selectedDayIndex;
+      
+      const isThsrActive = selectedSelection === 'thsr';
+      const thsrBtnClass = isThsrActive 
+        ? 'bg-muji-orange text-white border-white shadow-md font-bold' 
+        : 'bg-white/20 text-white hover:bg-white/30 border-white/30 backdrop-blur';
+
+      let html = `
+        <button onclick="selectItem('thsr')" class="flex-shrink-0 px-3.5 py-1.5 rounded-xl text-center border transition-all ${thsrBtnClass}">
+          <div class="text-[10px] uppercase flex items-center justify-center gap-0.5">
+            <i data-lucide="train" class="w-3 h-3"></i>
+            <span>台灣</span>
+          </div>
+          <div class="text-xs font-bold">高鐵</div>
+          <div class="text-[9px] opacity-80">9/23-24</div>
+        </button>
+      `;
+
+      html += tripData.map((item, idx) => {
+        const isSelected = selectedSelection === idx;
         const displayDate = item.date.substring(5).replace('-', '/');
         const activeClass = isSelected ? 'bg-white text-muji-dark border-white shadow-md font-bold' : 'bg-white/15 text-white/90 border-white/20 hover:bg-white/30 backdrop-blur';
         return `
-          <button onclick="selectDay(${idx})" class="flex-shrink-0 px-3.5 py-1.5 rounded-xl text-center border transition-all ${activeClass}">
+          <button onclick="selectItem(${idx})" class="flex-shrink-0 px-3.5 py-1.5 rounded-xl text-center border transition-all ${activeClass}">
             <div class="text-[10px] uppercase">${item.weekday}</div>
             <div class="text-xs font-bold">${displayDate}</div>
             <div class="text-[9px] opacity-75">D${item.day}</div>
@@ -712,16 +789,74 @@
         `;
       }).join('');
 
-      const activeBtn = slider.children[selectedDayIndex];
+      slider.innerHTML = html;
+      lucide.createIcons();
+
+      // Auto scroll to active button
+      const activeIdx = selectedSelection === 'thsr' ? 0 : selectedSelection + 1;
+      const activeBtn = slider.children[activeIdx];
       if (activeBtn) {
         activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
       }
     }
 
     async function renderItineraryDetail() {
-      const day = tripData[selectedDayIndex];
       const container = document.getElementById('itinerary-detail-card');
 
+      // If THSR is selected
+      if (selectedSelection === 'thsr') {
+        container.innerHTML = `
+          <div class="space-y-4">
+            <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm flex justify-between items-start">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-white bg-muji-orange px-2.5 py-0.5 rounded">台灣出發</span>
+                  <span class="text-xs font-medium text-muji-muted">2026.09.23 - 09.24</span>
+                </div>
+                <h2 class="text-lg font-bold text-muji-dark mt-1">台灣高鐵搭乘資訊 (三組)</h2>
+              </div>
+              <div class="p-2 bg-muji-bg rounded-xl border border-muji-border text-muji-orange">
+                <i data-lucide="train" class="w-5 h-5"></i>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              ${thsrGroups.map((g, i) => `
+                <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-2.5">
+                  <div class="flex justify-between items-start border-b border-muji-border pb-2">
+                    <div>
+                      <span class="text-xs font-bold text-muji-accent bg-muji-accentLight px-2 py-0.5 rounded font-mono">${g.date}</span>
+                      <h3 class="text-base font-bold text-muji-dark mt-1">組別 ${i + 1}：${g.members}</h3>
+                    </div>
+                    <span class="text-xs font-bold text-white bg-muji-orange px-2.5 py-1 rounded-full">${g.trainNo}</span>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-2 text-sm pt-1">
+                    <div class="bg-muji-bg p-2.5 rounded-xl border border-muji-border space-y-0.5">
+                      <span class="text-muji-muted text-xs block">搭乘區間</span>
+                      <p class="font-bold text-muji-dark">${g.route}</p>
+                    </div>
+                    <div class="bg-muji-bg p-2.5 rounded-xl border border-muji-border space-y-0.5">
+                      <span class="text-muji-muted text-xs block">發車 - 抵達時間</span>
+                      <p class="font-bold text-muji-dark">${g.time}</p>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center text-xs text-muji-muted pt-1">
+                    <span class="font-bold text-muji-dark bg-muji-accentLight px-2.5 py-1 rounded-lg">${g.carNo}</span>
+                    <span>${g.note}</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      // Daily Trip Schedule
+      const day = tripData[selectedSelection];
       container.innerHTML = `<div class="p-8 text-center text-sm text-muji-muted">載入行程與天氣資訊中...</div>`;
 
       const weather = await fetchWeather(day.lat, day.lon, day.date);
@@ -729,6 +864,7 @@
 
       container.innerHTML = `
         <div class="space-y-4">
+          <!-- Day Header -->
           <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm flex justify-between items-start">
             <div>
               <div class="flex items-center gap-2">
@@ -743,6 +879,7 @@
             </div>
           </div>
 
+          <!-- Individual Spot Cards -->
           <div class="space-y-3">
             <div class="text-xs font-bold text-muji-muted px-1 flex items-center gap-1">
               <i data-lucide="map-pin" class="w-4 h-4 text-muji-accent"></i>
@@ -784,6 +921,7 @@
                       <span>交通: ${spot.transport}</span>
                     </div>
 
+                    <!-- Google Maps Button at Bottom-Right -->
                     <a href="${spotMapUrl}" target="_blank" class="flex items-center gap-1 bg-muji-bg px-2.5 py-1 rounded-lg border border-muji-border text-muji-accent hover:bg-muji-accentLight transition-all text-[11px] font-semibold flex-shrink-0">
                       <i data-lucide="map" class="w-3 h-3"></i>
                       <span>地圖</span>
@@ -795,6 +933,7 @@
             }).join('')}
           </div>
 
+          <!-- Accommodation Summary Card -->
           <div class="bg-muji-card rounded-xl p-3.5 border border-muji-border flex justify-between items-center text-xs">
             <div class="flex items-center gap-1.5 text-muji-muted">
               <i data-lucide="bed" class="w-4 h-4 text-muji-accent"></i>
@@ -808,8 +947,8 @@
       lucide.createIcons();
     }
 
-    function selectDay(index) {
-      selectedDayIndex = index;
+    function selectItem(selection) {
+      selectedSelection = selection;
       switchTab('itinerary');
       renderDateSlider();
       renderItineraryDetail();
@@ -824,12 +963,14 @@
           <div class="space-y-1.5 pt-2 first:pt-0 border-t border-muji-border first:border-0">
             <div class="text-center text-xs text-muji-accent font-bold font-mono">${leg.code}</div>
             <div class="flex justify-between items-center text-center">
+              <!-- Departure -->
               <div class="w-24 text-left">
                 <div class="text-2xl font-bold text-muji-dark tracking-tight font-mono">${leg.depCode}</div>
                 <div class="text-xl font-bold text-muji-dark">${leg.depTime}</div>
                 <span class="inline-block mt-1 text-xs font-semibold text-white bg-muji-green px-2.5 py-0.5 rounded-full">${leg.depName}</span>
               </div>
 
+              <!-- Upward Flying Plane -->
               <div class="flex-1 px-2 flex flex-col items-center">
                 <span class="text-xs text-muji-muted mb-1 font-mono">${leg.duration}</span>
                 <div class="w-full flex items-center gap-1">
@@ -839,6 +980,7 @@
                 </div>
               </div>
 
+              <!-- Arrival -->
               <div class="w-24 text-right">
                 <div class="text-2xl font-bold text-muji-dark tracking-tight font-mono">${leg.arrCode}</div>
                 <div class="text-xl font-bold text-muji-dark">${leg.arrTime}</div>
