@@ -64,29 +64,29 @@
     </div>
   </header>
 
-  <!-- 頂部橫向滑動天數按鈕（常駐） -->
-  <div class="px-5 pt-4 pb-2 bg-cream">
-    <div class="flex items-center justify-between px-1 mb-2">
-      <span class="text-base font-black text-charcoal flex items-center gap-1.5">
-        <i data-lucide="calendar" class="w-5 h-5 text-sakura"></i>
-        行程日程切換
-      </span>
-      <span class="text-xs text-gray-500 font-bold">可左右橫向滑動 ➔</span>
-    </div>
-    <div id="date-scroll-container" class="flex gap-3 overflow-x-auto no-scrollbar py-1 px-1">
-      <!-- 由 JS 動態渲染 7 天按鈕 -->
-    </div>
-  </div>
-
-  <!-- 內容顯示區 -->
+  <!-- ==========================================
+       主內容區塊 (切換分頁)
+       ========================================== -->
   <main class="flex-1 p-5 pt-2 space-y-6">
 
-    <!-- ==========================================
-         分頁 1：主要航班資訊與行李額度（下方第一個欄位）
-         ========================================== -->
-    <div id="tab-flights" class="tab-content space-y-5">
+    <!-- 首頁：純每日行程與即時氣象 -->
+    <div id="tab-home" class="tab-content space-y-5">
       
-      <!-- 當日重點與天氣摘要膠囊 -->
+      <!-- 頂部橫向滑動天數按鈕 -->
+      <section class="space-y-2 pt-2">
+        <div class="flex items-center justify-between px-1">
+          <span class="text-base font-black text-charcoal flex items-center gap-1.5">
+            <i data-lucide="calendar" class="w-5 h-5 text-sakura"></i>
+            旅遊日期切換
+          </span>
+          <span class="text-xs text-gray-500 font-bold">可左右橫向滑動 ➔</span>
+        </div>
+        <div id="date-scroll-container" class="flex gap-3 overflow-x-auto no-scrollbar py-1 px-1">
+          <!-- JS 動態渲染 7 天按鈕 -->
+        </div>
+      </section>
+
+      <!-- 即時天氣卡片 -->
       <section>
         <div id="weather-banner" class="bg-white rounded-3xl p-5 shadow-cute border border-orange-100 flex items-center justify-between">
           <div class="flex items-center gap-4">
@@ -100,7 +100,7 @@
         </div>
       </section>
 
-      <!-- 當日景點摘要清單 (隨上方天數按鈕動態連動) -->
+      <!-- 當日景點清單 -->
       <section class="space-y-3.5">
         <div class="flex items-center justify-between px-1">
           <h2 class="text-lg font-black text-charcoal flex items-center gap-2">
@@ -109,93 +109,91 @@
           </h2>
         </div>
         <div id="itinerary-list" class="space-y-4">
-          <!-- JS 動態生成當天行程卡片 -->
-        </div>
-      </section>
-
-      <!-- 航班登機牌資訊 -->
-      <section class="space-y-4 pt-2">
-        <div class="flex items-center justify-between px-1.5">
-          <h2 class="text-lg font-black flex items-center gap-2 text-charcoal">
-            <i data-lucide="plane-takeoff" class="w-5 h-5 text-rose-500"></i>
-            主要航班資訊
-          </h2>
-          <span class="text-xs text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full font-bold">每人 23KG (含小孩)</span>
-        </div>
-
-        <!-- 去程機票卡片 -->
-        <div class="bg-white rounded-3xl p-6 shadow-cute border border-orange-100 relative overflow-hidden">
-          <div class="flex justify-between items-center border-b-2 border-dashed border-gray-200 pb-3.5">
-            <span class="bg-sakura text-white font-black text-xs px-3.5 py-1 rounded-full tracking-wider">去程 BOARDING PASS</span>
-            <span class="font-black text-lg text-charcoal tracking-wide">UA 838</span>
-          </div>
-          <div class="flex items-center justify-between my-5 px-1">
-            <div>
-              <div class="text-3xl font-black text-charcoal">KHH</div>
-              <div class="text-sm text-gray-500 font-bold mt-0.5">高雄小港</div>
-              <div class="text-lg font-black text-emerald-700 mt-1">09:55</div>
-            </div>
-            <div class="flex flex-col items-center">
-              <span class="text-xs text-gray-500 font-bold mb-1.5">9/15 (週二)</span>
-              <div class="w-24 border-t-2 border-sakura relative">
-                <i data-lucide="plane" class="w-4 h-4 text-sakura absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-0.5"></i>
-              </div>
-              <span class="text-xs text-gray-500 mt-1.5 font-bold">3h 50m</span>
-            </div>
-            <div class="text-right">
-              <div class="text-3xl font-black text-charcoal">NRT</div>
-              <div class="text-sm text-gray-500 font-bold mt-0.5">成田第1航廈</div>
-              <div class="text-lg font-black text-emerald-700 mt-1">14:45</div>
-            </div>
-          </div>
-          <div class="bg-cream/90 p-4 rounded-2xl flex justify-between items-center text-sm border border-orange-100">
-            <span class="text-gray-600 font-bold">免費託運行李：</span>
-            <span class="font-black text-charcoal flex items-center gap-1.5">
-              <i data-lucide="luggage" class="w-4 h-4 text-matcha"></i> 23 KG / 人
-            </span>
-          </div>
-        </div>
-
-        <!-- 回程機票卡片 -->
-        <div class="bg-white rounded-3xl p-6 shadow-cute border border-orange-100 relative overflow-hidden">
-          <div class="flex justify-between items-center border-b-2 border-dashed border-gray-200 pb-3.5">
-            <span class="bg-teal-500 text-white font-black text-xs px-3.5 py-1 rounded-full tracking-wider">回程 BOARDING PASS</span>
-            <span class="font-black text-lg text-charcoal tracking-wide">UA 839</span>
-          </div>
-          <div class="flex items-center justify-between my-5 px-1">
-            <div>
-              <div class="text-3xl font-black text-charcoal">NRT</div>
-              <div class="text-sm text-gray-500 font-bold mt-0.5">成田第1航廈</div>
-              <div class="text-lg font-black text-emerald-700 mt-1">17:50</div>
-            </div>
-            <div class="flex flex-col items-center">
-              <span class="text-xs text-gray-500 font-bold mb-1.5">9/21 (週一)</span>
-              <div class="w-24 border-t-2 border-teal-400 relative">
-                <i data-lucide="plane" class="w-4 h-4 text-teal-500 absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-0.5"></i>
-              </div>
-              <span class="text-xs text-gray-500 mt-1.5 font-bold">4h 10m</span>
-            </div>
-            <div class="text-right">
-              <div class="text-3xl font-black text-charcoal">KHH</div>
-              <div class="text-sm text-gray-500 font-bold mt-0.5">高雄小港</div>
-              <div class="text-lg font-black text-emerald-700 mt-1">21:00</div>
-            </div>
-          </div>
-          <div class="bg-cream/90 p-4 rounded-2xl flex justify-between items-center text-sm border border-orange-100">
-            <span class="text-gray-600 font-bold">免費託運行李：</span>
-            <span class="font-black text-charcoal flex items-center gap-1.5">
-              <i data-lucide="luggage" class="w-4 h-4 text-teal-600"></i> 每人 23KG (包含小孩)
-            </span>
-          </div>
+          <!-- JS 動態生成景點卡片 -->
         </div>
       </section>
     </div>
 
-    <!-- ==========================================
-         分頁 2：飯店住宿與租車詳情 (下方第二個欄位)
-         ========================================== -->
+    <!-- 下方欄位 1：主要航班資訊 (獨立分頁) -->
+    <div id="tab-flights" class="tab-content hidden space-y-5">
+      <div class="flex items-center justify-between px-1.5 pt-2">
+        <h2 class="text-lg font-black flex items-center gap-2 text-charcoal">
+          <i data-lucide="plane-takeoff" class="w-5 h-5 text-rose-500"></i>
+          主要航班資訊
+        </h2>
+        <span class="text-xs text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full font-bold">每人 23KG (含小孩)</span>
+      </div>
+
+      <!-- 去程機票卡片 -->
+      <div class="bg-white rounded-3xl p-6 shadow-cute border border-orange-100 relative overflow-hidden">
+        <div class="flex justify-between items-center border-b-2 border-dashed border-gray-200 pb-3.5">
+          <span class="bg-sakura text-white font-black text-xs px-3.5 py-1 rounded-full tracking-wider">去程 BOARDING PASS</span>
+          <span class="font-black text-lg text-charcoal tracking-wide">UA 838</span>
+        </div>
+        <div class="flex items-center justify-between my-5 px-1">
+          <div>
+            <div class="text-3xl font-black text-charcoal">KHH</div>
+            <div class="text-sm text-gray-500 font-bold mt-0.5">高雄小港</div>
+            <div class="text-lg font-black text-emerald-700 mt-1">09:55</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-xs text-gray-500 font-bold mb-1.5">9/15 (週二)</span>
+            <div class="w-24 border-t-2 border-sakura relative">
+              <i data-lucide="plane" class="w-4 h-4 text-sakura absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-0.5"></i>
+            </div>
+            <span class="text-xs text-gray-500 mt-1.5 font-bold">3h 50m</span>
+          </div>
+          <div class="text-right">
+            <div class="text-3xl font-black text-charcoal">NRT</div>
+            <div class="text-sm text-gray-500 font-bold mt-0.5">成田第1航廈</div>
+            <div class="text-lg font-black text-emerald-700 mt-1">14:45</div>
+          </div>
+        </div>
+        <div class="bg-cream/90 p-4 rounded-2xl flex justify-between items-center text-sm border border-orange-100">
+          <span class="text-gray-600 font-bold">免費託運行李：</span>
+          <span class="font-black text-charcoal flex items-center gap-1.5">
+            <i data-lucide="luggage" class="w-4 h-4 text-matcha"></i> 23 KG / 人
+          </span>
+        </div>
+      </div>
+
+      <!-- 回程機票卡片 -->
+      <div class="bg-white rounded-3xl p-6 shadow-cute border border-orange-100 relative overflow-hidden">
+        <div class="flex justify-between items-center border-b-2 border-dashed border-gray-200 pb-3.5">
+          <span class="bg-teal-500 text-white font-black text-xs px-3.5 py-1 rounded-full tracking-wider">回程 BOARDING PASS</span>
+          <span class="font-black text-lg text-charcoal tracking-wide">UA 839</span>
+        </div>
+        <div class="flex items-center justify-between my-5 px-1">
+          <div>
+            <div class="text-3xl font-black text-charcoal">NRT</div>
+            <div class="text-sm text-gray-500 font-bold mt-0.5">成田第1航廈</div>
+            <div class="text-lg font-black text-emerald-700 mt-1">17:50</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-xs text-gray-500 font-bold mb-1.5">9/21 (週一)</span>
+            <div class="w-24 border-t-2 border-teal-400 relative">
+              <i data-lucide="plane" class="w-4 h-4 text-teal-500 absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-0.5"></i>
+            </div>
+            <span class="text-xs text-gray-500 mt-1.5 font-bold">4h 10m</span>
+          </div>
+          <div class="text-right">
+            <div class="text-3xl font-black text-charcoal">KHH</div>
+            <div class="text-sm text-gray-500 font-bold mt-0.5">高雄小港</div>
+            <div class="text-lg font-black text-emerald-700 mt-1">21:00</div>
+          </div>
+        </div>
+        <div class="bg-cream/90 p-4 rounded-2xl flex justify-between items-center text-sm border border-orange-100">
+          <span class="text-gray-600 font-bold">免費託運行李：</span>
+          <span class="font-black text-charcoal flex items-center gap-1.5">
+            <i data-lucide="luggage" class="w-4 h-4 text-teal-600"></i> 每人 23KG (包含小孩)
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 下方欄位 2：住宿地點與租車 (獨立分頁) -->
     <div id="tab-hotels" class="tab-content hidden space-y-6">
-      <div class="flex items-center justify-between px-1.5">
+      <div class="flex items-center justify-between px-1.5 pt-2">
         <h2 class="text-lg font-black flex items-center gap-2 text-charcoal">
           <i data-lucide="building" class="w-5 h-5 text-indigo-500"></i>
           住宿地點資訊
@@ -287,7 +285,7 @@
           </div>
           <div class="bg-cream/90 p-4 rounded-2xl space-y-2 text-sm text-gray-700 border border-orange-100/60">
             <div>BOOKING 訂單號：<span class="font-mono font-bold text-charcoal text-base">6068870748</span></div>
-            <div class="text-xs text-gray-600 font-medium">地址：東京都墨田區橫川 1-18-7 星の宿 (1-chōme-18-7 Yokokawa, Sumida City, Tokyo 130-0003 日本)</div>
+            <div class="text-xs text-gray-600 font-medium">地址：1-chōme-18-7 Yokokawa, Sumida City, Tokyo 130-0003 日本 (東京都墨田區橫川 1-18-7 星の宿)</div>
           </div>
           <div class="flex items-center justify-between pt-1">
             <span class="text-xs text-gray-500 font-bold">鄰近晴空塔與錦糸町</span>
@@ -341,13 +339,11 @@
       </section>
     </div>
 
-    <!-- ==========================================
-         分頁 3：旅行記帳功能 (垂直堆疊，徹底防重疊)
-         ========================================== -->
+    <!-- 下方欄位 3：旅行記帳功能 (獨立分頁) -->
     <div id="tab-expenses" class="tab-content hidden space-y-6">
       
       <!-- 標題與匯率 -->
-      <div class="flex items-center justify-between px-1.5">
+      <div class="flex items-center justify-between px-1.5 pt-2">
         <h2 class="text-lg font-black flex items-center gap-2 text-charcoal">
           <i data-lucide="wallet" class="w-5 h-5 text-emerald-600"></i>
           旅行花費記帳
@@ -358,7 +354,7 @@
         </div>
       </div>
 
-      <!-- 記帳輸入卡片：改為單欄獨立佈局，確保欄位不重疊 -->
+      <!-- 記帳輸入卡片 -->
       <div class="bg-white rounded-3xl p-6 shadow-cute border-2 border-orange-100 space-y-4">
         <h3 class="text-base font-black text-charcoal flex items-center gap-2 border-b border-gray-100 pb-3">
           <i data-lucide="plus-circle" class="w-5 h-5 text-sakura"></i>
@@ -366,13 +362,11 @@
         </h3>
 
         <form id="expense-form" class="space-y-4">
-          <!-- 1. 消費日期 (單獨一列) -->
           <div class="space-y-1.5">
             <label class="block text-xs font-black text-gray-600 px-1">消費日期</label>
             <input type="date" id="exp-date" class="w-full bg-cream/90 rounded-2xl p-3.5 border border-orange-200 text-sm font-bold focus:bg-white focus:outline-sakura block" required />
           </div>
 
-          <!-- 2. 品項類別 (單獨一列，徹底杜絕並排重疊) -->
           <div class="space-y-1.5">
             <label class="block text-xs font-black text-gray-600 px-1">品項 (加油、景點門票、餐費、交通搭車、雜物)</label>
             <select id="exp-cat" class="w-full bg-cream/90 rounded-2xl p-3.5 border border-orange-200 text-sm font-bold focus:bg-white focus:outline-sakura block">
@@ -384,19 +378,16 @@
             </select>
           </div>
 
-          <!-- 3. 日幣金額 (單獨一列) -->
           <div class="space-y-1.5">
             <label class="block text-xs font-black text-gray-600 px-1">日幣金額 (JPY ¥)</label>
             <input type="number" id="exp-jpy" placeholder="請輸入日幣金額" min="1" class="w-full bg-cream/90 rounded-2xl p-3.5 border border-orange-200 font-mono font-black text-base focus:bg-white focus:outline-sakura block" required />
           </div>
 
-          <!-- 4. 自動換算台幣 (單獨一列) -->
           <div class="space-y-1.5">
-            <label class="block text-xs font-black text-gray-600 px-1">折合台幣 (TWD NT$ 自動計算)</label>
+            <label class="block text-xs font-black text-gray-600 px-1">折合台幣 (TWD NT$ 自動換算)</label>
             <input type="text" id="exp-twd-preview" readonly placeholder="約 NT$ 0 元" class="w-full bg-gray-100 rounded-2xl p-3.5 text-gray-500 font-mono font-black text-base border border-gray-200 block" />
           </div>
 
-          <!-- 5. 支付方式與按鈕 -->
           <div class="pt-3 flex items-center justify-between border-t border-gray-100">
             <div class="flex items-center gap-4 px-1">
               <label class="flex items-center gap-1.5 text-sm font-black cursor-pointer text-charcoal">
@@ -434,12 +425,16 @@
   </main>
 
   <!-- ==========================================
-       底部導覽列 (分頁切換)
+       底部導覽列 (分頁欄位)
        ========================================== -->
-  <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/95 backdrop-blur-md border-t border-orange-100 py-3 px-6 flex justify-around items-center z-40 shadow-2xl">
-    <button onclick="switchTab('flights')" id="btn-tab-flights" class="nav-btn flex flex-col items-center gap-1 text-sakura font-black transition">
-      <i data-lucide="plane" class="w-6 h-6"></i>
+  <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/95 backdrop-blur-md border-t border-orange-100 py-3 px-4 flex justify-around items-center z-40 shadow-2xl">
+    <button onclick="switchTab('flights')" id="btn-tab-flights" class="nav-btn flex flex-col items-center gap-1 text-gray-500 font-bold transition">
+      <i data-lucide="plane-takeoff" class="w-6 h-6"></i>
       <span class="text-xs">主要航班</span>
+    </button>
+    <button onclick="switchTab('home')" id="btn-tab-home" class="nav-btn flex flex-col items-center gap-1 text-sakura font-black transition">
+      <i data-lucide="map" class="w-6 h-6"></i>
+      <span class="text-xs">每日行程</span>
     </button>
     <button onclick="switchTab('hotels')" id="btn-tab-hotels" class="nav-btn flex flex-col items-center gap-1 text-gray-500 font-bold transition">
       <i data-lucide="hotel" class="w-6 h-6"></i>
@@ -452,7 +447,7 @@
   </nav>
 
   <script>
-    // 7 天完整景點資料（含 Google 地圖連結、介紹、營業時間、門票票價）
+    // 7 天景點與交通資料
     const tripData = [
       {
         day: 1,
@@ -466,7 +461,7 @@
           {
             title: "抵達 NRT 機場 ➡️ 前往 Nissan 取車直奔熱海",
             time: "14:45 - 16:30",
-            desc: "搭乘 UA838 抵達成田機場第1航廈，至服務櫃檯辦理取車手續，沿高速公路前往熱海飯店。",
+            desc: "搭乘 UA838 抵達成田機場第1航廈，至服務櫃檯辦理取車手續，沿高速公路前往熱海飯店[cite: 1, 2]。",
             ticket: "租車預約號碼: 26073102473",
             hours: "櫃檯出發時間 16:30",
             map: "https://maps.google.com/?q=成田機場第1候機樓"
@@ -493,7 +488,7 @@
           {
             title: "來宮神社 (Kinomiya Shrine)",
             time: "09:30 - 11:00",
-            desc: "熱海著名的能量景點，參拜樹齡達 2,000 年的大楠樹神木與境內雅致茶席咖啡。",
+            desc: "熱海著名的能量景點，參拜樹齡達 2,000 年的大楠樹神木與境內雅致茶席咖啡[cite: 1]。",
             ticket: "免費入社參拜",
             hours: "09:00 - 17:00",
             map: "https://maps.google.com/?q=來宮神社"
@@ -501,7 +496,7 @@
           {
             title: "熱海銀座商店街 (美食散策)",
             time: "11:30 - 13:30",
-            desc: "昭和復古洋風商店街，必吃熱海布丁、現烤海鮮乾貨、溫泉甜點與咖啡廳。",
+            desc: "昭和復古洋風商店街，必吃熱海布丁、現烤海鮮乾貨、溫泉甜點與咖啡廳[cite: 1]。",
             ticket: "店內自由消費",
             hours: "約 10:00 - 18:00 (依各店家)",
             map: "https://maps.google.com/?q=熱海銀座商店街"
@@ -509,7 +504,7 @@
           {
             title: "熱海城 (Atami Castle)",
             time: "14:00 - 15:30",
-            desc: "聳立於錦之浦山頂，360 度俯瞰相模灣海景與熱海港，附設免費足湯觀景台。",
+            desc: "聳立於錦之浦山頂，360 度俯瞰相模灣海景與熱海港，附設免費足湯觀景台[cite: 1]。",
             ticket: "成人 ¥1,100 / 中小學生 ¥600",
             hours: "09:00 - 17:00 (最後入場 16:30)",
             map: "https://maps.google.com/?q=熱海城"
@@ -517,7 +512,7 @@
           {
             title: "ACAO FOREST (赤尾香草玫瑰園)",
             time: "15:45 - 17:30",
-            desc: "山坡景觀花園，造訪隈研吾設計的 COEDA HOUSE 玻璃木造咖啡廳與海景鞦韆。",
+            desc: "山坡景觀花園，造訪隈研吾設計的 COEDA HOUSE 玻璃木造咖啡廳與海景鞦韆[cite: 1]。",
             ticket: "成人約 ¥3,000",
             hours: "09:00 - 17:00 (最後入園 16:00)",
             map: "https://maps.google.com/?q=ACAO+FOREST"
@@ -536,7 +531,7 @@
           {
             title: "大室山 (Omuroyama) 【視天氣而定】",
             time: "09:30 - 12:00",
-            desc: "抹茶布丁火山！整座山禁止開車與徒步爬山，需搭乘雙人吊椅纜車登頂眺望富士山。",
+            desc: "抹茶布丁火山！整座山禁止開車與徒步爬山，需搭乘雙人吊椅纜車登頂眺望富士山[cite: 1]。",
             ticket: "吊椅纜車來回：大人 ¥1,000 / 兒童 ¥500 (停車免費)",
             hours: "09:00 - 17:00 (若遇天候不佳停駛)",
             map: "https://maps.google.com/?q=大室山"
@@ -544,15 +539,15 @@
           {
             title: "小室山 Ridge Walk MISORA",
             time: "13:30 - 15:30",
-            desc: "標高321米，走在木質天空環景步道上眺望相模灣海景與玻璃景觀咖啡廳。",
-            ticket: "單人吊椅纜車來回 ¥800 / 步道免費步行上山 (停車免費)",
+            desc: "標高321米，走在木質天空環景步道上眺望相模灣海景與玻璃景觀咖啡廳[cite: 1]。",
+            ticket: "單人吊椅纜車來回 ¥800 / 步道免費步行上山 (停車免費)[cite: 1]",
             hours: "纜車 09:30 - 16:00 / 咖啡廳至 16:00",
             map: "https://maps.google.com/?q=小室山Ridge+Walk+MISORA"
           },
           {
             title: "入住 Atagawa Ocean Resort",
             time: "16:30 抵達",
-            desc: "熱川海岸第一排，享受面海私人陽台、海鮮自助晚餐與天然溫泉放鬆。",
+            desc: "熱川海岸第一排，享受面海私人陽台、海鮮自助晚餐與天然溫泉放鬆[cite: 1]。",
             ticket: "含早晚餐 / Booking: 6562190907",
             hours: "15:00 後登記入住",
             map: "https://maps.google.com/?q=Atagawa+Ocean+Resort"
@@ -571,7 +566,7 @@
           {
             title: "蘆之湖 ＆ 箱根神社平和鳥居",
             time: "10:30 - 13:00",
-            desc: "由熱川開車前往約需 75 分鐘車程。漫步湖畔參拜水中平和鳥居，遠眺富士山。",
+            desc: "由熱川開車前往約需 75 分鐘車程。漫步湖畔參拜水中平和鳥居，遠眺富士山[cite: 1]。",
             ticket: "神社境內免費參拜；湖畔停車場約 ¥500/次",
             hours: "境內全天開放",
             map: "https://maps.google.com/?q=箱根神社+平和鳥居"
@@ -579,7 +574,7 @@
           {
             title: "箱根玻璃之森美術館",
             time: "14:00 - 16:00",
-            desc: "蘆之湖開車前往約需 20 分鐘。威尼斯歐風庭園，陽光下閃耀的水晶玻璃光之迴廊。",
+            desc: "蘆之湖開車前往約需 20 分鐘。威尼斯歐風庭園，陽光下閃耀的水晶玻璃光之迴廊[cite: 1]。",
             ticket: "成人 ¥1,800 / 大學高中生 ¥1,300 / 國中小 ¥600",
             hours: "10:00 - 17:30 (最後入館 17:00)",
             map: "https://maps.google.com/?q=箱根玻璃之森美術館"
@@ -587,7 +582,7 @@
           {
             title: "入住 Rakuten STAY VILLA 箱根仙石原",
             time: "16:30 抵達",
-            desc: "鄰近仙石原芒草草原，現代獨棟 Villa 別墅，每戶皆配備私人天然溫泉風呂。",
+            desc: "鄰近仙石原芒草草原，現代獨棟 Villa 別墅，每戶皆配備私人天然溫泉風呂[cite: 1]。",
             ticket: "含早餐 / Booking: 6068829974",
             hours: "15:00 以後入住",
             map: "https://maps.google.com/?q=Rakuten+STAY+VILLA+Hakone+Sengokuhara"
@@ -606,25 +601,25 @@
           {
             title: "大涌谷 (Owakudani)",
             time: "09:30 - 11:30",
-            desc: "白煙滾滾的活火山特殊地質地貌，可直接開車直達停車場，品嚐長壽黑雞蛋。",
-            ticket: "免入園費；小客車停車費 ¥530/次",
+            desc: "白煙滾滾的活火山特殊地質地貌，可直接開車直達停車場，品嚐長壽黑雞蛋[cite: 1]。",
+            ticket: "免入園費；小客車停車費 ¥530/次[cite: 1]",
             hours: "09:00 - 17:00",
             map: "https://maps.google.com/?q=大涌谷"
           },
           {
-            title: "Nissan 小田原新幹線口還車",
+            title: "Nissan 小田原新幹線口還車[cite: 2]",
             time: "15:00 - 16:30 前完成",
-            desc: "小田原新幹線口店還車 (0465-32-4123)，步行 2 分鐘進西口閘門搭乘新幹線。",
+            desc: "小田原新幹線口店還車 (0465-32-4123)，步行 2 分鐘進西口閘門搭乘新幹線[cite: 2]。",
             ticket: "預約號碼: 26073102473",
             hours: "營業至 19:00",
             map: "https://maps.google.com/?q=神奈川縣小田原市城山1-7-27"
           },
           {
             title: "搭新幹線＋地鐵回到東京押上民宿",
-            time: "16:38 或 17:09 出發",
-            desc: "小田原搭東海道新幹線 Kodama 至東京站(約35分)，轉 JR 總武快速至錦糸町，再搭1站半藏門線到押上。",
-            ticket: "自由席約 ¥3,460/人 (若有特大行李需劃位指定席)",
-            hours: "班次密集，每小時約 2-3 班",
+            time: "16:38 或 17:09 出發[cite: 1]",
+            desc: "小田原搭東海道新幹線 Kodama 至東京站(約35分)，轉 JR 總武快速至錦糸町，再搭1站半藏門線到押上[cite: 1]。",
+            ticket: "自由席約 ¥3,460/人 (若有特大行李需劃位指定席)[cite: 1]",
+            hours: "班次密集，每小時約 2-3 班[cite: 1]",
             map: "https://maps.google.com/?q=小田原站"
           },
           {
@@ -647,9 +642,9 @@
         lng: 139.6917,
         items: [
           {
-            title: "東京全日自由活動 (推薦：晴空塔 & 淺草寺)",
+            title: "東京全日自由活動 (推薦：晴空塔 & 淺草寺)[cite: 1]",
             time: "全日自由行",
-            desc: "步行可達晴空塔展望台與 Solamachi 商場，搭地鐵體驗淺草寺雷門散策，下午可至澀谷或銀座購物購物。",
+            desc: "步行可達晴空塔展望台與 Solamachi 商場，搭地鐵體驗淺草寺雷門散策，下午可至澀谷或銀座購物購物[cite: 1]。",
             ticket: "依自由行個人消費與門票為準",
             hours: "市區商場一般為 10:00 - 21:00",
             map: "https://maps.google.com/?q=東京晴空塔"
@@ -697,8 +692,10 @@
 
       document.getElementById(`tab-${tabName}`).classList.remove('hidden');
       const activeBtn = document.getElementById(`btn-tab-${tabName}`);
-      activeBtn.classList.remove('text-gray-500', 'font-bold');
-      activeBtn.classList.add('text-sakura', 'font-black');
+      if (activeBtn) {
+        activeBtn.classList.remove('text-gray-500', 'font-bold');
+        activeBtn.classList.add('text-sakura', 'font-black');
+      }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
       lucide.createIcons();
@@ -729,17 +726,14 @@
           renderDateTabs();
           renderDayItinerary();
           fetchWeather(tripData[currentDayIndex]);
-          // 如果不在航班分頁，切回查看
-          if (document.getElementById('tab-flights').classList.contains('hidden')) {
-            switchTab('flights');
-          }
+          switchTab('home');
         });
 
         container.appendChild(btn);
       });
     }
 
-    // 渲染當日行程景點列表
+    // 渲染當日景點
     function renderDayItinerary() {
       const day = tripData[currentDayIndex];
       const list = document.getElementById('itinerary-list');
@@ -778,7 +772,7 @@
       lucide.createIcons();
     }
 
-    // 動態氣象 API (Open-Meteo)
+    // 天氣 API (Open-Meteo)
     async function fetchWeather(day) {
       const locLabel = document.getElementById('weather-loc');
       const tempLabel = document.getElementById('weather-temp');
@@ -812,8 +806,8 @@
       }
     }
 
-    // 記帳模組 (LocalStorage 儲存)
-    const STORAGE_KEY = 'izutrip_expenses_v4';
+    // 記帳模組
+    const STORAGE_KEY = 'izutrip_expenses_v5';
     let expenses = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
     const jpyInput = document.getElementById('exp-jpy');
@@ -821,7 +815,6 @@
     const rateInput = document.getElementById('exchange-rate');
     const dateInput = document.getElementById('exp-date');
 
-    // 預設日期為 2026-09-15
     dateInput.value = "2026-09-15";
 
     function updateTwdPreview() {
@@ -904,7 +897,7 @@
       lucide.createIcons();
     }
 
-    // 初始化啟動
+    // 初始化
     window.addEventListener('DOMContentLoaded', () => {
       renderDateTabs();
       renderDayItinerary();
