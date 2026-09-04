@@ -39,6 +39,9 @@
   </script>
 
   <style>
+    *, ::before, ::after {
+      box-sizing: border-box;
+    }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     body {
@@ -46,6 +49,15 @@
       color: #282828;
       -webkit-tap-highlight-color: transparent;
       font-size: 17px;
+    }
+    /* 修正表單在 iOS/Android 上可能出現的寬度溢出問題 */
+    input[type="date"], input[type="number"], input[type="text"], select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
   </style>
 </head>
@@ -64,16 +76,16 @@
     </div>
   </header>
 
-  <!-- ==========================================
-       主內容區塊 (切換分頁)
-       ========================================== -->
-  <main class="flex-1 p-5 pt-2 space-y-6">
+  <!-- 內容區塊 -->
+  <main class="flex-1 p-5 pt-3 space-y-6">
 
-    <!-- 首頁：純每日行程與即時氣象 -->
+    <!-- ==========================================
+         首頁：純每日行程與即時氣象
+         ========================================== -->
     <div id="tab-home" class="tab-content space-y-5">
       
       <!-- 頂部橫向滑動天數按鈕 -->
-      <section class="space-y-2 pt-2">
+      <section class="space-y-2">
         <div class="flex items-center justify-between px-1">
           <span class="text-base font-black text-charcoal flex items-center gap-1.5">
             <i data-lucide="calendar" class="w-5 h-5 text-sakura"></i>
@@ -109,12 +121,14 @@
           </h2>
         </div>
         <div id="itinerary-list" class="space-y-4">
-          <!-- JS 動態生成景點卡片 -->
+          <!-- JS 動態生成當天行程卡片 -->
         </div>
       </section>
     </div>
 
-    <!-- 下方欄位 1：主要航班資訊 (獨立分頁) -->
+    <!-- ==========================================
+         下方欄位 1：主要航班資訊 (獨立分頁)
+         ========================================== -->
     <div id="tab-flights" class="tab-content hidden space-y-5">
       <div class="flex items-center justify-between px-1.5 pt-2">
         <h2 class="text-lg font-black flex items-center gap-2 text-charcoal">
@@ -191,7 +205,9 @@
       </div>
     </div>
 
-    <!-- 下方欄位 2：住宿地點與租車 (獨立分頁) -->
+    <!-- ==========================================
+         下方欄位 2：住宿地點與租車 (獨立分頁)
+         ========================================== -->
     <div id="tab-hotels" class="tab-content hidden space-y-6">
       <div class="flex items-center justify-between px-1.5 pt-2">
         <h2 class="text-lg font-black flex items-center gap-2 text-charcoal">
@@ -339,7 +355,9 @@
       </section>
     </div>
 
-    <!-- 下方欄位 3：旅行記帳功能 (獨立分頁) -->
+    <!-- ==========================================
+         下方欄位 3：旅行記帳功能 (徹底防超出版本)
+         ========================================== -->
     <div id="tab-expenses" class="tab-content hidden space-y-6">
       
       <!-- 標題與匯率 -->
@@ -354,40 +372,53 @@
         </div>
       </div>
 
-      <!-- 記帳輸入卡片 -->
-      <div class="bg-white rounded-3xl p-6 shadow-cute border-2 border-orange-100 space-y-4">
+      <!-- 記帳輸入卡片 (設定 overflow-hidden 與嚴格單欄結構) -->
+      <div class="bg-white rounded-3xl p-5 shadow-cute border-2 border-orange-100 space-y-4 overflow-hidden">
         <h3 class="text-base font-black text-charcoal flex items-center gap-2 border-b border-gray-100 pb-3">
           <i data-lucide="plus-circle" class="w-5 h-5 text-sakura"></i>
           新增一筆旅行開銷
         </h3>
 
-        <form id="expense-form" class="space-y-4">
-          <div class="space-y-1.5">
-            <label class="block text-xs font-black text-gray-600 px-1">消費日期</label>
-            <input type="date" id="exp-date" class="w-full bg-cream/90 rounded-2xl p-3.5 border border-orange-200 text-sm font-bold focus:bg-white focus:outline-sakura block" required />
+        <form id="expense-form" class="space-y-4 w-full">
+          <!-- 1. 消費日期 -->
+          <div class="w-full">
+            <label class="block text-xs font-black text-gray-600 mb-1.5 px-1">消費日期</label>
+            <div class="w-full">
+              <input type="date" id="exp-date" class="w-full bg-cream/90 rounded-2xl p-3 border border-orange-200 text-sm font-bold focus:bg-white focus:outline-sakura block" required />
+            </div>
           </div>
 
-          <div class="space-y-1.5">
-            <label class="block text-xs font-black text-gray-600 px-1">品項 (加油、景點門票、餐費、交通搭車、雜物)</label>
-            <select id="exp-cat" class="w-full bg-cream/90 rounded-2xl p-3.5 border border-orange-200 text-sm font-bold focus:bg-white focus:outline-sakura block">
-              <option value="餐費">🍜 餐費</option>
-              <option value="加油">⛽ 加油</option>
-              <option value="景點門票">🎟️ 景點門票</option>
-              <option value="交通搭車">🚅 交通搭車</option>
-              <option value="雜物">🛍️ 雜物</option>
-            </select>
+          <!-- 2. 品項類別 -->
+          <div class="w-full">
+            <label class="block text-xs font-black text-gray-600 mb-1.5 px-1">品項 (加油、景點門票、餐費、交通搭車、雜物)</label>
+            <div class="w-full">
+              <select id="exp-cat" class="w-full bg-cream/90 rounded-2xl p-3 border border-orange-200 text-sm font-bold focus:bg-white focus:outline-sakura block">
+                <option value="餐費">🍜 餐費</option>
+                <option value="加油">⛽ 加油</option>
+                <option value="景點門票">🎟️ 景點門票</option>
+                <option value="交通搭車">🚅 交通搭車</option>
+                <option value="雜物">🛍️ 雜物</option>
+              </select>
+            </div>
           </div>
 
-          <div class="space-y-1.5">
-            <label class="block text-xs font-black text-gray-600 px-1">日幣金額 (JPY ¥)</label>
-            <input type="number" id="exp-jpy" placeholder="請輸入日幣金額" min="1" class="w-full bg-cream/90 rounded-2xl p-3.5 border border-orange-200 font-mono font-black text-base focus:bg-white focus:outline-sakura block" required />
+          <!-- 3. 日幣金額 -->
+          <div class="w-full">
+            <label class="block text-xs font-black text-gray-600 mb-1.5 px-1">日幣金額 (JPY ¥)</label>
+            <div class="w-full">
+              <input type="number" id="exp-jpy" placeholder="請輸入日幣金額" min="1" class="w-full bg-cream/90 rounded-2xl p-3 border border-orange-200 font-mono font-black text-base focus:bg-white focus:outline-sakura block" required />
+            </div>
           </div>
 
-          <div class="space-y-1.5">
-            <label class="block text-xs font-black text-gray-600 px-1">折合台幣 (TWD NT$ 自動換算)</label>
-            <input type="text" id="exp-twd-preview" readonly placeholder="約 NT$ 0 元" class="w-full bg-gray-100 rounded-2xl p-3.5 text-gray-500 font-mono font-black text-base border border-gray-200 block" />
+          <!-- 4. 自動換算台幣 -->
+          <div class="w-full">
+            <label class="block text-xs font-black text-gray-600 mb-1.5 px-1">折合台幣 (TWD NT$ 自動換算)</label>
+            <div class="w-full">
+              <input type="text" id="exp-twd-preview" readonly placeholder="約 NT$ 0 元" class="w-full bg-gray-100 rounded-2xl p-3 text-gray-500 font-mono font-black text-base border border-gray-200 block" />
+            </div>
           </div>
 
+          <!-- 5. 支付方式與按鈕 -->
           <div class="pt-3 flex items-center justify-between border-t border-gray-100">
             <div class="flex items-center gap-4 px-1">
               <label class="flex items-center gap-1.5 text-sm font-black cursor-pointer text-charcoal">
@@ -406,7 +437,7 @@
       </div>
 
       <!-- 記帳明細列表 -->
-      <div class="bg-white rounded-3xl p-6 shadow-cute border-2 border-orange-100 space-y-4">
+      <div class="bg-white rounded-3xl p-5 shadow-cute border-2 border-orange-100 space-y-4">
         <div class="flex justify-between items-center pb-3 border-b border-gray-100">
           <span class="text-base font-black text-charcoal">消費紀錄列表</span>
           <div class="text-right">
@@ -461,7 +492,7 @@
           {
             title: "抵達 NRT 機場 ➡️ 前往 Nissan 取車直奔熱海",
             time: "14:45 - 16:30",
-            desc: "搭乘 UA838 抵達成田機場第1航廈，至服務櫃檯辦理取車手續，沿高速公路前往熱海飯店[cite: 1, 2]。",
+            desc: "搭乘 UA838 抵達成田機場第1航廈，至服務櫃檯辦理取車手續，沿高速公路前往熱海飯店。",
             ticket: "租車預約號碼: 26073102473",
             hours: "櫃檯出發時間 16:30",
             map: "https://maps.google.com/?q=成田機場第1候機樓"
@@ -488,7 +519,7 @@
           {
             title: "來宮神社 (Kinomiya Shrine)",
             time: "09:30 - 11:00",
-            desc: "熱海著名的能量景點，參拜樹齡達 2,000 年的大楠樹神木與境內雅致茶席咖啡[cite: 1]。",
+            desc: "熱海著名的能量景點，參拜樹齡達 2,000 年的大楠樹神木與境內雅致茶席咖啡。",
             ticket: "免費入社參拜",
             hours: "09:00 - 17:00",
             map: "https://maps.google.com/?q=來宮神社"
@@ -496,7 +527,7 @@
           {
             title: "熱海銀座商店街 (美食散策)",
             time: "11:30 - 13:30",
-            desc: "昭和復古洋風商店街，必吃熱海布丁、現烤海鮮乾貨、溫泉甜點與咖啡廳[cite: 1]。",
+            desc: "昭和復古洋風商店街，必吃熱海布丁、現烤海鮮乾貨、溫泉甜點與咖啡廳。",
             ticket: "店內自由消費",
             hours: "約 10:00 - 18:00 (依各店家)",
             map: "https://maps.google.com/?q=熱海銀座商店街"
@@ -504,7 +535,7 @@
           {
             title: "熱海城 (Atami Castle)",
             time: "14:00 - 15:30",
-            desc: "聳立於錦之浦山頂，360 度俯瞰相模灣海景與熱海港，附設免費足湯觀景台[cite: 1]。",
+            desc: "聳立於錦之浦山頂，360 度俯瞰相模灣海景與熱海港，附設免費足湯觀景台。",
             ticket: "成人 ¥1,100 / 中小學生 ¥600",
             hours: "09:00 - 17:00 (最後入場 16:30)",
             map: "https://maps.google.com/?q=熱海城"
@@ -512,7 +543,7 @@
           {
             title: "ACAO FOREST (赤尾香草玫瑰園)",
             time: "15:45 - 17:30",
-            desc: "山坡景觀花園，造訪隈研吾設計的 COEDA HOUSE 玻璃木造咖啡廳與海景鞦韆[cite: 1]。",
+            desc: "山坡景觀花園，造訪隈研吾設計的 COEDA HOUSE 玻璃木造咖啡廳與海景鞦韆。",
             ticket: "成人約 ¥3,000",
             hours: "09:00 - 17:00 (最後入園 16:00)",
             map: "https://maps.google.com/?q=ACAO+FOREST"
@@ -531,7 +562,7 @@
           {
             title: "大室山 (Omuroyama) 【視天氣而定】",
             time: "09:30 - 12:00",
-            desc: "抹茶布丁火山！整座山禁止開車與徒步爬山，需搭乘雙人吊椅纜車登頂眺望富士山[cite: 1]。",
+            desc: "抹茶布丁火山！整座山禁止開車與徒步爬山，需搭乘雙人吊椅纜車登頂眺望富士山。",
             ticket: "吊椅纜車來回：大人 ¥1,000 / 兒童 ¥500 (停車免費)",
             hours: "09:00 - 17:00 (若遇天候不佳停駛)",
             map: "https://maps.google.com/?q=大室山"
@@ -539,15 +570,15 @@
           {
             title: "小室山 Ridge Walk MISORA",
             time: "13:30 - 15:30",
-            desc: "標高321米，走在木質天空環景步道上眺望相模灣海景與玻璃景觀咖啡廳[cite: 1]。",
-            ticket: "單人吊椅纜車來回 ¥800 / 步道免費步行上山 (停車免費)[cite: 1]",
+            desc: "標高321米，走在木質天空環景步道上眺望相模灣海景與玻璃景觀咖啡廳。",
+            ticket: "單人吊椅纜車來回 ¥800 / 步道免費步行上山 (停車免費)",
             hours: "纜車 09:30 - 16:00 / 咖啡廳至 16:00",
             map: "https://maps.google.com/?q=小室山Ridge+Walk+MISORA"
           },
           {
             title: "入住 Atagawa Ocean Resort",
             time: "16:30 抵達",
-            desc: "熱川海岸第一排，享受面海私人陽台、海鮮自助晚餐與天然溫泉放鬆[cite: 1]。",
+            desc: "熱川海岸第一排，享受面海私人陽台、海鮮自助晚餐與天然溫泉放鬆。",
             ticket: "含早晚餐 / Booking: 6562190907",
             hours: "15:00 後登記入住",
             map: "https://maps.google.com/?q=Atagawa+Ocean+Resort"
@@ -566,7 +597,7 @@
           {
             title: "蘆之湖 ＆ 箱根神社平和鳥居",
             time: "10:30 - 13:00",
-            desc: "由熱川開車前往約需 75 分鐘車程。漫步湖畔參拜水中平和鳥居，遠眺富士山[cite: 1]。",
+            desc: "由熱川開車前往約需 75 分鐘車程。漫步湖畔參拜水中平和鳥居，遠眺富士山。",
             ticket: "神社境內免費參拜；湖畔停車場約 ¥500/次",
             hours: "境內全天開放",
             map: "https://maps.google.com/?q=箱根神社+平和鳥居"
@@ -574,7 +605,7 @@
           {
             title: "箱根玻璃之森美術館",
             time: "14:00 - 16:00",
-            desc: "蘆之湖開車前往約需 20 分鐘。威尼斯歐風庭園，陽光下閃耀的水晶玻璃光之迴廊[cite: 1]。",
+            desc: "蘆之湖開車前往約需 20 分鐘。威尼斯歐風庭園，陽光下閃耀的水晶玻璃光之迴廊。",
             ticket: "成人 ¥1,800 / 大學高中生 ¥1,300 / 國中小 ¥600",
             hours: "10:00 - 17:30 (最後入館 17:00)",
             map: "https://maps.google.com/?q=箱根玻璃之森美術館"
@@ -582,7 +613,7 @@
           {
             title: "入住 Rakuten STAY VILLA 箱根仙石原",
             time: "16:30 抵達",
-            desc: "鄰近仙石原芒草草原，現代獨棟 Villa 別墅，每戶皆配備私人天然溫泉風呂[cite: 1]。",
+            desc: "鄰近仙石原芒草草原，現代獨棟 Villa 別墅，每戶皆配備私人天然溫泉風呂。",
             ticket: "含早餐 / Booking: 6068829974",
             hours: "15:00 以後入住",
             map: "https://maps.google.com/?q=Rakuten+STAY+VILLA+Hakone+Sengokuhara"
@@ -601,25 +632,25 @@
           {
             title: "大涌谷 (Owakudani)",
             time: "09:30 - 11:30",
-            desc: "白煙滾滾的活火山特殊地質地貌，可直接開車直達停車場，品嚐長壽黑雞蛋[cite: 1]。",
-            ticket: "免入園費；小客車停車費 ¥530/次[cite: 1]",
+            desc: "白煙滾滾的活火山特殊地質地貌，可直接開車直達停車場，品嚐長壽黑雞蛋。",
+            ticket: "免入園費；小客車停車費 ¥530/次",
             hours: "09:00 - 17:00",
             map: "https://maps.google.com/?q=大涌谷"
           },
           {
-            title: "Nissan 小田原新幹線口還車[cite: 2]",
+            title: "Nissan 小田原新幹線口還車",
             time: "15:00 - 16:30 前完成",
-            desc: "小田原新幹線口店還車 (0465-32-4123)，步行 2 分鐘進西口閘門搭乘新幹線[cite: 2]。",
+            desc: "小田原新幹線口店還車 (0465-32-4123)，步行 2 分鐘進西口閘門搭乘新幹線。",
             ticket: "預約號碼: 26073102473",
             hours: "營業至 19:00",
             map: "https://maps.google.com/?q=神奈川縣小田原市城山1-7-27"
           },
           {
             title: "搭新幹線＋地鐵回到東京押上民宿",
-            time: "16:38 或 17:09 出發[cite: 1]",
-            desc: "小田原搭東海道新幹線 Kodama 至東京站(約35分)，轉 JR 總武快速至錦糸町，再搭1站半藏門線到押上[cite: 1]。",
-            ticket: "自由席約 ¥3,460/人 (若有特大行李需劃位指定席)[cite: 1]",
-            hours: "班次密集，每小時約 2-3 班[cite: 1]",
+            time: "16:38 或 17:09 出發",
+            desc: "小田原搭東海道新幹線 Kodama 至東京站(約35分)，轉 JR 總武快速至錦糸町，再搭1站半藏門線到押上。",
+            ticket: "自由席約 ¥3,460/人 (若有特大行李需劃位指定席)",
+            hours: "班次密集，每小時約 2-3 班",
             map: "https://maps.google.com/?q=小田原站"
           },
           {
@@ -642,9 +673,9 @@
         lng: 139.6917,
         items: [
           {
-            title: "東京全日自由活動 (推薦：晴空塔 & 淺草寺)[cite: 1]",
+            title: "東京全日自由活動 (推薦：晴空塔 & 淺草寺)",
             time: "全日自由行",
-            desc: "步行可達晴空塔展望台與 Solamachi 商場，搭地鐵體驗淺草寺雷門散策，下午可至澀谷或銀座購物購物[cite: 1]。",
+            desc: "步行可達晴空塔展望台與 Solamachi 商場，搭地鐵體驗淺草寺雷門散策，下午可至澀谷或銀座購物購物。",
             ticket: "依自由行個人消費與門票為準",
             hours: "市區商場一般為 10:00 - 21:00",
             map: "https://maps.google.com/?q=東京晴空塔"
@@ -807,7 +838,7 @@
     }
 
     // 記帳模組
-    const STORAGE_KEY = 'izutrip_expenses_v5';
+    const STORAGE_KEY = 'izutrip_expenses_v6';
     let expenses = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
     const jpyInput = document.getElementById('exp-jpy');
@@ -897,7 +928,7 @@
       lucide.createIcons();
     }
 
-    // 初始化
+    // 初始化啟動
     window.addEventListener('DOMContentLoaded', () => {
       renderDateTabs();
       renderDayItinerary();
