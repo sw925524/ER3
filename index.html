@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>日本伊豆熱海東京之旅 🌿</title>
   
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Zen Maru Gothic -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -20,16 +23,16 @@
           },
           colors: {
             cream: '#FAF7F2',
-            matcha: '#6B8E23',
+            matcha: '#5B7E1B',
             softpink: '#FDE2E4',
-            sakura: '#FFB7B2',
-            softblue: '#E2ECE9',
+            sakura: '#FF9E9D',
+            softblue: '#E0ECE4',
             cardbg: '#FFFFFF',
-            charcoal: '#3D3D3D'
+            charcoal: '#2D2D2D'
           },
           boxShadow: {
-            'cute': '0 8px 20px -4px rgba(186, 171, 160, 0.25)',
-            'btn': '0 4px 12px rgba(255, 183, 178, 0.4)'
+            'cute': '0 10px 25px -5px rgba(186, 171, 160, 0.3)',
+            'btn': '0 6px 16px rgba(255, 158, 157, 0.45)'
           }
         }
       }
@@ -37,369 +40,396 @@
   </script>
 
   <style>
-    /* 隱藏橫向滾動條但保持滾動 */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     body {
       background-color: #FAF7F2;
-      color: #3D3D3D;
+      color: #2D2D2D;
       -webkit-tap-highlight-color: transparent;
-    }
-    /* 機票鋸齒邊緣效果 */
-    .ticket-edge {
-      position: relative;
-    }
-    .ticket-edge::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      right: 0;
-      height: 16px;
-      background-image: radial-gradient(circle, transparent 60%, white 60%);
-      background-size: 16px 16px;
+      font-size: 15px; /* 全局基礎字體放大 */
     }
   </style>
 </head>
-<body class="font-sans antialiased max-w-md mx-auto min-h-screen pb-24 shadow-2xl relative bg-cream">
+<body class="font-sans antialiased max-w-md mx-auto min-h-screen pb-28 shadow-2xl relative bg-cream flex flex-col">
 
-  <header class="p-5 pt-8 pb-3 bg-white/70 backdrop-blur-md sticky top-0 z-30 flex items-center justify-between border-b border-orange-50">
-    <div>
-      <span class="text-xs tracking-widest text-emerald-600 font-bold bg-emerald-50 px-2.5 py-0.5 rounded-full uppercase">7 Days Trip</span>
-      <h1 class="text-xl font-black text-charcoal mt-1 flex items-center gap-1">
+  <!-- 頂部 Header -->
+  <header class="p-5 pt-7 pb-3 bg-white/80 backdrop-blur-md sticky top-0 z-30 flex items-center justify-between border-b border-orange-100">
+    <div class="px-1">
+      <span class="text-xs tracking-widest text-emerald-700 font-bold bg-emerald-100/70 px-3 py-1 rounded-full uppercase">7 Days Trip</span>
+      <h1 class="text-2xl font-black text-charcoal mt-1.5 flex items-center gap-1.5">
         伊豆・熱海・東京 🌸
       </h1>
     </div>
-    <div class="w-10 h-10 rounded-full bg-softpink flex items-center justify-center text-charcoal shadow-sm">
-      <i data-lucide="compass" class="w-5 h-5 text-sakura"></i>
+    <div class="w-11 h-11 rounded-2xl bg-softpink flex items-center justify-center text-charcoal shadow-sm mr-1">
+      <i data-lucide="sparkles" class="w-6 h-6 text-rose-500"></i>
     </div>
   </header>
 
-  <main class="p-4 space-y-6">
+  <!-- 內容區 -->
+  <main class="flex-1 p-5 space-y-6">
 
-    <div>
-      <div id="date-scroll-container" class="flex gap-2.5 overflow-x-auto no-scrollbar py-1">
+    <!-- ==========================================
+         分頁 1：行程與航班（預設顯示）
+         ========================================== -->
+    <div id="tab-itinerary" class="tab-content space-y-6">
+      
+      <!-- 1. 航班資訊 (置頂於日期分頁前面) -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between px-1">
+          <h2 class="text-lg font-black flex items-center gap-2 text-charcoal">
+            <i data-lucide="plane-takeoff" class="w-5 h-5 text-rose-500"></i>
+            航班資訊與行李
+          </h2>
+          <span class="text-xs text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full font-bold">每人 23KG</span>
         </div>
+
+        <!-- 去程機票 -->
+        <div class="bg-white rounded-3xl p-6 shadow-cute border border-orange-100 relative overflow-hidden">
+          <div class="flex justify-between items-center border-b-2 border-dashed border-gray-200 pb-3.5">
+            <span class="bg-sakura text-white font-extrabold text-xs px-3 py-1 rounded-full tracking-wide">去程 BOARDING PASS</span>
+            <span class="font-black text-base text-charcoal tracking-wide">UA 838</span>
+          </div>
+          <div class="flex items-center justify-between my-5">
+            <div>
+              <div class="text-3xl font-black text-charcoal">KHH</div>
+              <div class="text-sm text-gray-500 font-medium mt-0.5">高雄小港</div>
+              <div class="text-base font-black text-emerald-700 mt-1">09:55</div>
+            </div>
+            <div class="flex flex-col items-center">
+              <span class="text-xs text-gray-500 font-bold mb-1.5">9/15 (週二)</span>
+              <div class="w-24 border-t-2 border-sakura relative">
+                <i data-lucide="plane" class="w-4 h-4 text-sakura absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-0.5"></i>
+              </div>
+              <span class="text-xs text-gray-500 mt-1.5 font-medium">3h 50m</span>
+            </div>
+            <div class="text-right">
+              <div class="text-3xl font-black text-charcoal">NRT</div>
+              <div class="text-sm text-gray-500 font-medium mt-0.5">成田第1航廈</div>
+              <div class="text-base font-black text-emerald-700 mt-1">14:45</div>
+            </div>
+          </div>
+          <div class="bg-cream p-3 rounded-2xl flex justify-between items-center text-sm border border-orange-100/50">
+            <span class="text-gray-600 font-medium">免費託運行李：</span>
+            <span class="font-black text-charcoal flex items-center gap-1.5">
+              <i data-lucide="luggage" class="w-4 h-4 text-matcha"></i> 23 KG / 人
+            </span>
+          </div>
+        </div>
+
+        <!-- 回程機票 -->
+        <div class="bg-white rounded-3xl p-6 shadow-cute border border-orange-100 relative overflow-hidden">
+          <div class="flex justify-between items-center border-b-2 border-dashed border-gray-200 pb-3.5">
+            <span class="bg-teal-500 text-white font-extrabold text-xs px-3 py-1 rounded-full tracking-wide">回程 BOARDING PASS</span>
+            <span class="font-black text-base text-charcoal tracking-wide">UA 839</span>
+          </div>
+          <div class="flex items-center justify-between my-5">
+            <div>
+              <div class="text-3xl font-black text-charcoal">NRT</div>
+              <div class="text-sm text-gray-500 font-medium mt-0.5">成田第1航廈</div>
+              <div class="text-base font-black text-emerald-700 mt-1">17:50</div>
+            </div>
+            <div class="flex flex-col items-center">
+              <span class="text-xs text-gray-500 font-bold mb-1.5">9/21 (週一)</span>
+              <div class="w-24 border-t-2 border-teal-400 relative">
+                <i data-lucide="plane" class="w-4 h-4 text-teal-500 absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-0.5"></i>
+              </div>
+              <span class="text-xs text-gray-500 mt-1.5 font-medium">4h 10m</span>
+            </div>
+            <div class="text-right">
+              <div class="text-3xl font-black text-charcoal">KHH</div>
+              <div class="text-sm text-gray-500 font-medium mt-0.5">高雄小港</div>
+              <div class="text-base font-black text-emerald-700 mt-1">21:00</div>
+            </div>
+          </div>
+          <div class="bg-cream p-3 rounded-2xl flex justify-between items-center text-sm border border-orange-100/50">
+            <span class="text-gray-600 font-medium">免費託運行李：</span>
+            <span class="font-black text-charcoal flex items-center gap-1.5">
+              <i data-lucide="luggage" class="w-4 h-4 text-teal-600"></i> 每人23KG (含小孩)
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. 橫向滑動日期選單 (置於航班之後) -->
+      <section class="space-y-3">
+        <div class="px-1 text-sm font-bold text-gray-500">切換每日行程：</div>
+        <div id="date-scroll-container" class="flex gap-3 overflow-x-auto no-scrollbar py-1">
+          <!-- JS 動態生成日期卡 -->
+        </div>
+      </section>
+
+      <!-- 3. 天氣與當日行程明細 -->
+      <section class="space-y-4">
+        <!-- 即時天氣膠囊 -->
+        <div id="weather-banner" class="bg-white rounded-3xl p-4 shadow-cute border border-orange-100 flex items-center justify-between">
+          <div class="flex items-center gap-3.5 pl-1">
+            <span id="weather-icon" class="text-3xl">🌤️</span>
+            <div>
+              <div class="text-xs text-gray-500 font-medium" id="weather-loc">熱海市即時氣象</div>
+              <div class="text-base font-black text-charcoal mt-0.5" id="weather-temp">讀取即時溫度中...</div>
+            </div>
+          </div>
+          <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full">即時連線</span>
+        </div>
+
+        <!-- 當日景點列表 -->
+        <div id="itinerary-list" class="space-y-4">
+          <!-- JS 注入卡片 -->
+        </div>
+      </section>
     </div>
 
-    <section>
-      <div id="weather-banner" class="bg-white/80 rounded-2xl p-3.5 mb-3 border border-orange-100 flex items-center justify-between shadow-cute transition-all duration-300">
-        <div class="flex items-center gap-3">
-          <span id="weather-icon" class="text-2xl">🌤️</span>
-          <div>
-            <div class="text-xs text-gray-500" id="weather-loc">熱海市即時天氣</div>
-            <div class="text-sm font-bold text-charcoal" id="weather-temp">正在獲取氣溫...</div>
-          </div>
-        </div>
-        <span class="text-[10px] text-gray-500 bg-gray-100 px-2 py-1 rounded-full">即時聯網</span>
-      </div>
-
-      <div id="itinerary-list" class="space-y-3.5">
-        </div>
-    </section>
-
-    <section class="mt-8">
-      <div class="flex items-center justify-between mb-3 px-1">
-        <h2 class="text-base font-bold flex items-center gap-1.5">
-          <i data-lucide="plane-takeoff" class="w-4 h-4 text-sakura"></i>
-          主要航班資訊
-        </h2>
-        <span class="text-xs text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full font-medium">行李23KG/人</span>
-      </div>
-
-      <div class="bg-white rounded-3xl p-5 shadow-cute border border-orange-100/60 mb-3 relative overflow-hidden">
-        <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-softpink/30 rounded-full"></div>
-        <div class="flex justify-between items-center border-b border-dashed border-gray-200 pb-3">
-          <span class="bg-sakura text-white font-bold text-xs px-2.5 py-0.5 rounded-full">去程 BOARDING PASS</span>
-          <span class="font-extrabold text-charcoal tracking-wide">UA 838</span>
-        </div>
-        <div class="flex items-center justify-between my-4">
-          <div>
-            <div class="text-2xl font-black text-charcoal">KHH</div>
-            <div class="text-xs text-gray-500">高雄小港</div>
-            <div class="text-sm font-bold text-emerald-700 mt-0.5">09:55</div>
-          </div>
-          <div class="flex flex-col items-center">
-            <span class="text-[10px] text-gray-500 font-bold mb-1">9/15 (二)</span>
-            <div class="w-20 border-t-2 border-sakura relative">
-              <i data-lucide="plane" class="w-4 h-4 text-sakura absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-0.5"></i>
-            </div>
-            <span class="text-[10px] text-gray-500 mt-1">3h 50m</span>
-          </div>
-          <div class="text-right">
-            <div class="text-2xl font-black text-charcoal">NRT</div>
-            <div class="text-xs text-gray-500">成田第1航廈</div>
-            <div class="text-sm font-bold text-emerald-700 mt-0.5">14:45</div>
-          </div>
-        </div>
-        <div class="bg-cream/80 p-2.5 rounded-xl flex justify-between items-center text-xs">
-          <span class="text-gray-500">託運行李規格：</span>
-          <span class="font-bold text-charcoal flex items-center gap-1">
-            <i data-lucide="luggage" class="w-3.5 h-3.5 text-matcha"></i> 23 KG / 人
-          </span>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-3xl p-5 shadow-cute border border-orange-100/60 relative overflow-hidden">
-        <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-softblue/50 rounded-full"></div>
-        <div class="flex justify-between items-center border-b border-dashed border-gray-200 pb-3">
-          <span class="bg-teal-500 text-white font-bold text-xs px-2.5 py-0.5 rounded-full">回程 BOARDING PASS</span>
-          <span class="font-extrabold text-charcoal tracking-wide">UA 839</span>
-        </div>
-        <div class="flex items-center justify-between my-4">
-          <div>
-            <div class="text-2xl font-black text-charcoal">NRT</div>
-            <div class="text-xs text-gray-500">成田第1航廈</div>
-            <div class="text-sm font-bold text-emerald-700 mt-0.5">17:50</div>
-          </div>
-          <div class="flex flex-col items-center">
-            <span class="text-[10px] text-gray-500 font-bold mb-1">9/21 (一)</span>
-            <div class="w-20 border-t-2 border-teal-400 relative">
-              <i data-lucide="plane" class="w-4 h-4 text-teal-400 absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-0.5"></i>
-            </div>
-            <span class="text-[10px] text-gray-500 mt-1">4h 10m</span>
-          </div>
-          <div class="text-right">
-            <div class="text-2xl font-black text-charcoal">KHH</div>
-            <div class="text-xs text-gray-500">高雄小港</div>
-            <div class="text-sm font-bold text-emerald-700 mt-0.5">21:00</div>
-          </div>
-        </div>
-        <div class="bg-cream/80 p-2.5 rounded-xl flex justify-between items-center text-xs">
-          <span class="text-gray-500">託運行李規格：</span>
-          <span class="font-bold text-charcoal flex items-center gap-1">
-            <i data-lucide="luggage" class="w-3.5 h-3.5 text-matcha"></i> 每人23KG (含小孩)
-          </span>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="flex items-center justify-between mb-3 px-1">
-        <h2 class="text-base font-bold flex items-center gap-1.5">
-          <i data-lucide="car" class="w-4 h-4 text-matcha"></i>
-          租車預約詳情 (Nissan)
-        </h2>
-      </div>
-      <div class="bg-white rounded-3xl p-4.5 shadow-cute border border-orange-100/60 text-xs space-y-3">
-        <div class="flex justify-between items-center bg-amber-50 p-2.5 rounded-2xl text-amber-900">
-          <span class="font-medium">預約號碼:</span>
-          <span class="font-mono font-bold text-sm">26073102473</span>
-        </div>
-        <div class="grid grid-cols-1 gap-2.5">
-          <div class="border-l-2 border-sakura pl-2.5">
-            <div class="text-gray-500 text-[11px]">取車：15/09/2026 16:30</div>
-            <div class="font-bold text-charcoal">成田機場第1候機樓服務櫃檯</div>
-            <div class="text-gray-500 text-[10px] mt-0.5">千葉縣成田市三里塚御料牧場1-1</div>
-            <div class="flex items-center gap-2 mt-1">
-              <a href="tel:0476-33-8623" class="inline-flex items-center gap-1 text-emerald-600 font-bold underline">
-                <i data-lucide="phone-call" class="w-3 h-3"></i> 0476-33-8623
-              </a>
-              <a href="https://maps.google.com/?q=成田機場第1候機樓" target="_blank" class="inline-flex items-center gap-1 text-sky-600 underline">
-                <i data-lucide="map-pin" class="w-3 h-3"></i> 地圖
-              </a>
-            </div>
-          </div>
-          <div class="border-l-2 border-teal-400 pl-2.5">
-            <div class="text-gray-500 text-[11px]">還車：19/09/2026 16:30</div>
-            <div class="font-bold text-charcoal">小田原新幹線口店</div>
-            <div class="text-gray-500 text-[10px] mt-0.5">神奈川縣小田原市城山1-7-27</div>
-            <div class="flex items-center gap-2 mt-1">
-              <a href="tel:0465-32-4123" class="inline-flex items-center gap-1 text-emerald-600 font-bold underline">
-                <i data-lucide="phone-call" class="w-3 h-3"></i> 0465-32-4123
-              </a>
-              <a href="https://maps.google.com/?q=神奈川縣小田原市城山1-7-27" target="_blank" class="inline-flex items-center gap-1 text-sky-600 underline">
-                <i data-lucide="map-pin" class="w-3 h-3"></i> 地圖
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="flex items-center justify-between mb-3 px-1">
-        <h2 class="text-base font-bold flex items-center gap-1.5">
-          <i data-lucide="bed-double" class="w-4 h-4 text-purple-400"></i>
+    <!-- ==========================================
+         分頁 2：飯店與租車資訊（單獨切出）
+         ========================================== -->
+    <div id="tab-hotels" class="tab-content hidden space-y-6">
+      <div class="flex items-center justify-between px-1">
+        <h2 class="text-lg font-black flex items-center gap-2 text-charcoal">
+          <i data-lucide="building" class="w-5 h-5 text-indigo-500"></i>
           住宿地點總覽
         </h2>
+        <span class="text-xs text-gray-500 font-medium">含導航與預約碼</span>
       </div>
-      <div class="space-y-3 text-xs" id="hotels-container">
-        <div class="bg-white p-4 rounded-3xl shadow-cute border border-orange-100/60 space-y-2">
+
+      <!-- 飯店清單 -->
+      <div class="space-y-4 text-sm">
+        <!-- 9/15-16 Rakuten STAY Atami -->
+        <div class="bg-white p-5 rounded-3xl shadow-cute border border-orange-100 space-y-3">
           <div class="flex justify-between items-start">
             <div>
-              <span class="bg-softpink text-charcoal font-bold px-2 py-0.5 rounded-full text-[10px]">9/15 - 9/16 (2晚)</span>
-              <h3 class="font-bold text-sm text-charcoal mt-1">Rakuten STAY Atami (熱海)</h3>
+              <span class="bg-rose-100 text-rose-700 font-bold px-3 py-1 rounded-full text-xs">9/15 - 9/16 (2晚)</span>
+              <h3 class="font-black text-base text-charcoal mt-1.5">Rakuten STAY Atami (熱海)</h3>
             </div>
-            <a href="https://maps.google.com/?q=Rakuten+STAY+熱海" target="_blank" class="bg-emerald-50 text-emerald-700 px-2.5 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition">
-              <i data-lucide="navigation" class="w-3 h-3"></i> 導航
+            <a href="https://maps.google.com/?q=Rakuten+STAY+熱海" target="_blank" class="bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition text-xs">
+              <i data-lucide="navigation" class="w-3.5 h-3.5"></i> 導航
             </a>
           </div>
-          <div class="bg-cream/60 p-2.5 rounded-xl space-y-1 text-gray-600">
-            <div>訂單：Booking <span class="font-mono font-bold text-charcoal">6468484848</span> (雙人房)</div>
-            <div>訂單：Agoda <span class="font-mono font-bold text-charcoal">1723228686</span> (3人房)</div>
-            <div class="text-emerald-700 font-semibold">🅿️ 停車場 MAP CODE：<span class="font-mono font-bold">116 624 515*84</span></div>
+          <div class="bg-cream/90 p-3.5 rounded-2xl space-y-1.5 text-gray-700 border border-orange-100/40">
+            <div>Booking 訂單：<span class="font-mono font-bold text-charcoal">6468484848</span> (雙人房)</div>
+            <div>Agoda 訂單：<span class="font-mono font-bold text-charcoal">1723228686</span> (3人房)</div>
+            <div class="text-emerald-800 font-bold">🅿️ 停車場 MAP CODE：<span class="font-mono font-black">116 624 515*84</span></div>
           </div>
           <div class="flex items-center justify-between pt-1">
-            <span class="text-gray-500">無人管理前台，事先填寫 URL</span>
-            <a href="tel:+815017509719" class="text-charcoal font-bold flex items-center gap-1 underline">
-              <i data-lucide="phone" class="w-3 h-3 text-sakura"></i> +81 50-1750-9719
+            <span class="text-xs text-gray-500">無人管理前台，事先填寫 URL</span>
+            <a href="tel:+815017509719" class="text-charcoal font-bold flex items-center gap-1 underline text-sm">
+              <i data-lucide="phone-call" class="w-4 h-4 text-rose-400"></i> +81 50-1750-9719
             </a>
           </div>
         </div>
 
-        <div class="bg-white p-4 rounded-3xl shadow-cute border border-orange-100/60 space-y-2">
+        <!-- 9/17 Atagawa Ocean Resort -->
+        <div class="bg-white p-5 rounded-3xl shadow-cute border border-orange-100 space-y-3">
           <div class="flex justify-between items-start">
             <div>
-              <span class="bg-softblue text-teal-800 font-bold px-2 py-0.5 rounded-full text-[10px]">9/17 (1晚)・含早晚餐</span>
-              <h3 class="font-bold text-sm text-charcoal mt-1">Atagawa Ocean Resort (熱川)</h3>
+              <span class="bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-xs">9/17 (1晚)・含早晚餐</span>
+              <h3 class="font-black text-base text-charcoal mt-1.5">Atagawa Ocean Resort (熱川海洋度假村)</h3>
             </div>
-            <a href="https://maps.google.com/?q=Atagawa+Ocean+Resort" target="_blank" class="bg-emerald-50 text-emerald-700 px-2.5 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition">
-              <i data-lucide="navigation" class="w-3 h-3"></i> 導航
+            <a href="https://maps.google.com/?q=Atagawa+Ocean+Resort" target="_blank" class="bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition text-xs">
+              <i data-lucide="navigation" class="w-3.5 h-3.5"></i> 導航
             </a>
           </div>
-          <div class="bg-cream/60 p-2 rounded-xl text-gray-600">
-            訂單：Booking <span class="font-mono font-bold text-charcoal">6562190907</span>
+          <div class="bg-cream/90 p-3.5 rounded-2xl space-y-1 text-gray-700 border border-orange-100/40">
+            <div>Booking 訂單：<span class="font-mono font-bold text-charcoal">6562190907</span></div>
+            <div class="text-xs text-gray-500">臨海海景露天溫泉</div>
           </div>
           <div class="flex items-center justify-between pt-1">
-            <span class="text-gray-500">海景溫泉飯店</span>
-            <a href="tel:+81557232111" class="text-charcoal font-bold flex items-center gap-1 underline">
-              <i data-lucide="phone" class="w-3 h-3 text-sakura"></i> +81 557-23-2111
+            <span class="text-xs text-gray-500">熱川溫泉海景第一排</span>
+            <a href="tel:+81557232111" class="text-charcoal font-bold flex items-center gap-1 underline text-sm">
+              <i data-lucide="phone-call" class="w-4 h-4 text-rose-400"></i> +81 557-23-2111
             </a>
           </div>
         </div>
 
-        <div class="bg-white p-4 rounded-3xl shadow-cute border border-orange-100/60 space-y-2">
+        <!-- 9/18 Rakuten STAY VILLA Hakone Sengokuhara -->
+        <div class="bg-white p-5 rounded-3xl shadow-cute border border-orange-100 space-y-3">
           <div class="flex justify-between items-start">
             <div>
-              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded-full text-[10px]">9/18 (1晚)・含早餐</span>
-              <h3 class="font-bold text-sm text-charcoal mt-1">Rakuten STAY VILLA 箱根仙石原</h3>
+              <span class="bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full text-xs">9/18 (1晚)・含早餐</span>
+              <h3 class="font-black text-base text-charcoal mt-1.5">Rakuten STAY VILLA 箱根仙石原</h3>
             </div>
-            <a href="https://maps.google.com/?q=Rakuten+STAY+VILLA+Hakone+Sengokuhara" target="_blank" class="bg-emerald-50 text-emerald-700 px-2.5 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition">
-              <i data-lucide="navigation" class="w-3 h-3"></i> 導航
+            <a href="https://maps.google.com/?q=Rakuten+STAY+VILLA+Hakone+Sengokuhara" target="_blank" class="bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition text-xs">
+              <i data-lucide="navigation" class="w-3.5 h-3.5"></i> 導航
             </a>
           </div>
-          <div class="bg-cream/60 p-2 rounded-xl text-gray-600">
-            訂單：Booking <span class="font-mono font-bold text-charcoal">6068829974</span>
+          <div class="bg-cream/90 p-3.5 rounded-2xl space-y-1 text-gray-700 border border-orange-100/40">
+            <div>Booking 訂單：<span class="font-mono font-bold text-charcoal">6068829974</span></div>
+            <div class="text-xs text-gray-500">獨棟 Villa，附私人溫泉風呂</div>
           </div>
           <div class="flex items-center justify-between pt-1">
-            <span class="text-gray-500">無人管理別墅</span>
-            <a href="tel:+815017509719" class="text-charcoal font-bold flex items-center gap-1 underline">
-              <i data-lucide="phone" class="w-3 h-3 text-sakura"></i> +81 50-1750-9719
+            <span class="text-xs text-gray-500">無人管理設施</span>
+            <a href="tel:+815017509719" class="text-charcoal font-bold flex items-center gap-1 underline text-sm">
+              <i data-lucide="phone-call" class="w-4 h-4 text-rose-400"></i> +81 50-1750-9719
             </a>
           </div>
         </div>
 
-        <div class="bg-white p-4 rounded-3xl shadow-cute border border-orange-100/60 space-y-2">
+        <!-- 9/19-21 TOKYO SKYTREE VILLIA -->
+        <div class="bg-white p-5 rounded-3xl shadow-cute border border-orange-100 space-y-3">
           <div class="flex justify-between items-start">
             <div>
-              <span class="bg-purple-100 text-purple-900 font-bold px-2 py-0.5 rounded-full text-[10px]">9/19 - 9/21 (2晚)</span>
-              <h3 class="font-bold text-sm text-charcoal mt-1">TOKYO SKYTREE VILLIA (星の宿)</h3>
+              <span class="bg-purple-100 text-purple-900 font-bold px-3 py-1 rounded-full text-xs">9/19 - 9/21 (2晚)</span>
+              <h3 class="font-black text-base text-charcoal mt-1.5">TOKYO SKYTREE VILLIA (星の宿)</h3>
             </div>
-            <a href="https://maps.google.com/?q=1-chōme-18-7+Yokokawa,+Sumida+City,+Tokyo" target="_blank" class="bg-emerald-50 text-emerald-700 px-2.5 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition">
-              <i data-lucide="navigation" class="w-3 h-3"></i> 導航
+            <a href="https://maps.google.com/?q=1-chōme-18-7+Yokokawa,+Sumida+City,+Tokyo" target="_blank" class="bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition text-xs">
+              <i data-lucide="navigation" class="w-3.5 h-3.5"></i> 導航
             </a>
           </div>
-          <div class="bg-cream/60 p-2.5 rounded-xl text-gray-600 space-y-1">
-            <div>訂單：Booking <span class="font-mono font-bold text-charcoal">6068870748</span></div>
-            <div class="text-[11px] text-gray-500">地址：東京都墨田區橫川 1-18-7 星の宿</div>
+          <div class="bg-cream/90 p-3.5 rounded-2xl space-y-1.5 text-gray-700 border border-orange-100/40">
+            <div>Booking 訂單：<span class="font-mono font-bold text-charcoal">6068870748</span></div>
+            <div class="text-xs text-gray-600">地址：東京都墨田區橫川 1-18-7 星の宿</div>
           </div>
           <div class="flex items-center justify-between pt-1">
-            <span class="text-gray-500">鄰近押上／錦糸町站</span>
-            <a href="tel:+81300000000" class="text-charcoal font-bold flex items-center gap-1 underline">
-              <i data-lucide="phone" class="w-3 h-3 text-sakura"></i> 民宿聯絡處
+            <span class="text-xs text-gray-500">鄰近押上／錦糸町站</span>
+            <a href="tel:+81300000000" class="text-charcoal font-bold flex items-center gap-1 underline text-sm">
+              <i data-lucide="phone-call" class="w-4 h-4 text-rose-400"></i> 民宿聯絡窗口
             </a>
           </div>
         </div>
       </div>
-    </section>
 
-    <section class="bg-white rounded-3xl p-5 shadow-cute border border-orange-100/60">
-      <div class="flex items-center justify-between mb-3">
-        <h2 class="text-base font-bold flex items-center gap-1.5">
-          <i data-lucide="wallet" class="w-4 h-4 text-emerald-600"></i>
-          旅行記帳小幫手
+      <!-- 租車詳情區塊 -->
+      <section class="space-y-3">
+        <h3 class="text-base font-black flex items-center gap-2 text-charcoal px-1">
+          <i data-lucide="car" class="w-5 h-5 text-matcha"></i>
+          Nissan 租車自駕合約[cite: 2]
+        </h3>
+        <div class="bg-white rounded-3xl p-5 shadow-cute border border-orange-100 space-y-3.5 text-sm">
+          <div class="flex justify-between items-center bg-amber-50 p-3 rounded-2xl text-amber-900 border border-amber-200/50">
+            <span class="font-bold">預約號碼:</span>
+            <span class="font-mono font-black text-base">26073102473</span>
+          </div>
+          <div class="space-y-3">
+            <div class="border-l-4 border-sakura pl-3.5 py-0.5">
+              <div class="text-xs text-gray-500 font-bold">出發取車：15/09/2026 16:30</div>
+              <div class="font-black text-charcoal text-base mt-0.5">成田機場第1候機樓服務櫃檯[cite: 2]</div>
+              <div class="text-xs text-gray-500 mt-1">千葉縣成田市三里塚御料牧場1-1</div>
+              <div class="flex items-center gap-3 mt-1.5">
+                <a href="tel:0476-33-8623" class="text-emerald-700 font-bold underline flex items-center gap-1 text-xs">
+                  <i data-lucide="phone" class="w-3.5 h-3.5"></i> 0476-33-8623
+                </a>
+                <a href="https://maps.google.com/?q=成田機場第1候機樓" target="_blank" class="text-sky-600 font-bold underline flex items-center gap-1 text-xs">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> 機場櫃檯地圖
+                </a>
+              </div>
+            </div>
+            <div class="border-l-4 border-teal-400 pl-3.5 py-0.5">
+              <div class="text-xs text-gray-500 font-bold">還車時間：19/09/2026 16:30</div>
+              <div class="font-black text-charcoal text-base mt-0.5">小田原新幹線口店[cite: 2]</div>
+              <div class="text-xs text-gray-500 mt-1">神奈川縣小田原市城山1-7-27</div>
+              <div class="flex items-center gap-3 mt-1.5">
+                <a href="tel:0465-32-4123" class="text-emerald-700 font-bold underline flex items-center gap-1 text-xs">
+                  <i data-lucide="phone" class="w-3.5 h-3.5"></i> 0465-32-4123
+                </a>
+                <a href="https://maps.google.com/?q=神奈川縣小田原市城山1-7-27" target="_blank" class="text-sky-600 font-bold underline flex items-center gap-1 text-xs">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> 還車站點地圖
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==========================================
+         分頁 3：記帳小幫手（單獨切出）
+         ========================================== -->
+    <div id="tab-expenses" class="tab-content hidden space-y-5">
+      <div class="flex items-center justify-between px-1">
+        <h2 class="text-lg font-black flex items-center gap-2 text-charcoal">
+          <i data-lucide="wallet" class="w-5 h-5 text-emerald-600"></i>
+          旅行記帳與匯率
         </h2>
-        <div class="flex items-center gap-1 text-[11px] bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full font-bold">
+        <div class="flex items-center gap-1.5 text-xs bg-emerald-100/70 text-emerald-900 px-3 py-1.5 rounded-full font-bold">
           <span>匯率：</span>
-          <input type="number" id="exchange-rate" step="0.001" value="0.215" class="w-12 bg-transparent text-emerald-900 border-b border-emerald-400 font-mono text-center outline-none" />
+          <input type="number" id="exchange-rate" step="0.001" value="0.215" class="w-14 bg-white/80 rounded px-1 text-emerald-950 font-mono font-bold text-center border border-emerald-300 outline-none" />
         </div>
       </div>
 
-      <form id="expense-form" class="space-y-3 text-xs bg-cream/70 p-3.5 rounded-2xl">
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-gray-500 mb-1">日期</label>
-            <input type="date" id="exp-date" class="w-full bg-white rounded-xl p-2 border border-gray-200 focus:outline-sakura" required />
-          </div>
-          <div>
-            <label class="block text-gray-500 mb-1">類別</label>
-            <select id="exp-cat" class="w-full bg-white rounded-xl p-2 border border-gray-200 focus:outline-sakura font-medium">
-              <option value="餐費">🍜 餐費</option>
-              <option value="加油">⛽ 加油</option>
-              <option value="景點門票">🎟️ 景點門票</option>
-              <option value="交通搭車">🚅 交通搭車</option>
-              <option value="雜物">🛍️ 雜物購物</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-gray-500 mb-1">日幣金額 (JPY ¥)</label>
-            <input type="number" id="exp-jpy" placeholder="0" min="1" class="w-full bg-white rounded-xl p-2 border border-gray-200 font-mono font-bold focus:outline-sakura" required />
-          </div>
-          <div>
-            <label class="block text-gray-500 mb-1">折合台幣 (TWD NT$)</label>
-            <input type="text" id="exp-twd-preview" readonly placeholder="約 0 元" class="w-full bg-gray-100 rounded-xl p-2 text-gray-500 font-mono" />
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2 items-center">
-          <div>
-            <label class="block text-gray-500 mb-1">支付方式</label>
-            <div class="flex gap-2">
-              <label class="flex items-center gap-1 cursor-pointer">
-                <input type="radio" name="pay-method" value="信用卡" checked class="accent-sakura" /> 刷卡
-              </label>
-              <label class="flex items-center gap-1 cursor-pointer">
-                <input type="radio" name="pay-method" value="現金" class="accent-sakura" /> 現金
-              </label>
+      <!-- 表單 -->
+      <div class="bg-white rounded-3xl p-5 shadow-cute border border-orange-100">
+        <form id="expense-form" class="space-y-4 text-sm">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-gray-600 text-xs font-bold mb-1.5">日期</label>
+              <input type="date" id="exp-date" class="w-full bg-cream/70 rounded-2xl p-3 border border-gray-200 text-sm font-bold focus:outline-sakura" required />
+            </div>
+            <div>
+              <label class="block text-gray-600 text-xs font-bold mb-1.5">消費品項類別</label>
+              <select id="exp-cat" class="w-full bg-cream/70 rounded-2xl p-3 border border-gray-200 text-sm font-bold focus:outline-sakura">
+                <option value="餐費">🍜 餐費</option>
+                <option value="加油">⛽ 加油</option>
+                <option value="景點門票">🎟️ 景點門票</option>
+                <option value="交通搭車">🚅 交通搭車</option>
+                <option value="雜物">🛍️ 雜物購物</option>
+              </select>
             </div>
           </div>
-          <div class="text-right pt-2">
-            <button type="submit" class="w-full bg-sakura hover:bg-rose-400 text-white font-bold py-2 rounded-xl shadow-btn transition">
-              ＋ 加入花費
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-gray-600 text-xs font-bold mb-1.5">日幣金額 (¥)</label>
+              <input type="number" id="exp-jpy" placeholder="5000" min="1" class="w-full bg-cream/70 rounded-2xl p-3 border border-gray-200 font-mono font-black text-base focus:outline-sakura" required />
+            </div>
+            <div>
+              <label class="block text-gray-600 text-xs font-bold mb-1.5">自動換算台幣</label>
+              <input type="text" id="exp-twd-preview" readonly placeholder="約 NT$ 0" class="w-full bg-gray-100 rounded-2xl p-3 text-gray-500 font-mono font-bold text-base" />
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-1">
+            <div class="flex items-center gap-4">
+              <label class="flex items-center gap-1.5 text-sm font-bold cursor-pointer">
+                <input type="radio" name="pay-method" value="信用卡" checked class="accent-rose-400 w-4 h-4" /> 刷卡
+              </label>
+              <label class="flex items-center gap-1.5 text-sm font-bold cursor-pointer">
+                <input type="radio" name="pay-method" value="現金" class="accent-rose-400 w-4 h-4" /> 現金
+              </label>
+            </div>
+            <button type="submit" class="bg-sakura hover:bg-rose-400 text-white font-black px-6 py-2.5 rounded-2xl shadow-btn transition">
+              ＋ 儲存
             </button>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
 
-      <div class="mt-4 pt-3 border-t border-gray-100">
-        <div class="flex justify-between items-center mb-2 px-1">
-          <span class="text-xs text-gray-500">花費紀錄</span>
+      <!-- 統計與紀錄 -->
+      <div class="bg-white rounded-3xl p-5 shadow-cute border border-orange-100 space-y-3">
+        <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+          <span class="text-sm font-black text-gray-600">花費紀錄清單</span>
           <div class="text-right">
-            <span class="text-xs text-gray-500">總計：</span>
-            <span id="total-jpy" class="font-mono font-bold text-sm text-charcoal">¥0</span>
+            <span class="text-xs text-gray-500">總支出：</span>
+            <span id="total-jpy" class="font-mono font-black text-base text-charcoal">¥0</span>
             <span id="total-twd" class="text-xs text-gray-500 ml-1">(NT$0)</span>
           </div>
         </div>
-        <div id="expense-items" class="space-y-2 max-h-48 overflow-y-auto no-scrollbar">
-          </div>
+        <div id="expense-items" class="space-y-2.5 max-h-72 overflow-y-auto no-scrollbar pt-1">
+          <!-- JS 注入紀錄 -->
+        </div>
       </div>
-    </section>
+    </div>
 
   </main>
 
+  <!-- ==========================================
+       底部導覽列 (Bottom Navigation Tabs)
+       ========================================== -->
+  <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/95 backdrop-blur-lg border-t border-orange-100 py-2.5 px-6 flex justify-around items-center z-40 shadow-2xl">
+    <button onclick="switchTab('itinerary')" id="btn-tab-itinerary" class="nav-btn flex flex-col items-center gap-1 text-sakura font-black transition">
+      <i data-lucide="calendar" class="w-6 h-6"></i>
+      <span class="text-xs">每日行程</span>
+    </button>
+    <button onclick="switchTab('hotels')" id="btn-tab-hotels" class="nav-btn flex flex-col items-center gap-1 text-gray-500 font-medium transition">
+      <i data-lucide="hotel" class="w-6 h-6"></i>
+      <span class="text-xs">住宿租車</span>
+    </button>
+    <button onclick="switchTab('expenses')" id="btn-tab-expenses" class="nav-btn flex flex-col items-center gap-1 text-gray-500 font-medium transition">
+      <i data-lucide="calculator" class="w-6 h-6"></i>
+      <span class="text-xs">旅行記帳</span>
+    </button>
+  </nav>
+
   <script>
-    // ==========================================
-    // 1. 行程資料庫 (7天景點、座標、營業時間、門票等)
-    // ==========================================
+    // 行程資料
     const tripData = [
       {
         day: 1,
@@ -411,21 +441,19 @@
         lng: 139.0700,
         items: [
           {
-            title: "抵達 NRT 機場 ➡️ 取車前往熱海",
-            type: "drive",
+            title: "抵達 NRT 機場 ➡️ 櫃檯取車直奔熱海",
             time: "14:45 - 16:30",
-            desc: "UA838 航班降落 T1，前往櫃檯辦理 Nissan 租車手續，取車後沿東名高速前往熱海。",
+            desc: "UA838 抵達第1航廈，於機場櫃檯辦理 Nissan 租車手續，取車後沿東名高速前往熱海[cite: 1, 2]。",
             ticket: "租車預約：26073102473",
-            hours: "櫃檯出發 16:30",
+            hours: "櫃檯 16:30 取車出發",
             map: "https://maps.google.com/?q=成田機場第1候機樓"
           },
           {
-            title: "Rakuten STAY Atami 辦理入住",
-            type: "hotel",
+            title: "入住 Rakuten STAY Atami",
             time: "19:00 預計抵達",
-            desc: "無人自助 check-in，車輛停妥專屬車位，舒緩移動疲勞。",
+            desc: "無人自助式辦理入住手續，車輛停入專屬車位，舒緩移動疲勞。",
             ticket: "車位 MAP CODE: 116 624 515*84",
-            hours: "15:00 後入住",
+            hours: "15:00 以後登記入住",
             map: "https://maps.google.com/?q=Rakuten+STAY+熱海"
           }
         ]
@@ -441,37 +469,33 @@
         items: [
           {
             title: "來宮神社 (Kinomiya Shrine)",
-            type: "spot",
             time: "09:30 - 11:00",
-            desc: "擁有2,000年樹齡的大楠樹神木，著名的能量磁場與清幽祈福名所。",
-            ticket: "免費入社",
+            desc: "熱海著名的千年神木與能量氣場，境內綠意環繞且設有優雅茶席咖啡座[cite: 1]。",
+            ticket: "免費入社參拜",
             hours: "09:00 - 17:00",
             map: "https://maps.google.com/?q=來宮神社"
           },
           {
             title: "熱海銀座商店街 (美食散策)",
-            type: "food",
             time: "11:30 - 13:30",
-            desc: "昭和復古洋風老街，必吃熱海布丁、現烤海鮮乾貨、溫泉饅頭。",
-            ticket: "自由消費 (店內用餐)",
+            desc: "昭和復古洋風商店街，必吃熱海布丁、現烤海鮮乾貨、溫泉甜點與咖啡廳[cite: 1]。",
+            ticket: "店內自由消費",
             hours: "約 10:00 - 18:00 (依各店家)",
             map: "https://maps.google.com/?q=熱海銀座商店街"
           },
           {
             title: "熱海城 (Atami Castle)",
-            type: "spot",
             time: "14:00 - 15:30",
-            desc: "位於錦之浦山頂，觀景台可360度俯瞰相模灣與熱海港絕美弧線，附設足湯。",
+            desc: "聳立錦之浦山頂，360 度俯瞰相模灣與熱海港絕美海景，附設免費足湯觀景台[cite: 1]。",
             ticket: "成人 ¥1,100 / 中小學生 ¥600",
             hours: "09:00 - 17:00 (最後入場 16:30)",
             map: "https://maps.google.com/?q=熱海城"
           },
           {
             title: "ACAO FOREST (赤尾香草玫瑰園)",
-            type: "spot",
             time: "15:45 - 17:30",
-            desc: "依山傍海的花卉庭園，隈研吾設計 COEDA HOUSE 咖啡廳與面海鞦韆打卡點。",
-            ticket: "成人約 ¥3,000 (視季節微調)",
+            desc: "海景山坡景觀花園，造訪隈研吾設計的 COEDA HOUSE 玻璃木造咖啡廳與海景鞦韆[cite: 1]。",
+            ticket: "成人約 ¥3,000",
             hours: "09:00 - 17:00 (最後入園 16:00)",
             map: "https://maps.google.com/?q=ACAO+FOREST"
           }
@@ -487,30 +511,27 @@
         lng: 139.0650,
         items: [
           {
-            title: "大室山 (Omuroyama) 【晴天推薦】",
-            type: "spot",
+            title: "大室山 (Omuroyama) 【視天氣而定】",
             time: "09:30 - 12:00",
-            desc: "形似綠色抹茶布丁的死火山。全山禁止徒步與行車，需搭乘雙人吊椅纜車登頂眺望富士山。",
-            ticket: "吊椅纜車來回：大人 ¥1,000 / 兒童 ¥500 (車輛停山下免費)",
+            desc: "抹茶布丁火山！整座山禁止開車與徒步爬山，需搭乘雙人吊椅纜車登頂眺望富士山[cite: 1]。",
+            ticket: "纜車來回：大人 ¥1,000 / 兒童 ¥500 (停車免費)",
             hours: "09:00 - 17:00 (天候不佳停駛)",
             map: "https://maps.google.com/?q=大室山"
           },
           {
             title: "小室山 Ridge Walk MISORA",
-            type: "spot",
             time: "13:30 - 15:30",
-            desc: "標高321米，擁有全長166公尺的木質天空環景步道與無敵海景景觀玻璃咖啡廳。",
-            ticket: "單人吊椅纜車：來回 ¥800 / 步道免費步行上山 (停車免費)",
+            desc: "標高321米，走在木質天空環景步道上眺望無敵相模灣海景與玻璃景觀咖啡廳[cite: 1]。",
+            ticket: "單人吊椅纜車來回 ¥800 / 步道免費步行上山 (停車免費)[cite: 1]",
             hours: "纜車 09:30 - 16:00 / 咖啡廳至 16:00",
             map: "https://maps.google.com/?q=小室山Ridge+Walk+MISORA"
           },
           {
             title: "入住 Atagawa Ocean Resort",
-            type: "hotel",
             time: "16:30 抵達",
-            desc: "位於熱川海岸第一排，享受伊豆海風、豐盛海鮮自助晚餐與天然溫泉。",
+            desc: "熱川海岸第一排，享受面海私人陽台、豐富海鮮自助晚餐與溫泉[cite: 1]。",
             ticket: "含早晚餐 / Booking: 6562190907",
-            hours: "15:00 入住",
+            hours: "15:00 後入住",
             map: "https://maps.google.com/?q=Atagawa+Ocean+Resort"
           }
         ]
@@ -525,30 +546,27 @@
         lng: 139.0200,
         items: [
           {
-            title: "前往箱根・蘆之湖 (Ashinoko)",
-            type: "spot",
+            title: "蘆之湖 ＆ 箱根神社平和鳥居",
             time: "10:30 - 13:00",
-            desc: "開車由熱川出發車程約70-80分。漫步湖畔、參拜箱根神社水中平和鳥居，眺望富士山與湖光水色。",
-            ticket: "箱根神社參拜免費；湖畔停車場約 ¥500/次",
-            hours: "境內全天開放 (寶物殿 09:00-16:30)",
+            desc: "開車由熱川出發車程約 75 分鐘。湖畔漫步參拜水中平和鳥居，眺望富士山景致[cite: 1]。",
+            ticket: "神社免費參拜；湖畔周邊停車約 ¥500/次",
+            hours: "境內 24 小時開放",
             map: "https://maps.google.com/?q=箱根神社+平和鳥居"
           },
           {
             title: "箱根玻璃之森美術館",
-            type: "spot",
             time: "14:00 - 16:00",
-            desc: "蘆之湖開車約20分鐘。重現威尼斯水都風情，陽光下熠熠生輝的玻璃光之迴廊與歐式庭園。",
-            ticket: "成人 ¥1,800 / 大學高中生 ¥1,300 / 中小學生 ¥600",
+            desc: "蘆之湖開車約 20 分鐘抵達。威尼斯歐風庭園，陽光下閃爍的光之迴廊水晶玻璃樹[cite: 1]。",
+            ticket: "成人 ¥1,800 / 大學高中生 ¥1,300 / 國中小 ¥600",
             hours: "10:00 - 17:30 (最後入館 17:00)",
             map: "https://maps.google.com/?q=箱根玻璃之森美術館"
           },
           {
             title: "入住 Rakuten STAY VILLA 箱根仙石原",
-            type: "hotel",
             time: "16:30 抵達",
-            desc: "位於仙石原芒草草原旁，配備私人天然溫泉風呂的現代獨棟Villa。",
+            desc: "鄰近仙石原芒草草原，每間獨棟 Villa 皆備有天然溫泉泡湯池[cite: 1]。",
             ticket: "含早餐 / Booking: 6068829974",
-            hours: "15:00 入住",
+            hours: "15:00 後入住",
             map: "https://maps.google.com/?q=Rakuten+STAY+VILLA+Hakone+Sengokuhara"
           }
         ]
@@ -558,44 +576,40 @@
         date: "2026-09-19",
         dateStr: "9/19",
         week: "週六",
-        city: "箱根 / 東京墨田",
+        city: "箱根 / 東京",
         lat: 35.2440,
         lng: 139.0190,
         items: [
           {
             title: "大涌谷 (Owakudani)",
-            type: "spot",
             time: "09:30 - 11:30",
-            desc: "箱根火山遺址，白煙裊裊的壯觀硫磺地貌，必嚐延壽7年的招牌黑雞蛋。",
-            ticket: "園區免費入園；小客車停車費 ¥530/次",
-            hours: "09:00 - 17:00 (視火山氣體管制變動)",
+            desc: "白煙滾滾的活火山地貌，可開車直達停車場，品嚐延壽黑雞蛋[cite: 1]。",
+            ticket: "免入園費；小客車停車費 ¥530/次[cite: 1]",
+            hours: "09:00 - 17:00",
             map: "https://maps.google.com/?q=大涌谷"
           },
           {
-            title: "小田原新幹線口還車",
-            type: "car",
-            time: "15:00 - 16:30 前完成",
-            desc: "Nissan 小田原新幹線口店還車 (0465-32-4123)，步行1分鐘進車站西口新幹線閘門。",
+            title: "小田原新幹線口還車[cite: 2]",
+            time: "15:00 - 16:30 完成",
+            desc: "Nissan 小田原新幹線口店還車 (0465-32-4123)，步行 2 分鐘進西口閘門搭新幹線[cite: 2]。",
             ticket: "預約號碼: 26073102473",
             hours: "營業至 19:00",
-            map: "https://maps.google.com/?q=日產租車+小田原新幹線口店"
+            map: "https://maps.google.com/?q=神奈川縣小田原市城山1-7-27"
           },
           {
-            title: "搭乘新幹線＋地鐵前往東京押上",
-            type: "train",
-            time: "16:38 或 17:09 出發",
-            desc: "小田原搭東海道新幹線(Kodama約35分)至東京站，轉JR總武快速線至錦糸町，再搭1站半藏門線抵達押上。",
-            ticket: "新幹線自由座約 ¥3,280 + 地鐵 ¥180 (合計約 ¥3,460/人)",
-            hours: "班次密集，每小時有2-3班",
+            title: "搭新幹線＋地鐵抵達東京押上民宿",
+            time: "16:38 或 17:09 出發[cite: 1]",
+            desc: "小田原搭新幹線 Kodama 至東京站(35分)，轉 JR 總武快速至錦糸町，再搭1站半藏門線到押上[cite: 1]。",
+            ticket: "自由席約 ¥3,460/人 (若有特大行李需劃位指定席)[cite: 1]",
+            hours: "班次每小時約 2-3 班[cite: 1]",
             map: "https://maps.google.com/?q=小田原站"
           },
           {
             title: "入住 TOKYO SKYTREE VILLIA (星の宿)",
-            type: "hotel",
             time: "18:30 抵達",
-            desc: "墨田區橫川 1-18-7，步行可達晴空塔與錦糸町商圈。",
+            desc: "墨田區橫川 1-18-7，步行可達晴空塔商圈。",
             ticket: "Booking: 6068870748",
-            hours: "自助入住",
+            hours: "自助登記後入住",
             map: "https://maps.google.com/?q=1-chōme-18-7+Yokokawa,+Sumida+City,+Tokyo"
           }
         ]
@@ -610,13 +624,12 @@
         lng: 139.6917,
         items: [
           {
-            title: "東京全日自由活動 (推薦：淺草寺 & 晴空塔)",
-            type: "spot",
+            title: "東京全日自由活動 (推薦：晴空塔 & 淺草寺)[cite: 1]",
             time: "全日自由行",
-            desc: "民宿旁步行即達押上晴空塔；搭乘都營淺草線體驗淺草寺雷門、仲見世通小吃，下午可安排澀谷 SHIBUYA SKY 或銀座購物。",
-            ticket: "依個人逛街路線自由安排",
-            hours: "店家一般 10:00 - 20:30",
-            map: "https://maps.google.com/?q=淺草寺"
+            desc: "押上站旁晴空塔展望台與 Solamachi 商場，搭都營線至淺草雷門散策、下午可前往澀谷或銀座採購伴手禮[cite: 1]。",
+            ticket: "自由購物與景點門票",
+            hours: "各商場通常 10:00 - 21:00",
+            map: "https://maps.google.com/?q=東京晴空塔"
           }
         ]
       },
@@ -630,21 +643,19 @@
         lng: 140.3929,
         items: [
           {
-            title: "市區悠閒半日遊 ➡️ 前往成田機場 (NRT)",
-            type: "flight",
-            time: "14:30 抵達航廈",
-            desc: "退房後錦糸町採買最後伴手禮，搭乘成田特快 N'EX 或 Access 特快抵達 T1。",
-            ticket: "預留出境安全檢查時間",
+            title: "退房 ➡️ 前往成田機場第 1 航廈 (NRT)",
+            time: "14:30 抵達機場",
+            desc: "錦糸町退房後搭乘成田特快或 Access 特快直達成田機場 T1 航廈辦理登機手續。",
+            ticket: "請預留登機與出境檢查時間",
             hours: "起飛前 2.5 - 3 小時報到",
             map: "https://maps.google.com/?q=成田機場第1候機樓"
           },
           {
-            title: "搭乘 UA 839 班機返港 (高雄 KHH)",
-            type: "plane",
+            title: "搭乘 UA 839 班機返高 (KHH)",
             time: "17:50 - 21:00",
-            desc: "UA 839 NRT(T1) 17:50 起飛，預計 21:00 返抵高雄小港機場，行李限額 23KG/人。",
-            ticket: "登機證行李：每人23KG (含小孩)",
-            hours: "登機門以當日機場公告為準",
+            desc: "UA 839 準時起飛，21:00 抵達高雄小港機場，圓滿結束 7 天旅程！",
+            ticket: "行李限額：每人23KG (含小孩)",
+            hours: "登機門以當日機場廣播為準",
             map: "https://maps.google.com/?q=成田國際機場"
           }
         ]
@@ -653,9 +664,24 @@
 
     let currentDayIndex = 0;
 
-    // ==========================================
-    // 2. 渲染橫向滑動日期選單
-    // ==========================================
+    // 切換底部頁籤
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('text-sakura', 'font-black');
+        btn.classList.add('text-gray-500', 'font-medium');
+      });
+
+      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`btn-tab-${tabName}`);
+      activeBtn.classList.remove('text-gray-500', 'font-medium');
+      activeBtn.classList.add('text-sakura', 'font-black');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
+    }
+
+    // 渲染橫向滑動按鈕
     function renderDateTabs() {
       const container = document.getElementById('date-scroll-container');
       container.innerHTML = '';
@@ -663,16 +689,16 @@
       tripData.forEach((day, index) => {
         const btn = document.createElement('button');
         const isActive = index === currentDayIndex;
-        btn.className = `flex-shrink-0 px-4 py-2.5 rounded-2xl flex flex-col items-center justify-center transition-all duration-200 ${
+        btn.className = `flex-shrink-0 px-5 py-3 rounded-2xl flex flex-col items-center justify-center transition-all duration-200 ${
           isActive 
-            ? 'bg-sakura text-white shadow-btn scale-105 font-bold' 
-            : 'bg-white text-gray-500 hover:bg-rose-50/70 border border-orange-100/60'
+            ? 'bg-sakura text-white shadow-btn scale-105 font-black' 
+            : 'bg-white text-gray-500 hover:bg-rose-50 border border-orange-100 font-bold'
         }`;
 
         btn.innerHTML = `
-          <span class="text-[10px] tracking-wider uppercase">${day.week}</span>
-          <span class="text-sm font-extrabold mt-0.5">${day.dateStr}</span>
-          <span class="text-[10px] opacity-80">Day ${day.day}</span>
+          <span class="text-xs tracking-wider uppercase">${day.week}</span>
+          <span class="text-base font-black mt-0.5">${day.dateStr}</span>
+          <span class="text-xs opacity-80">Day ${day.day}</span>
         `;
 
         btn.addEventListener('click', () => {
@@ -686,9 +712,7 @@
       });
     }
 
-    // ==========================================
-    // 3. 渲染當日行程卡片
-    // ==========================================
+    // 渲染當日行程
     function renderDayItinerary() {
       const day = tripData[currentDayIndex];
       const list = document.getElementById('itinerary-list');
@@ -696,27 +720,28 @@
 
       day.items.forEach(item => {
         const card = document.createElement('div');
-        card.className = "bg-white rounded-3xl p-4.5 shadow-cute border border-orange-100/60 space-y-2.5 transition";
+        // 加大 padding：p-5，並調整文字邊界與陰影
+        card.className = "bg-white rounded-3xl p-5 shadow-cute border border-orange-100 space-y-3";
 
         card.innerHTML = `
-          <div class="flex items-start justify-between gap-2">
-            <div class="space-y-0.5">
-              <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full inline-block">
+          <div class="flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <span class="text-xs font-bold text-emerald-800 bg-emerald-100/80 px-3 py-1 rounded-full inline-block">
                 ${item.time}
               </span>
-              <h3 class="text-sm font-black text-charcoal leading-snug pt-1">${item.title}</h3>
+              <h3 class="text-base font-black text-charcoal leading-snug pt-1">${item.title}</h3>
             </div>
             ${item.map ? `
-              <a href="${item.map}" target="_blank" class="flex-shrink-0 bg-cream text-charcoal hover:bg-rose-100 p-2 rounded-2xl border border-orange-100 transition flex items-center gap-1 text-xs font-bold">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sakura"></i>
+              <a href="${item.map}" target="_blank" class="flex-shrink-0 bg-cream text-charcoal hover:bg-rose-100 p-2.5 rounded-2xl border border-orange-100 transition flex items-center gap-1.5 text-xs font-bold shadow-sm">
+                <i data-lucide="map-pin" class="w-4 h-4 text-sakura"></i>
                 導航
               </a>
             ` : ''}
           </div>
-          <p class="text-xs text-gray-600 leading-relaxed">${item.desc}</p>
-          <div class="bg-cream/70 rounded-2xl p-2.5 text-[11px] space-y-1 text-gray-600 border border-orange-100/40">
-            ${item.hours ? `<div class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3 h-3 text-matcha"></i> <span>營業時間：${item.hours}</span></div>` : ''}
-            ${item.ticket ? `<div class="flex items-center gap-1.5"><i data-lucide="ticket" class="w-3 h-3 text-amber-500"></i> <span>費用/門票：${item.ticket}</span></div>` : ''}
+          <p class="text-sm text-gray-700 leading-relaxed font-normal">${item.desc}</p>
+          <div class="bg-cream/90 rounded-2xl p-3.5 text-xs space-y-1.5 text-gray-700 border border-orange-100/40">
+            ${item.hours ? `<div class="flex items-center gap-2"><i data-lucide="clock" class="w-3.5 h-3.5 text-matcha"></i> <span class="font-medium">營業時間：${item.hours}</span></div>` : ''}
+            ${item.ticket ? `<div class="flex items-center gap-2"><i data-lucide="ticket" class="w-3.5 h-3.5 text-amber-600"></i> <span class="font-medium">費用門票：${item.ticket}</span></div>` : ''}
           </div>
         `;
         list.appendChild(card);
@@ -725,16 +750,14 @@
       lucide.createIcons();
     }
 
-    // ==========================================
-    // 4. 動態天氣 API (Open-Meteo)
-    // ==========================================
+    // 天氣 API
     async function fetchWeather(day) {
       const locLabel = document.getElementById('weather-loc');
       const tempLabel = document.getElementById('weather-temp');
       const iconLabel = document.getElementById('weather-icon');
 
-      locLabel.innerText = `${day.city} 天氣觀測中...`;
-      tempLabel.innerText = '讀取氣溫...';
+      locLabel.innerText = `${day.city} 天氣觀測`;
+      tempLabel.innerText = '氣溫同步中...';
 
       try {
         const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${day.lat}&longitude=${day.lng}&current=temperature_2m,weather_code&timezone=Asia%2FTokyo`);
@@ -743,31 +766,26 @@
         if (data && data.current) {
           const temp = Math.round(data.current.temperature_2m);
           const code = data.current.weather_code;
-          
           let wIcon = '🌤️';
           let wText = '晴時多雲';
-          if (code === 0) { wIcon = '☀️'; wText = '晴朗陽光'; }
+          if (code === 0) { wIcon = '☀️'; wText = '晴朗天青'; }
           else if ([1, 2, 3].includes(code)) { wIcon = '⛅'; wText = '多雲舒適'; }
-          else if ([45, 48].includes(code)) { wIcon = '🌫️'; wText = '起霧'; }
-          else if ([51, 53, 55, 61, 63, 65, 80, 81].includes(code)) { wIcon = '🌧️'; wText = '有局部陣雨'; }
+          else if ([45, 48].includes(code)) { wIcon = '🌫️'; wText = '有晨霧'; }
+          else if ([51, 53, 55, 61, 63, 65, 80, 81].includes(code)) { wIcon = '🌧️'; wText = '有降雨機率'; }
 
-          locLabel.innerText = `${day.city} 當地氣候・${wText}`;
-          tempLabel.innerText = `${temp}°C (今日實況)`;
+          locLabel.innerText = `${day.city} 即時氣象・${wText}`;
+          tempLabel.innerText = `${temp}°C (實況溫度)`;
           iconLabel.innerText = wIcon;
-        } else {
-          throw new Error('API 無回傳');
         }
       } catch (err) {
-        locLabel.innerText = `${day.city} 氣溫預估`;
-        tempLabel.innerText = `約 22°C - 26°C (秋季宜人)`;
+        locLabel.innerText = `${day.city} 氣候預估`;
+        tempLabel.innerText = `約 23°C - 26°C (秋高氣爽)`;
         iconLabel.innerText = '🍁';
       }
     }
 
-    // ==========================================
-    // 5. 記帳功能 (LocalStorage + 匯率轉換)
-    // ==========================================
-    const STORAGE_KEY = 'izutrip_expenses_v1';
+    // 記帳與 LocalStorage
+    const STORAGE_KEY = 'izutrip_expenses_v2';
     let expenses = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
     const jpyInput = document.getElementById('exp-jpy');
@@ -775,7 +793,6 @@
     const rateInput = document.getElementById('exchange-rate');
     const dateInput = document.getElementById('exp-date');
 
-    // 預設今日日期為 2026-09-15
     dateInput.value = "2026-09-15";
 
     function updateTwdPreview() {
@@ -806,8 +823,6 @@
 
       expenses.unshift(newExp);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
-      
-      // 清空輸入
       jpyInput.value = '';
       twdPreview.value = '';
       renderExpenses();
@@ -829,25 +844,25 @@
       let sumJpy = 0;
 
       if (expenses.length === 0) {
-        list.innerHTML = `<div class="text-center text-gray-500 py-3 text-xs">目前尚無記帳紀錄</div>`;
+        list.innerHTML = `<div class="text-center text-gray-500 py-4 text-sm font-medium">尚無記帳紀錄，開始記錄花費吧！</div>`;
       } else {
         expenses.forEach(item => {
           sumJpy += item.jpy;
           const twd = Math.round(item.jpy * rate);
           const el = document.createElement('div');
-          el.className = "flex justify-between items-center bg-cream/60 p-2.5 rounded-xl text-xs";
+          el.className = "flex justify-between items-center bg-cream/80 p-3.5 rounded-2xl text-sm border border-orange-100/50";
           el.innerHTML = `
-            <div class="flex items-center gap-2">
-              <span class="font-bold text-charcoal">${item.cat}</span>
-              <span class="text-[10px] text-gray-500">${item.date.slice(5)} (${item.method})</span>
+            <div class="flex items-center gap-2.5">
+              <span class="font-black text-charcoal">${item.cat}</span>
+              <span class="text-xs text-gray-500 font-medium">${item.date.slice(5)} (${item.method})</span>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-3">
               <div class="text-right font-mono">
-                <div class="font-bold text-charcoal">¥${item.jpy.toLocaleString()}</div>
-                <div class="text-[10px] text-gray-500">NT$${twd.toLocaleString()}</div>
+                <div class="font-black text-charcoal text-base">¥${item.jpy.toLocaleString()}</div>
+                <div class="text-xs text-gray-500 font-medium">NT$${twd.toLocaleString()}</div>
               </div>
-              <button onclick="deleteExpense(${item.id})" class="text-gray-500 hover:text-rose-500 p-1">
-                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              <button onclick="deleteExpense(${item.id})" class="text-gray-400 hover:text-rose-500 p-1.5 transition">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
               </button>
             </div>
           `;
@@ -860,9 +875,6 @@
       lucide.createIcons();
     }
 
-    // ==========================================
-    // 初始化啟動
-    // ==========================================
     window.addEventListener('DOMContentLoaded', () => {
       renderDateTabs();
       renderDayItinerary();
