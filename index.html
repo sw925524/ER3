@@ -1,49 +1,43 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>北歐三國之旅 2026</title>
-  <!-- Google Fonts: Noto Sans TC & Inter -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>日本伊豆熱海東京之旅 🌿</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            muji: {
-              bg: '#f7f6f2',
-              card: '#ffffff',
-              text: '#3c3c3c',
-              muted: '#7f7f7f',
-              border: '#e6e4df',
-              accent: '#8c7a6b',
-              accentLight: '#f0ede6',
-              dark: '#2b2b2b',
-              orange: '#e88d4d',
-              green: '#74a860',
-              blue: '#4a80e8'
-            }
-          },
           fontFamily: {
-            sans: ['Inter', 'Noto Sans TC', 'sans-serif']
+            sans: ['"Zen Maru Gothic"', 'sans-serif'],
+          },
+          colors: {
+            cream: '#FAF7F2',
+            matcha: '#6B8E23',
+            softpink: '#FDE2E4',
+            sakura: '#FFB7B2',
+            softblue: '#E2ECE9',
+            cardbg: '#FFFFFF',
+            charcoal: '#3D3D3D'
+          },
+          boxShadow: {
+            'cute': '0 8px 20px -4px rgba(186, 171, 160, 0.25)',
+            'btn': '0 4px 12px rgba(255, 183, 178, 0.4)'
           }
         }
       }
     }
   </script>
+
   <style>
-    body {
-      background-color: #f7f6f2;
-      color: #3c3c3c;
-      -webkit-tap-highlight-color: transparent;
-    }
+    /* 隱藏橫向滾動條但保持滾動 */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -51,1168 +45,828 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+    body {
+      background-color: #FAF7F2;
+      color: #3D3D3D;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* 機票鋸齒邊緣效果 */
+    .ticket-edge {
+      position: relative;
+    }
+    .ticket-edge::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      right: 0;
+      height: 16px;
+      background-image: radial-gradient(circle, transparent 60%, white 60%);
+      background-size: 16px 16px;
+    }
   </style>
 </head>
-<body class="font-sans antialiased pb-24 max-w-md mx-auto min-h-screen border-x border-muji-border bg-muji-bg shadow-sm">
+<body class="font-sans antialiased max-w-md mx-auto min-h-screen pb-24 shadow-2xl relative bg-cream">
 
-  <!-- Header with Aurora Background Image -->
-  <header class="sticky top-0 z-30 border-b border-muji-border px-4 py-4 relative overflow-hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80');">
-    <!-- Dark Gradient Overlay for Readability -->
-    <div class="absolute inset-0 bg-black/55 backdrop-blur-[2px]"></div>
-
-    <div class="relative z-10 space-y-3">
-      <div class="flex items-center justify-between text-white">
-        <div>
-          <h1 class="text-xl font-bold tracking-wide">北歐三國之旅</h1>
-          <p class="text-xs text-white/80 mt-0.5 font-medium">2026.09.24 - 10.17 (24天)</p>
-        </div>
-        <div class="flex items-center gap-1.5 text-xs text-white bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/30 font-medium">
-          <i data-lucide="compass" class="w-4 h-4"></i>
-          <span>芬蘭 • 挪威 • 瑞典</span>
-        </div>
-      </div>
-
-      <!-- Date Navigation Slider with Glassmorphism -->
-      <div id="date-slider" class="flex gap-2 overflow-x-auto no-scrollbar pt-1 pb-1 scroll-smooth items-center">
-        <!-- Dates & THSR button populated dynamically -->
-      </div>
+  <header class="p-5 pt-8 pb-3 bg-white/70 backdrop-blur-md sticky top-0 z-30 flex items-center justify-between border-b border-orange-50">
+    <div>
+      <span class="text-xs tracking-widest text-emerald-600 font-bold bg-emerald-50 px-2.5 py-0.5 rounded-full uppercase">7 Days Trip</span>
+      <h1 class="text-xl font-black text-charcoal mt-1 flex items-center gap-1">
+        伊豆・熱海・東京 🌸
+      </h1>
+    </div>
+    <div class="w-10 h-10 rounded-full bg-softpink flex items-center justify-center text-charcoal shadow-sm">
+      <i data-lucide="compass" class="w-5 h-5 text-sakura"></i>
     </div>
   </header>
 
-  <!-- Main Content Area -->
   <main class="p-4 space-y-6">
 
-    <!-- TAB 1: ITINERARY (Includes THSR & Daily Schedules) -->
-    <section id="tab-itinerary" class="space-y-5">
-      <div id="itinerary-detail-card">
-        <!-- Content inserted dynamically -->
-      </div>
-    </section>
-
-    <!-- TAB 2: FLIGHTS -->
-    <section id="tab-flights" class="hidden space-y-5">
-      <div class="flex items-center gap-2 mb-1">
-        <i data-lucide="plane" class="w-6 h-6 text-muji-accent"></i>
-        <h2 class="text-lg font-bold text-muji-dark">主要航班資訊</h2>
-      </div>
-
-      <!-- Luggage Rules Summary (Updated Baggage Allowance) -->
-      <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-3">
-        <div class="flex items-center gap-2 text-sm font-bold text-muji-dark border-b border-muji-border pb-2.5">
-          <i data-lucide="briefcase" class="w-4 h-4 text-muji-accent"></i> 行李託運與隨身限制
+    <div>
+      <div id="date-scroll-container" class="flex gap-2.5 overflow-x-auto no-scrollbar py-1">
         </div>
-        <div class="grid grid-cols-2 gap-3 text-sm">
-          <div class="bg-muji-bg p-3 rounded-xl border border-muji-border space-y-1">
-            <span class="text-muji-accent font-bold block text-xs">國際段 (日航/芬航)</span>
-            <p class="font-semibold text-muji-dark text-xs leading-tight">商務艙: 32kg × 3件/人</p>
-            <p class="font-semibold text-muji-dark text-xs leading-tight">經濟艙: 23kg × 2件/人</p>
-            <p class="text-muji-muted text-[11px] pt-0.5">手提: 10kg 以內</p>
-          </div>
-          <div class="bg-muji-bg p-3 rounded-xl border border-muji-border space-y-1">
-            <span class="text-muji-accent font-bold block text-xs">歐內段 (挪航/SAS)</span>
-            <p class="font-semibold text-muji-dark text-xs leading-tight">託運: 23kg × 1件/人</p>
-            <p class="text-muji-muted text-[11px] pt-1.5">隨身手提包 1件</p>
-          </div>
-        </div>
-      </div>
+    </div>
 
-      <!-- Ticket Cards -->
-      <div class="space-y-4" id="flight-ticket-list">
-        <!-- Dynamically Generated Ticket Cards -->
-      </div>
-    </section>
-
-    <!-- TAB 3: CAR RENTALS -->
-    <section id="tab-cars" class="hidden space-y-5">
-      <div class="flex items-center gap-2 mb-1">
-        <i data-lucide="car" class="w-6 h-6 text-muji-accent"></i>
-        <h2 class="text-lg font-bold text-muji-dark">租車資訊細節</h2>
-      </div>
-
-      <!-- Rental 1 -->
-      <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-3.5">
-        <div class="flex justify-between items-center border-b border-muji-border pb-3">
-          <div class="flex items-center gap-2">
-            <span class="bg-muji-accent text-white text-xs px-2.5 py-1 rounded-md font-medium">第 1 次租車</span>
-            <span class="text-sm font-bold text-muji-dark">特羅姆瑟 (Tromsø)</span>
-          </div>
-          <div class="bg-black text-[#ff5f00] font-black italic px-3 py-1 rounded text-xs tracking-tighter">
-            SIXT
-          </div>
-        </div>
-
-        <div class="space-y-2 text-sm">
-          <div class="bg-muji-bg p-3 rounded-xl border border-muji-border space-y-1">
-            <div class="flex items-center gap-2 font-semibold text-muji-dark">
-              <i data-lucide="calendar" class="w-4 h-4 text-muji-accent"></i>
-              <span>取車：9 月 27 日（日） 11:30</span>
-            </div>
-            <p class="text-muji-muted pl-6 text-xs">Tromsoe Airport 特羅姆瑟機場 (航站樓內)</p>
-          </div>
-
-          <div class="bg-muji-bg p-3 rounded-xl border border-muji-border space-y-1">
-            <div class="flex items-center gap-2 font-semibold text-muji-dark">
-              <i data-lucide="calendar" class="w-4 h-4 text-muji-accent"></i>
-              <span>還車：10 月 4 日（日） 11:30</span>
-            </div>
-            <p class="text-muji-muted pl-6 text-xs">Tromsoe Airport 特羅姆瑟機場 (航站樓內)</p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2.5 text-xs pt-1">
-          <div class="border border-muji-border p-3 rounded-xl bg-muji-accentLight/40 space-y-0.5">
-            <span class="text-xs text-muji-accent font-bold block">5 人座車</span>
-            <p class="font-semibold text-muji-dark text-sm">單號: 764865337</p>
-            <p class="text-muji-muted">租借人: SHUCHIAO KO</p>
-          </div>
-          <div class="border border-muji-border p-3 rounded-xl bg-muji-accentLight/40 space-y-0.5">
-            <span class="text-xs text-muji-accent font-bold block">7 人座車</span>
-            <p class="font-semibold text-muji-dark text-sm">單號: 757900263</p>
-            <p class="text-muji-muted">租借人: CHIHYU HSU</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Rental 2 -->
-      <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-3.5">
-        <div class="flex justify-between items-center border-b border-muji-border pb-3">
-          <div class="flex items-center gap-2">
-            <span class="bg-muji-accent text-white text-xs px-2.5 py-1 rounded-md font-medium">第 2 次租車</span>
-            <span class="text-sm font-bold text-muji-dark">奧斯陸 (Oslo)</span>
-          </div>
-          <div class="bg-black text-[#ff5f00] font-black italic px-3 py-1 rounded text-xs tracking-tighter">
-            SIXT
-          </div>
-        </div>
-
-        <div class="space-y-2 text-sm">
-          <div class="bg-muji-bg p-3 rounded-xl border border-muji-border space-y-1">
-            <div class="flex items-center gap-2 font-semibold text-muji-dark">
-              <i data-lucide="calendar" class="w-4 h-4 text-muji-accent"></i>
-              <span>取車：10 月 4 日（日） 16:00</span>
-            </div>
-            <p class="text-muji-muted pl-6 text-xs">Gardermoen Airport 加勒穆恩機場 (租車中心)</p>
-          </div>
-
-          <div class="bg-muji-bg p-3 rounded-xl border border-muji-border space-y-1">
-            <div class="flex items-center gap-2 font-semibold text-muji-dark">
-              <i data-lucide="calendar" class="w-4 h-4 text-muji-accent"></i>
-              <span>還車：10 月 12 日（一） 16:00</span>
-            </div>
-            <p class="text-muji-muted pl-6 text-xs">Gardermoen Airport 加勒穆恩機場 (租車中心)</p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2.5 text-xs pt-1">
-          <div class="border border-muji-border p-3 rounded-xl bg-muji-accentLight/40 space-y-0.5">
-            <span class="text-xs text-muji-accent font-bold block">5 人座車</span>
-            <p class="font-semibold text-muji-dark text-sm">單號: 788528363</p>
-            <p class="text-muji-muted">租借人: CHIHYU HSU</p>
-          </div>
-          <div class="border border-muji-border p-3 rounded-xl bg-muji-accentLight/40 space-y-0.5">
-            <span class="text-xs text-muji-accent font-bold block">7 人座車</span>
-            <p class="font-semibold text-muji-dark text-sm">單號: 778629203</p>
-            <p class="text-muji-muted">租借人: KOIJU</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 4: ACCOMMODATIONS -->
-    <section id="tab-hotels" class="hidden space-y-5">
-      <div class="flex items-center gap-2 mb-1">
-        <i data-lucide="hotel" class="w-6 h-6 text-muji-accent"></i>
-        <h2 class="text-lg font-bold text-muji-dark">住宿預訂資訊</h2>
-      </div>
-
-      <div class="space-y-3.5" id="hotel-list"></div>
-    </section>
-
-    <!-- TAB 5: PACKING CHECKLIST -->
-    <section id="tab-checklist" class="hidden space-y-5">
-      <div class="flex items-center justify-between mb-1">
-        <div class="flex items-center gap-2">
-          <i data-lucide="check-square" class="w-6 h-6 text-muji-accent"></i>
-          <h2 class="text-lg font-bold text-muji-dark">旅行物品準備清單</h2>
-        </div>
-        <button onclick="resetChecklist()" class="text-xs text-muji-accent underline font-medium">重設清單</button>
-      </div>
-
-      <!-- Progress bar -->
-      <div class="bg-muji-card p-4 rounded-2xl border border-muji-border shadow-sm space-y-2">
-        <div class="flex justify-between text-sm font-semibold">
-          <span class="text-muji-dark">準備進度</span>
-          <span id="checklist-progress-text" class="text-muji-accent">0 / 0</span>
-        </div>
-        <div class="w-full bg-muji-bg rounded-full h-2.5 overflow-hidden border border-muji-border">
-          <div id="checklist-progress-bar" class="bg-muji-accent h-2.5 transition-all duration-300 w-0"></div>
-        </div>
-      </div>
-
-      <div class="space-y-4" id="packing-checklist-container">
-        <!-- Checklist categories rendered dynamically -->
-      </div>
-    </section>
-
-    <!-- TAB 6: EXPENSES (Accounting) -->
-    <section id="tab-accounting" class="hidden space-y-5">
-      <div class="flex items-center justify-between mb-1">
-        <div class="flex items-center gap-2">
-          <i data-lucide="calculator" class="w-6 h-6 text-muji-accent"></i>
-          <h2 class="text-lg font-bold text-muji-dark">簡易記帳本</h2>
-        </div>
-        <div class="text-xs text-muji-muted font-medium">預設: 1 EUR = 35 TWD</div>
-      </div>
-
-      <!-- Add Expense Form -->
-      <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-3.5">
-        <h3 class="text-base font-bold text-muji-dark">新增消費記錄</h3>
-        <form id="expense-form" class="space-y-3.5">
-          <div class="grid grid-cols-2 gap-2.5">
-            <div>
-              <label class="block text-xs font-medium text-muji-muted mb-1">日期</label>
-              <input type="date" id="exp-date" class="w-full text-sm p-2.5 rounded-xl border border-muji-border bg-muji-bg focus:outline-none focus:border-muji-accent">
-            </div>
-            <div>
-              <label class="block text-xs font-medium text-muji-muted mb-1">類別</label>
-              <select id="exp-category" class="w-full text-sm p-2.5 rounded-xl border border-muji-border bg-muji-bg focus:outline-none focus:border-muji-accent">
-                <option value="加油">加油</option>
-                <option value="景點門票">景點門票</option>
-                <option value="餐費">餐費</option>
-                <option value="稅金">稅金</option>
-                <option value="交通搭車">交通搭車</option>
-                <option value="雜物">雜物</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-2.5">
-            <div>
-              <label class="block text-xs font-medium text-muji-muted mb-1">金額 (EUR €)</label>
-              <input type="number" step="0.01" id="exp-amount" placeholder="0.00" class="w-full text-sm p-2.5 rounded-xl border border-muji-border bg-muji-bg focus:outline-none focus:border-muji-accent" required>
-            </div>
-            <div>
-              <label class="block text-xs font-medium text-muji-muted mb-1">支付方式</label>
-              <select id="exp-payment" class="w-full text-sm p-2.5 rounded-xl border border-muji-border bg-muji-bg focus:outline-none focus:border-muji-accent">
-                <option value="刷卡">刷卡</option>
-                <option value="現金">現金</option>
-              </select>
-            </div>
-          </div>
-
+    <section>
+      <div id="weather-banner" class="bg-white/80 rounded-2xl p-3.5 mb-3 border border-orange-100 flex items-center justify-between shadow-cute transition-all duration-300">
+        <div class="flex items-center gap-3">
+          <span id="weather-icon" class="text-2xl">🌤️</span>
           <div>
-            <label class="block text-xs font-medium text-muji-muted mb-1">備註說明</label>
-            <input type="text" id="exp-note" placeholder="例如: 聖誕老人村門票/明信片" class="w-full text-sm p-2.5 rounded-xl border border-muji-border bg-muji-bg focus:outline-none focus:border-muji-accent">
+            <div class="text-xs text-gray-500" id="weather-loc">熱海市即時天氣</div>
+            <div class="text-sm font-bold text-charcoal" id="weather-temp">正在獲取氣溫...</div>
           </div>
-
-          <div class="text-sm text-muji-muted bg-muji-bg p-3 rounded-xl border border-muji-border flex justify-between font-medium">
-            <span>預估台幣約：</span>
-            <span id="exp-twd-preview" class="font-bold text-muji-dark">NT$ 0</span>
-          </div>
-
-          <button type="submit" class="w-full bg-muji-accent text-white py-3 rounded-xl text-sm font-semibold hover:bg-opacity-90 transition-all flex items-center justify-center gap-1.5">
-            <i data-lucide="plus" class="w-4 h-4"></i> 新增帳目
-          </button>
-        </form>
+        </div>
+        <span class="text-[10px] text-gray-500 bg-gray-100 px-2 py-1 rounded-full">即時聯網</span>
       </div>
 
-      <!-- Expense Summary & List -->
-      <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-3.5">
-        <div class="flex justify-between items-center border-b border-muji-border pb-2.5">
-          <h3 class="text-base font-bold text-muji-dark">總花費統計</h3>
-          <span id="total-expense-twd" class="text-base font-bold text-muji-accent">NT$ 0</span>
+      <div id="itinerary-list" class="space-y-3.5">
+        </div>
+    </section>
+
+    <section class="mt-8">
+      <div class="flex items-center justify-between mb-3 px-1">
+        <h2 class="text-base font-bold flex items-center gap-1.5">
+          <i data-lucide="plane-takeoff" class="w-4 h-4 text-sakura"></i>
+          主要航班資訊
+        </h2>
+        <span class="text-xs text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full font-medium">行李23KG/人</span>
+      </div>
+
+      <div class="bg-white rounded-3xl p-5 shadow-cute border border-orange-100/60 mb-3 relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-softpink/30 rounded-full"></div>
+        <div class="flex justify-between items-center border-b border-dashed border-gray-200 pb-3">
+          <span class="bg-sakura text-white font-bold text-xs px-2.5 py-0.5 rounded-full">去程 BOARDING PASS</span>
+          <span class="font-extrabold text-charcoal tracking-wide">UA 838</span>
+        </div>
+        <div class="flex items-center justify-between my-4">
+          <div>
+            <div class="text-2xl font-black text-charcoal">KHH</div>
+            <div class="text-xs text-gray-500">高雄小港</div>
+            <div class="text-sm font-bold text-emerald-700 mt-0.5">09:55</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-[10px] text-gray-500 font-bold mb-1">9/15 (二)</span>
+            <div class="w-20 border-t-2 border-sakura relative">
+              <i data-lucide="plane" class="w-4 h-4 text-sakura absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-0.5"></i>
+            </div>
+            <span class="text-[10px] text-gray-500 mt-1">3h 50m</span>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-black text-charcoal">NRT</div>
+            <div class="text-xs text-gray-500">成田第1航廈</div>
+            <div class="text-sm font-bold text-emerald-700 mt-0.5">14:45</div>
+          </div>
+        </div>
+        <div class="bg-cream/80 p-2.5 rounded-xl flex justify-between items-center text-xs">
+          <span class="text-gray-500">託運行李規格：</span>
+          <span class="font-bold text-charcoal flex items-center gap-1">
+            <i data-lucide="luggage" class="w-3.5 h-3.5 text-matcha"></i> 23 KG / 人
+          </span>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-5 shadow-cute border border-orange-100/60 relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-softblue/50 rounded-full"></div>
+        <div class="flex justify-between items-center border-b border-dashed border-gray-200 pb-3">
+          <span class="bg-teal-500 text-white font-bold text-xs px-2.5 py-0.5 rounded-full">回程 BOARDING PASS</span>
+          <span class="font-extrabold text-charcoal tracking-wide">UA 839</span>
+        </div>
+        <div class="flex items-center justify-between my-4">
+          <div>
+            <div class="text-2xl font-black text-charcoal">NRT</div>
+            <div class="text-xs text-gray-500">成田第1航廈</div>
+            <div class="text-sm font-bold text-emerald-700 mt-0.5">17:50</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-[10px] text-gray-500 font-bold mb-1">9/21 (一)</span>
+            <div class="w-20 border-t-2 border-teal-400 relative">
+              <i data-lucide="plane" class="w-4 h-4 text-teal-400 absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-0.5"></i>
+            </div>
+            <span class="text-[10px] text-gray-500 mt-1">4h 10m</span>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-black text-charcoal">KHH</div>
+            <div class="text-xs text-gray-500">高雄小港</div>
+            <div class="text-sm font-bold text-emerald-700 mt-0.5">21:00</div>
+          </div>
+        </div>
+        <div class="bg-cream/80 p-2.5 rounded-xl flex justify-between items-center text-xs">
+          <span class="text-gray-500">託運行李規格：</span>
+          <span class="font-bold text-charcoal flex items-center gap-1">
+            <i data-lucide="luggage" class="w-3.5 h-3.5 text-matcha"></i> 每人23KG (含小孩)
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="flex items-center justify-between mb-3 px-1">
+        <h2 class="text-base font-bold flex items-center gap-1.5">
+          <i data-lucide="car" class="w-4 h-4 text-matcha"></i>
+          租車預約詳情 (Nissan)
+        </h2>
+      </div>
+      <div class="bg-white rounded-3xl p-4.5 shadow-cute border border-orange-100/60 text-xs space-y-3">
+        <div class="flex justify-between items-center bg-amber-50 p-2.5 rounded-2xl text-amber-900">
+          <span class="font-medium">預約號碼:</span>
+          <span class="font-mono font-bold text-sm">26073102473</span>
+        </div>
+        <div class="grid grid-cols-1 gap-2.5">
+          <div class="border-l-2 border-sakura pl-2.5">
+            <div class="text-gray-500 text-[11px]">取車：15/09/2026 16:30</div>
+            <div class="font-bold text-charcoal">成田機場第1候機樓服務櫃檯</div>
+            <div class="text-gray-500 text-[10px] mt-0.5">千葉縣成田市三里塚御料牧場1-1</div>
+            <div class="flex items-center gap-2 mt-1">
+              <a href="tel:0476-33-8623" class="inline-flex items-center gap-1 text-emerald-600 font-bold underline">
+                <i data-lucide="phone-call" class="w-3 h-3"></i> 0476-33-8623
+              </a>
+              <a href="https://maps.google.com/?q=成田機場第1候機樓" target="_blank" class="inline-flex items-center gap-1 text-sky-600 underline">
+                <i data-lucide="map-pin" class="w-3 h-3"></i> 地圖
+              </a>
+            </div>
+          </div>
+          <div class="border-l-2 border-teal-400 pl-2.5">
+            <div class="text-gray-500 text-[11px]">還車：19/09/2026 16:30</div>
+            <div class="font-bold text-charcoal">小田原新幹線口店</div>
+            <div class="text-gray-500 text-[10px] mt-0.5">神奈川縣小田原市城山1-7-27</div>
+            <div class="flex items-center gap-2 mt-1">
+              <a href="tel:0465-32-4123" class="inline-flex items-center gap-1 text-emerald-600 font-bold underline">
+                <i data-lucide="phone-call" class="w-3 h-3"></i> 0465-32-4123
+              </a>
+              <a href="https://maps.google.com/?q=神奈川縣小田原市城山1-7-27" target="_blank" class="inline-flex items-center gap-1 text-sky-600 underline">
+                <i data-lucide="map-pin" class="w-3 h-3"></i> 地圖
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="flex items-center justify-between mb-3 px-1">
+        <h2 class="text-base font-bold flex items-center gap-1.5">
+          <i data-lucide="bed-double" class="w-4 h-4 text-purple-400"></i>
+          住宿地點總覽
+        </h2>
+      </div>
+      <div class="space-y-3 text-xs" id="hotels-container">
+        <div class="bg-white p-4 rounded-3xl shadow-cute border border-orange-100/60 space-y-2">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="bg-softpink text-charcoal font-bold px-2 py-0.5 rounded-full text-[10px]">9/15 - 9/16 (2晚)</span>
+              <h3 class="font-bold text-sm text-charcoal mt-1">Rakuten STAY Atami (熱海)</h3>
+            </div>
+            <a href="https://maps.google.com/?q=Rakuten+STAY+熱海" target="_blank" class="bg-emerald-50 text-emerald-700 px-2.5 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition">
+              <i data-lucide="navigation" class="w-3 h-3"></i> 導航
+            </a>
+          </div>
+          <div class="bg-cream/60 p-2.5 rounded-xl space-y-1 text-gray-600">
+            <div>訂單：Booking <span class="font-mono font-bold text-charcoal">6468484848</span> (雙人房)</div>
+            <div>訂單：Agoda <span class="font-mono font-bold text-charcoal">1723228686</span> (3人房)</div>
+            <div class="text-emerald-700 font-semibold">🅿️ 停車場 MAP CODE：<span class="font-mono font-bold">116 624 515*84</span></div>
+          </div>
+          <div class="flex items-center justify-between pt-1">
+            <span class="text-gray-500">無人管理前台，事先填寫 URL</span>
+            <a href="tel:+815017509719" class="text-charcoal font-bold flex items-center gap-1 underline">
+              <i data-lucide="phone" class="w-3 h-3 text-sakura"></i> +81 50-1750-9719
+            </a>
+          </div>
         </div>
 
-        <div id="expense-list" class="space-y-2.5 max-h-80 overflow-y-auto no-scrollbar"></div>
+        <div class="bg-white p-4 rounded-3xl shadow-cute border border-orange-100/60 space-y-2">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="bg-softblue text-teal-800 font-bold px-2 py-0.5 rounded-full text-[10px]">9/17 (1晚)・含早晚餐</span>
+              <h3 class="font-bold text-sm text-charcoal mt-1">Atagawa Ocean Resort (熱川)</h3>
+            </div>
+            <a href="https://maps.google.com/?q=Atagawa+Ocean+Resort" target="_blank" class="bg-emerald-50 text-emerald-700 px-2.5 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition">
+              <i data-lucide="navigation" class="w-3 h-3"></i> 導航
+            </a>
+          </div>
+          <div class="bg-cream/60 p-2 rounded-xl text-gray-600">
+            訂單：Booking <span class="font-mono font-bold text-charcoal">6562190907</span>
+          </div>
+          <div class="flex items-center justify-between pt-1">
+            <span class="text-gray-500">海景溫泉飯店</span>
+            <a href="tel:+81557232111" class="text-charcoal font-bold flex items-center gap-1 underline">
+              <i data-lucide="phone" class="w-3 h-3 text-sakura"></i> +81 557-23-2111
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-3xl shadow-cute border border-orange-100/60 space-y-2">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded-full text-[10px]">9/18 (1晚)・含早餐</span>
+              <h3 class="font-bold text-sm text-charcoal mt-1">Rakuten STAY VILLA 箱根仙石原</h3>
+            </div>
+            <a href="https://maps.google.com/?q=Rakuten+STAY+VILLA+Hakone+Sengokuhara" target="_blank" class="bg-emerald-50 text-emerald-700 px-2.5 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition">
+              <i data-lucide="navigation" class="w-3 h-3"></i> 導航
+            </a>
+          </div>
+          <div class="bg-cream/60 p-2 rounded-xl text-gray-600">
+            訂單：Booking <span class="font-mono font-bold text-charcoal">6068829974</span>
+          </div>
+          <div class="flex items-center justify-between pt-1">
+            <span class="text-gray-500">無人管理別墅</span>
+            <a href="tel:+815017509719" class="text-charcoal font-bold flex items-center gap-1 underline">
+              <i data-lucide="phone" class="w-3 h-3 text-sakura"></i> +81 50-1750-9719
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-3xl shadow-cute border border-orange-100/60 space-y-2">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="bg-purple-100 text-purple-900 font-bold px-2 py-0.5 rounded-full text-[10px]">9/19 - 9/21 (2晚)</span>
+              <h3 class="font-bold text-sm text-charcoal mt-1">TOKYO SKYTREE VILLIA (星の宿)</h3>
+            </div>
+            <a href="https://maps.google.com/?q=1-chōme-18-7+Yokokawa,+Sumida+City,+Tokyo" target="_blank" class="bg-emerald-50 text-emerald-700 px-2.5 py-1.5 rounded-xl font-bold flex items-center gap-1 hover:bg-emerald-100 transition">
+              <i data-lucide="navigation" class="w-3 h-3"></i> 導航
+            </a>
+          </div>
+          <div class="bg-cream/60 p-2.5 rounded-xl text-gray-600 space-y-1">
+            <div>訂單：Booking <span class="font-mono font-bold text-charcoal">6068870748</span></div>
+            <div class="text-[11px] text-gray-500">地址：東京都墨田區橫川 1-18-7 星の宿</div>
+          </div>
+          <div class="flex items-center justify-between pt-1">
+            <span class="text-gray-500">鄰近押上／錦糸町站</span>
+            <a href="tel:+81300000000" class="text-charcoal font-bold flex items-center gap-1 underline">
+              <i data-lucide="phone" class="w-3 h-3 text-sakura"></i> 民宿聯絡處
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl p-5 shadow-cute border border-orange-100/60">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-base font-bold flex items-center gap-1.5">
+          <i data-lucide="wallet" class="w-4 h-4 text-emerald-600"></i>
+          旅行記帳小幫手
+        </h2>
+        <div class="flex items-center gap-1 text-[11px] bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full font-bold">
+          <span>匯率：</span>
+          <input type="number" id="exchange-rate" step="0.001" value="0.215" class="w-12 bg-transparent text-emerald-900 border-b border-emerald-400 font-mono text-center outline-none" />
+        </div>
+      </div>
+
+      <form id="expense-form" class="space-y-3 text-xs bg-cream/70 p-3.5 rounded-2xl">
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-gray-500 mb-1">日期</label>
+            <input type="date" id="exp-date" class="w-full bg-white rounded-xl p-2 border border-gray-200 focus:outline-sakura" required />
+          </div>
+          <div>
+            <label class="block text-gray-500 mb-1">類別</label>
+            <select id="exp-cat" class="w-full bg-white rounded-xl p-2 border border-gray-200 focus:outline-sakura font-medium">
+              <option value="餐費">🍜 餐費</option>
+              <option value="加油">⛽ 加油</option>
+              <option value="景點門票">🎟️ 景點門票</option>
+              <option value="交通搭車">🚅 交通搭車</option>
+              <option value="雜物">🛍️ 雜物購物</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-gray-500 mb-1">日幣金額 (JPY ¥)</label>
+            <input type="number" id="exp-jpy" placeholder="0" min="1" class="w-full bg-white rounded-xl p-2 border border-gray-200 font-mono font-bold focus:outline-sakura" required />
+          </div>
+          <div>
+            <label class="block text-gray-500 mb-1">折合台幣 (TWD NT$)</label>
+            <input type="text" id="exp-twd-preview" readonly placeholder="約 0 元" class="w-full bg-gray-100 rounded-xl p-2 text-gray-500 font-mono" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 items-center">
+          <div>
+            <label class="block text-gray-500 mb-1">支付方式</label>
+            <div class="flex gap-2">
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="pay-method" value="信用卡" checked class="accent-sakura" /> 刷卡
+              </label>
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="pay-method" value="現金" class="accent-sakura" /> 現金
+              </label>
+            </div>
+          </div>
+          <div class="text-right pt-2">
+            <button type="submit" class="w-full bg-sakura hover:bg-rose-400 text-white font-bold py-2 rounded-xl shadow-btn transition">
+              ＋ 加入花費
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="mt-4 pt-3 border-t border-gray-100">
+        <div class="flex justify-between items-center mb-2 px-1">
+          <span class="text-xs text-gray-500">花費紀錄</span>
+          <div class="text-right">
+            <span class="text-xs text-gray-500">總計：</span>
+            <span id="total-jpy" class="font-mono font-bold text-sm text-charcoal">¥0</span>
+            <span id="total-twd" class="text-xs text-gray-500 ml-1">(NT$0)</span>
+          </div>
+        </div>
+        <div id="expense-items" class="space-y-2 max-h-48 overflow-y-auto no-scrollbar">
+          </div>
       </div>
     </section>
 
   </main>
 
-  <!-- Bottom Navigation Bar -->
-  <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-muji-card border-t border-muji-border z-30 px-2 py-2 flex justify-around items-center text-xs font-medium">
-    <button onclick="switchTab('flights')" id="nav-flights" class="flex flex-col items-center gap-1 p-1 text-muji-muted">
-      <i data-lucide="plane" class="w-5 h-5"></i>
-      <span>航班</span>
-    </button>
-    <button onclick="switchTab('cars')" id="nav-cars" class="flex flex-col items-center gap-1 p-1 text-muji-muted">
-      <i data-lucide="car" class="w-5 h-5"></i>
-      <span>租車</span>
-    </button>
-    <button onclick="switchTab('hotels')" id="nav-hotels" class="flex flex-col items-center gap-1 p-1 text-muji-muted">
-      <i data-lucide="home" class="w-5 h-5"></i>
-      <span>住宿</span>
-    </button>
-    <button onclick="switchTab('checklist')" id="nav-checklist" class="flex flex-col items-center gap-1 p-1 text-muji-muted">
-      <i data-lucide="check-square" class="w-5 h-5"></i>
-      <span>物品</span>
-    </button>
-    <button onclick="switchTab('accounting')" id="nav-accounting" class="flex flex-col items-center gap-1 p-1 text-muji-muted">
-      <i data-lucide="wallet" class="w-5 h-5"></i>
-      <span>記帳</span>
-    </button>
-  </nav>
-
-  <!-- Application Logic JavaScript -->
   <script>
-    const EUR_RATE = 35;
-
-    // THSR Data Definition
-    const thsrGroups = [
-      {
-        date: "2026-09-23",
-        members: "爸媽喬儒",
-        route: "左營 ➔ 台北",
-        trainNo: "車次 842",
-        time: "16:25 - 18:39",
-        carNo: "車廂 4",
-        note: "前往台北住宿 (雀客旅館台北站前)"
-      },
-      {
-        date: "2026-09-24",
-        members: "喻",
-        route: "左營 ➔ 桃園",
-        trainNo: "車次 1602",
-        time: "06:40 - 08:16",
-        carNo: "車廂 5",
-        note: "前往桃園機場 TPE 航廈辦理登機"
-      },
-      {
-        date: "2026-09-24",
-        members: "佑欣",
-        route: "左營 ➔ 桃園",
-        trainNo: "車次 612",
-        time: "08:00 - 09:36",
-        carNo: "車廂 4",
-        note: "前往桃園機場 TPE 航廈辦理登機"
-      }
-    ];
-
-    // Detailed Itinerary Data with Station Names & Notes
+    // ==========================================
+    // 1. 行程資料庫 (7天景點、座標、營業時間、門票等)
+    // ==========================================
     const tripData = [
       {
-        day: 1, date: "2026-09-24", weekday: "週四", location: "台北飛往東京轉機至芬蘭", city: "Helsinki", lat: 60.1699, lon: 24.9384,
-        hotel: "夜宿機上", hotelAddress: "",
-        spots: [
-          { name: "高鐵接駁至桃園機場", transport: "台灣高鐵 / 接送專車", desc: "成員搭乘指定班次高鐵抵達桃園，搭接駁專車前往桃園機場航廈辦理報到託運。", fee: "已預訂車票", note: "請參考頂部【高鐵】卡片核對各自車次" },
-          { name: "桃園 TPE ➔ 東京 NRT / HND", transport: "飛機 JL802 / JL8664", desc: "10:55-14:55 (JL802 成田 NRT) / 12:45-17:15 (JL8664 成田 NRT)，飛抵東京轉機。", fee: "已含機票", note: "準備轉乘跨國航班" },
-          { name: "東京 HND / NRT ➔ 赫爾辛基 HEL", transport: "飛機 JL6877 / JL6801", desc: "JL6877 (羽田 HND 21:50-04:40+1) / JL6801 (成田 NRT 23:05-05:55+1)。", fee: "已含機票", note: "夜宿機上，隔日清晨抵達赫爾辛基" }
+        day: 1,
+        date: "2026-09-15",
+        dateStr: "9/15",
+        week: "週二",
+        city: "成田 / 熱海",
+        lat: 35.1000,
+        lng: 139.0700,
+        items: [
+          {
+            title: "抵達 NRT 機場 ➡️ 取車前往熱海",
+            type: "drive",
+            time: "14:45 - 16:30",
+            desc: "UA838 航班降落 T1，前往櫃檯辦理 Nissan 租車手續，取車後沿東名高速前往熱海。",
+            ticket: "租車預約：26073102473",
+            hours: "櫃檯出發 16:30",
+            map: "https://maps.google.com/?q=成田機場第1候機樓"
+          },
+          {
+            title: "Rakuten STAY Atami 辦理入住",
+            type: "hotel",
+            time: "19:00 預計抵達",
+            desc: "無人自助 check-in，車輛停妥專屬車位，舒緩移動疲勞。",
+            ticket: "車位 MAP CODE: 116 624 515*84",
+            hours: "15:00 後入住",
+            map: "https://maps.google.com/?q=Rakuten+STAY+熱海"
+          }
         ]
       },
       {
-        day: 2, date: "2026-09-25", weekday: "週五", location: "赫爾辛基市區 & 芬蘭堡", city: "Helsinki", lat: 60.1699, lon: 24.9384,
-        hotel: "VR臥舖火車", hotelAddress: "Helsinki Central Station",
-        spots: [
-          { name: "赫爾辛基中央車站寄放行李", transport: "機場快線 I/P線 (約30m)", desc: "搭乘機場快線抵達中央車站寄放行李，展開赫爾辛基一日遊。", fee: "1 Day Pass 含", station: "Rautatieasema (中央車站)", note: "車站置物櫃寄放行李" },
-          { name: "頌歌中央圖書館 (Oodi)", transport: "步行 2m / Tram 1號", desc: "全芬蘭最美的現代建築圖書館，體驗極簡建築與空間設計。", fee: "免費", station: "上車: Kamppi/Eduskuntatalo ➔ 下車: Sammonkatu", note: "圖書館正門走出穿過草坪往議會大廈方向，車站在國家博物館前的大街上" },
-          { name: "岩石教堂 (Temppeliaukio Church)", transport: "Tram 1號 (約15m)", desc: "開鑿於天然巨岩內部的獨特教堂，天然採光與音響效果絕佳。", fee: "約 8€", station: "下車站: Sammonkatu (靠近岩石教堂)", note: "終點站附近" },
-          { name: "參議院廣場 & 赫爾辛基主教座堂", transport: "Tram 2/3號 (約10m)", desc: "赫爾辛基地標白色大教堂，壯觀的大階梯與參議院廣場。", fee: "自由捐款 / 免費", station: "上車: Sammonkatu ➔ 下車: Senaatintori", note: "從主教座堂大階梯走下來，穿過亞歷山大街沿 Unioninkatu 或 Sofiankatu 直走" },
-          { name: "烏斯佩斯基大教堂 & 老市集大廳", transport: "步行 (約15m)", desc: "北歐最大的東正教堂，順遊老市集大廳與市集廣場品嚐鮭魚湯與午餐。", fee: "免費", note: "沿 Esplanadi 公園漫步" },
-          { name: "芬蘭堡 (Suomenlinna)", transport: "HSL 渡輪 (約15m)", desc: "搭乘渡輪前往世界文化遺產海上要塞，參觀教堂、大庭院與國王門。", fee: "1 Day Pass 含", station: "上船碼頭: Market Square Kauppatori ➔ 下船碼頭: Main Quay", note: "市集廣場碼頭標示非常清楚 (Suomenlinna HSL-ferry 牌子)" },
-          { name: "回到市集廣場與中央車站", transport: "HSL 渡輪 + Tram 2/5號", desc: "搭渡輪返回市集廣場，轉乘 Tram 返回中央車站享用晚餐並取行李。", fee: "1 Day Pass 含", station: "上船碼頭: Main Quay ➔ 下船: Market Square Kauppatori / 電車下車: Rautatieasema", note: "取行李準備登車" },
-          { name: "VR 夜舖火車前往羅瓦涅米", transport: "夜舖火車 (23:05-11:00)", desc: "搭乘 VR 雙層臥舖火車（約12小時），前往北極圈羅瓦涅米。", fee: "已預訂車票", station: "Rautatieasema (中央車站 18/19號月台)", note: "通常在 18、19 號月台，需提前半小時抵達" }
+        day: 2,
+        date: "2026-09-16",
+        dateStr: "9/16",
+        week: "週三",
+        city: "熱海市區",
+        lat: 35.1000,
+        lng: 139.0700,
+        items: [
+          {
+            title: "來宮神社 (Kinomiya Shrine)",
+            type: "spot",
+            time: "09:30 - 11:00",
+            desc: "擁有2,000年樹齡的大楠樹神木，著名的能量磁場與清幽祈福名所。",
+            ticket: "免費入社",
+            hours: "09:00 - 17:00",
+            map: "https://maps.google.com/?q=來宮神社"
+          },
+          {
+            title: "熱海銀座商店街 (美食散策)",
+            type: "food",
+            time: "11:30 - 13:30",
+            desc: "昭和復古洋風老街，必吃熱海布丁、現烤海鮮乾貨、溫泉饅頭。",
+            ticket: "自由消費 (店內用餐)",
+            hours: "約 10:00 - 18:00 (依各店家)",
+            map: "https://maps.google.com/?q=熱海銀座商店街"
+          },
+          {
+            title: "熱海城 (Atami Castle)",
+            type: "spot",
+            time: "14:00 - 15:30",
+            desc: "位於錦之浦山頂，觀景台可360度俯瞰相模灣與熱海港絕美弧線，附設足湯。",
+            ticket: "成人 ¥1,100 / 中小學生 ¥600",
+            hours: "09:00 - 17:00 (最後入場 16:30)",
+            map: "https://maps.google.com/?q=熱海城"
+          },
+          {
+            title: "ACAO FOREST (赤尾香草玫瑰園)",
+            type: "spot",
+            time: "15:45 - 17:30",
+            desc: "依山傍海的花卉庭園，隈研吾設計 COEDA HOUSE 咖啡廳與面海鞦韆打卡點。",
+            ticket: "成人約 ¥3,000 (視季節微調)",
+            hours: "09:00 - 17:00 (最後入園 16:00)",
+            map: "https://maps.google.com/?q=ACAO+FOREST"
+          }
         ]
       },
       {
-        day: 3, date: "2026-09-26", weekday: "週六", location: "羅瓦涅米 (拜訪聖誕老人)", city: "Rovaniemi", lat: 66.5039, lon: 25.7294,
-        hotel: "Apukka Resort 極光小屋", hotelAddress: "Tutkijantie 28, 96900 Rovaniemi, FI",
-        spots: [
-          { name: "抵達羅瓦涅米火車站 & 取車", transport: "火車抵達 / 租車自駕", desc: "11:00 抵達羅瓦涅米火車站，辦理自駕租車手續，於市區午餐與補給。", fee: "租車費用", station: "Rovaniemi Train Station", note: "完成取車手續" },
-          { name: "聖誕老人村 (Santa Claus Village)", transport: "租車自駕 (約15m)", desc: "跨越北極圈線緯度標誌、寄送蓋有北極圈郵戳明信片、體驗雪橇與合照。", fee: "拍照約 40€", note: "聖誕老人村享用晚餐與活動" },
-          { name: "Apukka Resort 極光小屋 Check-in", transport: "租車自駕", desc: "入住特色極光玻璃小屋，夜晚於無光害區等待並追尋夢幻極光。", fee: "已預訂住宿", note: "享受極光小屋舒適設施" }
+        day: 3,
+        date: "2026-09-17",
+        dateStr: "9/17",
+        week: "週四",
+        city: "伊東 / 熱川",
+        lat: 34.8150,
+        lng: 139.0650,
+        items: [
+          {
+            title: "大室山 (Omuroyama) 【晴天推薦】",
+            type: "spot",
+            time: "09:30 - 12:00",
+            desc: "形似綠色抹茶布丁的死火山。全山禁止徒步與行車，需搭乘雙人吊椅纜車登頂眺望富士山。",
+            ticket: "吊椅纜車來回：大人 ¥1,000 / 兒童 ¥500 (車輛停山下免費)",
+            hours: "09:00 - 17:00 (天候不佳停駛)",
+            map: "https://maps.google.com/?q=大室山"
+          },
+          {
+            title: "小室山 Ridge Walk MISORA",
+            type: "spot",
+            time: "13:30 - 15:30",
+            desc: "標高321米，擁有全長166公尺的木質天空環景步道與無敵海景景觀玻璃咖啡廳。",
+            ticket: "單人吊椅纜車：來回 ¥800 / 步道免費步行上山 (停車免費)",
+            hours: "纜車 09:30 - 16:00 / 咖啡廳至 16:00",
+            map: "https://maps.google.com/?q=小室山Ridge+Walk+MISORA"
+          },
+          {
+            title: "入住 Atagawa Ocean Resort",
+            type: "hotel",
+            time: "16:30 抵達",
+            desc: "位於熱川海岸第一排，享受伊豆海風、豐盛海鮮自助晚餐與天然溫泉。",
+            ticket: "含早晚餐 / Booking: 6562190907",
+            hours: "15:00 入住",
+            map: "https://maps.google.com/?q=Atagawa+Ocean+Resort"
+          }
         ]
       },
       {
-        day: 4, date: "2026-09-27", weekday: "週日", location: "特羅姆瑟 (北極圈門戶)", city: "Tromso", lat: 69.6492, lon: 18.9553,
-        hotel: "Staying Apt 3 - New and modern", hotelAddress: "16 Kaare Moursunds veg, 9007 特羅姆瑟, 挪威",
-        spots: [
-          { name: "飛往特羅姆瑟 DY381 & 機場取車", transport: "飛機 (09:45-10:05) + 自駕", desc: "羅瓦涅米機場還車後搭機飛往挪威特羅姆瑟，抵達機場辦理第1次租車取車。", fee: "已含機票", station: "Tromsø Airport (特羅姆瑟機場航站樓內)", note: "5人座單號 764865337 / 7人座單號 757900263" },
-          { name: "北極之門 & 特羅姆瑟主教堂", transport: "租車自駕 (約15m)", desc: "打卡 Gateway to the Arctic 與極北木造主教堂，於特羅姆瑟市區散步午餐。", fee: "免費", note: "漫步市區港灣" },
-          { name: "北極大教堂 (Arctic Cathedral)", transport: "租車自駕 (約10m)", desc: "特羅姆瑟標誌性三角形現代建築教堂，極具幾何線條美感。", fee: "約 70 NOK", note: "經典地標建築" },
-          { name: "Fjellheisen 纜車觀景台", transport: "租車自駕 (約10m)", desc: "搭乘纜車登上 Storsteinen 山頂，俯瞰特羅姆瑟全景與壯麗峽灣夜景。", fee: "約 495-595 NOK", note: "不需預約，山頂夜景極佳" },
-          { name: "極北麥當勞 & 世界最小酒吧", transport: "租車自駕 (約10m)", desc: "打卡全世界最北邊的麥當勞之一以及極具特色的極北迷你酒吧，隨後返回民宿。", fee: "自由消費", note: "特羅姆瑟特色打卡點" }
+        day: 4,
+        date: "2026-09-18",
+        dateStr: "9/18",
+        week: "週五",
+        city: "箱根",
+        lat: 35.2320,
+        lng: 139.0200,
+        items: [
+          {
+            title: "前往箱根・蘆之湖 (Ashinoko)",
+            type: "spot",
+            time: "10:30 - 13:00",
+            desc: "開車由熱川出發車程約70-80分。漫步湖畔、參拜箱根神社水中平和鳥居，眺望富士山與湖光水色。",
+            ticket: "箱根神社參拜免費；湖畔停車場約 ¥500/次",
+            hours: "境內全天開放 (寶物殿 09:00-16:30)",
+            map: "https://maps.google.com/?q=箱根神社+平和鳥居"
+          },
+          {
+            title: "箱根玻璃之森美術館",
+            type: "spot",
+            time: "14:00 - 16:00",
+            desc: "蘆之湖開車約20分鐘。重現威尼斯水都風情，陽光下熠熠生輝的玻璃光之迴廊與歐式庭園。",
+            ticket: "成人 ¥1,800 / 大學高中生 ¥1,300 / 中小學生 ¥600",
+            hours: "10:00 - 17:30 (最後入館 17:00)",
+            map: "https://maps.google.com/?q=箱根玻璃之森美術館"
+          },
+          {
+            title: "入住 Rakuten STAY VILLA 箱根仙石原",
+            type: "hotel",
+            time: "16:30 抵達",
+            desc: "位於仙石原芒草草原旁，配備私人天然溫泉風呂的現代獨棟Villa。",
+            ticket: "含早餐 / Booking: 6068829974",
+            hours: "15:00 入住",
+            map: "https://maps.google.com/?q=Rakuten+STAY+VILLA+Hakone+Sengokuhara"
+          }
         ]
       },
       {
-        day: 5, date: "2026-09-28", weekday: "週一", location: "夏日島 & 塞尼亞島秘境", city: "Senja", lat: 69.3000, lon: 17.5000,
-        hotel: "Fjellkysten 旅館", hotelAddress: "Soløyveien 190, 9357 滕內沃爾, 挪威",
-        spots: [
-          { name: "Sommarøy 夏日島巡禮", transport: "租車自駕 (約1h)", desc: "欣賞北極圈內的白沙灘與蔚藍海水景色，於島上享用在地午餐。", fee: "免費", note: "島上明媚海岸景緻" },
-          { name: "渡輪前往塞尼亞島 (12:45)", transport: "渡輪 (45m 車渡)", desc: "開車登上渡輪前往塞尼亞島，飽覽沿途海岸峽灣景色。", fee: "現場刷卡", station: "上船碼頭: Bremsholmen ferjekai ➔ 下船碼頭: Botnhamn ferjekai", note: "需提早半小時抵達碼頭排隊上船" },
-          { name: "Tungeneset 惡魔之舌", transport: "租車自駕 (約30m)", desc: "沿木棧道直達海岸岩石，遠眺著名的「魔鬼之牙」鋸齒狀壯麗山峰。", fee: "免費", note: "經典地質海岸步道" },
-          { name: "Bergsbotn 懸空觀景台", transport: "租車自駕 (約20m)", desc: "44 公尺長的懸空鋼構平台，俯瞰壯麗的峽灣與盤山公路景緻。", fee: "免費", note: "懸空觀景平台" },
-          { name: "Finnsnes 塞尼亞大橋 ➔ 飯店", transport: "租車自駕 (約1.5h)", desc: "行經塞尼亞大橋跨海公路，於 Finnsnes 晚餐後驅車前往飯店 Check-in。", fee: "免費", note: "入住 Fjellkysten 旅館" }
+        day: 5,
+        date: "2026-09-19",
+        dateStr: "9/19",
+        week: "週六",
+        city: "箱根 / 東京墨田",
+        lat: 35.2440,
+        lng: 139.0190,
+        items: [
+          {
+            title: "大涌谷 (Owakudani)",
+            type: "spot",
+            time: "09:30 - 11:30",
+            desc: "箱根火山遺址，白煙裊裊的壯觀硫磺地貌，必嚐延壽7年的招牌黑雞蛋。",
+            ticket: "園區免費入園；小客車停車費 ¥530/次",
+            hours: "09:00 - 17:00 (視火山氣體管制變動)",
+            map: "https://maps.google.com/?q=大涌谷"
+          },
+          {
+            title: "小田原新幹線口還車",
+            type: "car",
+            time: "15:00 - 16:30 前完成",
+            desc: "Nissan 小田原新幹線口店還車 (0465-32-4123)，步行1分鐘進車站西口新幹線閘門。",
+            ticket: "預約號碼: 26073102473",
+            hours: "營業至 19:00",
+            map: "https://maps.google.com/?q=日產租車+小田原新幹線口店"
+          },
+          {
+            title: "搭乘新幹線＋地鐵前往東京押上",
+            type: "train",
+            time: "16:38 或 17:09 出發",
+            desc: "小田原搭東海道新幹線(Kodama約35分)至東京站，轉JR總武快速線至錦糸町，再搭1站半藏門線抵達押上。",
+            ticket: "新幹線自由座約 ¥3,280 + 地鐵 ¥180 (合計約 ¥3,460/人)",
+            hours: "班次密集，每小時有2-3班",
+            map: "https://maps.google.com/?q=小田原站"
+          },
+          {
+            title: "入住 TOKYO SKYTREE VILLIA (星の宿)",
+            type: "hotel",
+            time: "18:30 抵達",
+            desc: "墨田區橫川 1-18-7，步行可達晴空塔與錦糸町商圈。",
+            ticket: "Booking: 6068870748",
+            hours: "自助入住",
+            map: "https://maps.google.com/?q=1-chōme-18-7+Yokokawa,+Sumida+City,+Tokyo"
+          }
         ]
       },
       {
-        day: 6, date: "2026-09-29", weekday: "週二", location: "啟程前往羅浮敦群島", city: "Svolvaer", lat: 68.2343, lon: 14.5682,
-        hotel: "Rorbuene Svolvær Havn", hotelAddress: "Vesterøyveien 52-57, 8300 斯沃爾韋爾, 挪威",
-        spots: [
-          { name: "長途驅車前往羅浮敦群島", transport: "租車自駕 (約4h)", desc: "離開飯店後沿 E10 景觀公路前往斯沃爾維爾 (Svolvær)，沿途景色極佳。", fee: "加油費自理", note: "長途景觀公路" },
-          { name: "Lødingen Coop 超市補給", transport: "租車自駕途經", desc: "中途停靠 Lødingen 超市採買食材、零食與日常休閒補給。", fee: "自由消費", note: "超市食物補給" },
-          { name: "Austnesfjorden rest area 觀景台", transport: "租車自駕途經", desc: "停靠休息區欣賞峽灣小教堂、Sildpollneset 與靜謐海灣景緻，拍照休息。", fee: "免費", note: "峽灣絕佳拍照休息點" }
+        day: 6,
+        date: "2026-09-20",
+        dateStr: "9/20",
+        week: "週日",
+        city: "東京市區",
+        lat: 35.6895,
+        lng: 139.6917,
+        items: [
+          {
+            title: "東京全日自由活動 (推薦：淺草寺 & 晴空塔)",
+            type: "spot",
+            time: "全日自由行",
+            desc: "民宿旁步行即達押上晴空塔；搭乘都營淺草線體驗淺草寺雷門、仲見世通小吃，下午可安排澀谷 SHIBUYA SKY 或銀座購物。",
+            ticket: "依個人逛街路線自由安排",
+            hours: "店家一般 10:00 - 20:30",
+            map: "https://maps.google.com/?q=淺草寺"
+          }
         ]
       },
       {
-        day: 7, date: "2026-09-30", weekday: "週三", location: "羅浮敦群島南部絕景", city: "Reine", lat: 67.9333, lon: 13.0833,
-        hotel: "Rorbuene Svolvær Havn (連住)", hotelAddress: "Vesterøyveien 52-57, 8300 斯沃爾韋爾, 挪威",
-        spots: [
-          { name: "Reinebringen 步道健行", transport: "租車自駕 (約2h15m)", desc: "挑戰千階陡峭階梯步道（來回約2h15m），俯瞰 Reine 漁村絕美鳥瞰景致。", fee: "免費", note: "陡峭階梯步道，需注意防滑與體力" },
-          { name: "Å 奧鎮 (世界名字最短的小鎮)", transport: "租車自駕 (約15m)", desc: "探訪羅浮敦 E10 公路最南端終點的傳統漁村與鱈魚乾晾曬架。", fee: "免費", note: "E10公路終點站標誌" },
-          { name: "Hamnøy & Sakrisøy 紅黃小屋打卡", transport: "租車自駕 (約20m)", desc: "拍攝經典明信片 Hamnøy 紅色漁屋與 Sakrisøy 黃色漁屋，並於 Anita's 享用美味漢堡晚餐。", fee: "自由消費", note: "E10路邊有停車場，拍漁村全景極美" }
-        ]
-      },
-      {
-        day: 8, date: "2026-10-01", weekday: "週四", location: "羅浮敦群島特色地標", city: "Svolvaer", lat: 68.2343, lon: 14.5682,
-        hotel: "Rorbuene Svolvær Havn (連住)", hotelAddress: "Vesterøyveien 52-57, 8300 斯沃爾韋爾, 挪威",
-        spots: [
-          { name: "Henningsvær 海邊足球場", transport: "租車自駕 (約3.5h)", desc: "造訪全球著名的岩礁海邊足球場，順遊亨寧斯韋爾藝術文青小鎮與港口。", fee: "免費", note: "入口停車場，村落入口好停車" },
-          { name: "Kabelvåg 防波堤 (Breakwater)", transport: "租車自駕 (約15m)", desc: "漫步於海邊防波堤，欣賞絕美海景與波浪聲響，隨後返回住宿慢活。", fee: "免費", note: "海邊散步賞景" }
-        ]
-      },
-      {
-        day: 9, date: "2026-10-02", weekday: "週五", location: "羅浮敦返程途徑 (博根)", city: "Bogen", lat: 68.5262, lon: 17.0086,
-        hotel: "KAB Guesthouse", hotelAddress: "33 Niingsveien, 8533 博根, 挪威",
-        spots: [
-          { name: "返程車程 & Gullesfjorden 峽灣", transport: "租車自駕 (約3h)", desc: "開車往東北方向返程，中途於 Lødingen 與 Gullesfjorden 峽灣休息賞景。", fee: "免費", note: "輕鬆休養日，車程中途休息" },
-          { name: "抵達 KAB Guesthouse Check-in", transport: "租車自駕", desc: "入住博根舒適民宿，充分休息與恢復體力。", fee: "已預訂住宿", note: "享用民宿設備與晚餐" }
-        ]
-      },
-      {
-        day: 10, date: "2026-10-03", weekday: "週六", location: "特羅姆瑟山谷地區", city: "Tromso", lat: 69.6492, lon: 18.9553,
-        hotel: "House in the heart of tromsdalen", hotelAddress: "1 Fugløyvegen, 9020 特羅姆瑟, 挪威",
-        spots: [
-          { name: "Lapphaugen 休息站賞景", transport: "租車自駕 (約3h)", desc: "行經 Lapphaugen Turiststasjon AS 休息站，停靠欣賞沿途北歐荒野自然風光。", fee: "免費", note: "山谷公路休息站" },
-          { name: "Tromsdalen 民宿 Check-in", transport: "租車自駕 (約20m)", desc: "返抵特羅姆瑟山谷心臟地帶民宿 Check-in，準備明日飛往奧斯陸。", fee: "已預訂住宿", note: "整理行李準備明日航班" }
-        ]
-      },
-      {
-        day: 11, date: "2026-10-04", weekday: "週日", location: "飛往奧斯陸 (Oslo)", city: "Oslo", lat: 59.9139, lon: 10.7522,
-        hotel: "Spacious Five Bedroom Central Oslo", hotelAddress: "Korsgata 30B, 0551 奧斯陸, 挪威",
-        spots: [
-          { name: "特羅姆瑟 ➔ 奧斯陸 TOS-OSL", transport: "飛機 (12:55-14:50)", desc: "特羅姆瑟機場還車後搭機飛抵奧斯陸，於奧斯陸機場辦理第2次租車取車。", fee: "已含機票", station: "TOS Airport ➔ OSL Airport (加勒穆恩機場租車中心)", note: "取車單號 5人座 788528363 / 7人座 778629203" },
-          { name: "奧斯陸歌劇院 (Oslo Opera House)", transport: "租車自駕 (約50m)", desc: "白雪般傾斜大樓斜坡現代建築，可直接步行走上屋頂俯瞰峽灣美景。", fee: "免費", note: "市區停車請善用 Paleet P-hus 或 Aker Brygge Plus 停車場" },
-          { name: "維格蘭雕塑公園 (Vigeland Park)", transport: "租車自駕 (約20m)", desc: "漫步公園欣賞著名的「憤怒的小孩 (Sinnataggen)」與「生命之輪」青銅雕塑。", fee: "免費", note: "免門票開放式公園" }
-        ]
-      },
-      {
-        day: 12, date: "2026-10-05", weekday: "週一", location: "奧斯陸文化巡禮 ➔ 格里姆斯塔", city: "Oslo", lat: 59.9139, lon: 10.7522,
-        hotel: "Grimstad Vertshus", hotelAddress: "Frivoldveien 11-13, 4877 格里姆斯塔, 挪威",
-        spots: [
-          { name: "奧斯陸市政廳 & 挪威國家博物館", transport: "租車自駕 / 步行", desc: "參觀諾貝爾和平獎頒獎地市政廳，以及國家博物館（觀賞孟克經典名畫《吶喊》）。", fee: "博物館 200 NOK", station: "Rådhusplassen (市政廳廣場) / Aker Brygge 碼頭", note: "博物館建議預約，阿克碼頭周邊餐飲選擇極多" },
-          { name: "王宮與花園 (Slottsparken)", transport: "步行 (約15m)", desc: "漫步挪威王宮花園，欣賞典雅的皇室建築與林陰大道。", fee: "免費", note: "皇室花園漫步" },
-          { name: "驅車南下前往格里姆斯塔", transport: "租車自駕 (約4h)", desc: "下午驅車南下前往南部海岸小鎮 Grimstad 入住飯店休息。", fee: "加油/過路費自理", note: "中途可停靠其他城市休息" }
-        ]
-      },
-      {
-        day: 13, date: "2026-10-06", weekday: "週二", location: "斯塔萬格 (Stavanger)", city: "Stavanger", lat: 58.9700, lon: 5.7331,
-        hotel: "Central Guest House", hotelAddress: "Lysefjordgata 12, 4014 斯塔萬格, 挪威",
-        spots: [
-          { name: "巨劍紀念碑 (Sverd i fjell)", transport: "租車自駕 (約3h)", desc: "佇立於海邊岩石上的 3 把巨大青銅劍，紀念挪威歷史上的統一戰役。", fee: "免費", note: "海邊巨型景觀雕塑" },
-          { name: "彩色街 Øvre Holmegate", transport: "租車自駕 (約15m)", desc: "繽紛多彩塗鴉建築街區，極具活力與文青氣息，適合漫步與午茶咖啡。", fee: "自由消費", note: "市區可預約免費或路邊停車" },
-          { name: "Gamle Stavanger 老城區", transport: "步行 (約10m)", desc: "保存完好的 18 世紀白色木造建築群，順遊斯塔萬格主教座堂。", fee: "免費", note: "古典白色木屋區" }
-        ]
-      },
-      {
-        day: 14, date: "2026-10-07", weekday: "週三", location: "挑戰聖壇岩 (Preikestolen)", city: "Stavanger", lat: 58.9700, lon: 5.7331,
-        hotel: "Central Guest House (連住)", hotelAddress: "Lysefjordgata 12, 4014 斯塔萬格, 挪威",
-        spots: [
-          { name: "Preikestolen P1 停車場 ➔ 登山口", transport: "租車自駕 (約40m)", desc: "早起驅車前往布道台登山口 P1 停車場準備健行。", fee: "停車費約 250 NOK", station: "Preikestolen Parking (P1)", note: "穿著舒適健行鞋，準備充足水份與能量補給" },
-          { name: "聖壇岩 (Preikestolen) 健行", transport: "徒步健行 (約 3-4h / 4-5h 來回)", desc: "挑戰挪威三大奇石之一，站在 604 公尺直立懸崖頂端俯瞰壯麗呂瑟峽灣絕景。", fee: "免費", note: "挑戰懸崖壯麗景色，返回斯塔萬格住宿" }
-        ]
-      },
-      {
-        day: 15, date: "2026-10-08", weekday: "週四", location: "峽灣跳島渡輪 ➔ 卑爾根", city: "Bergen", lat: 60.3929, lon: 5.3242,
-        hotel: "City Centrum Villa Apartments w parking", hotelAddress: "Forskjønnelsen 41, Bergenhus, 5018 卑爾根, 挪威",
-        spots: [
-          { name: "Mortavika – Arsvågen 車渡", transport: "租車自駕 + 渡輪", desc: "開車上渡輪橫渡峽灣（Mortavika ➔ Arsvågen）。", fee: "AutoPass/現場刷卡", station: "上船碼頭: Mortavika ferjekai ➔ 下船碼頭: Arsvågen ferjekai", note: "進碼頭選車少的道排隊，務必拉手煞車、打 P 檔" },
-          { name: "Sandvikvåg – Halhjem 車渡", transport: "租車自駕 + 渡輪", desc: "換搭第二段渡輪橫渡峽灣（Sandvikvåg ➔ Halhjem）。", fee: "AutoPass/現場刷卡", station: "上船碼頭: Sandvikvåg ferjekai ➔ 下船碼頭: Halhjem ferjekai", note: "駛離碼頭前往卑爾根" },
-          { name: "世界遺產布呂根 (Bryggen) & 魚市場", transport: "租車自駕 (約35m)", desc: "探訪卑爾根彩色木造漢薩同盟商館，並於 Fishmarket 享用帝王蟹海鮮晚餐。", fee: "免費 / 自由餐費", note: "世界文化遺產與新鮮海鮮晚餐" }
-        ]
-      },
-      {
-        day: 16, date: "2026-10-09", weekday: "週五", location: "卑爾根 (佛萊恩山俯瞰)", city: "Bergen", lat: 60.3929, lon: 5.3242,
-        hotel: "City Centrum Villa Apartments w parking (連住)", hotelAddress: "Forskjønnelsen 41, Bergenhus, 5018 卑爾根, 挪威",
-        spots: [
-          { name: "卑爾根胡斯城堡 (Bergenhus Fortress)", transport: "租車自駕 / 步行", desc: "參觀挪威保存最古老的石造城堡之一。", fee: "外圍免費 / 堡內門票", note: "古老石造城堡" },
-          { name: "佛萊恩山纜車 (Fløibanen)", transport: "纜車 (約10m)", desc: "搭乘纜車登頂 Fløyen 山俯瞰卑爾根港灣與七山全景，隨後體驗徒步沿山間步道下山。", fee: "約 70-105 NOK", station: "Fløibanen 纜車站", note: "不需預約，最晚 20:00 門關閉" }
-        ]
-      },
-      {
-        day: 17, date: "2026-10-10", weekday: "週六", location: "沃斯 ➔ 弗洛姆峽灣遊船", city: "Flam", lat: 60.8608, lon: 7.1118,
-        hotel: "Flåm Holiday Home", hotelAddress: "Brekkevegen 24, 5743 弗洛姆, 挪威",
-        spots: [
-          { name: "Voss 小鎮漫步", transport: "租車自駕 (約1.5h)", desc: "中途停靠極限運動小鎮 Voss，視天氣狀況可選擇搭乘觀光纜車。", fee: "免費", note: "山城小鎮休息" },
-          { name: "松恩峽灣遊船 (Flåm ➔ Gudvangen)", transport: "觀光遊船 (約2h)", desc: "搭乘極致美景遊船穿越納柔伊峽灣 (Nærøyfjord)，欣賞峭壁瀑布美景。", fee: "415-435 NOK", station: "上船碼頭: Flåm Cruise Terminal (標牌寫 Fjord Cruise Nærøyfjord) ➔ 下船碼頭: Gudvangen", note: "遊船需事先預約確認" },
-          { name: "接駁巴士返弗洛姆 & 超市採買", transport: "接駁巴士 (約20m)", desc: "於 Gudvangen 下船後搭乘接駁巴士返 Flåm，至當地超市採買食物與晚餐。", fee: "巴士 120 NOK", station: "上車點: Gudvangen 停車場 (Fjordstue 紀念品店前)", note: "接駁巴士就在紀念品店前停車場" }
-        ]
-      },
-      {
-        day: 18, date: "2026-10-11", weekday: "週日", location: "弗洛姆高山火車 ➔ 高爾", city: "Gol", lat: 60.6996, lon: 8.9503,
-        hotel: "New Cab in With Views Of Tisleiefjorden", hotelAddress: "3550 高爾, 挪威",
-        spots: [
-          { name: "Flåmsbana 高山小火車 (Flåm-Myrdal)", transport: "高山觀光火車 (約50m)", desc: "搭乘著名的弗洛姆高山火車，途經 Kjosfossen 瀑布站停靠 10 分鐘下車拍照。", fee: "550-650 NOK", station: "Flåm Station ➔ Myrdal Station (往返)", note: "去程 09:00 或 11:45 / 回程 10:15 或 13:15，需先開車至停車場" },
-          { name: "弗洛姆市區逛街 ➔ 開車前往高爾", transport: "租車自駕 (約2.2h)", desc: "返回弗洛姆市區午餐與逛街，結束後驅車前往 Gol 山區景觀小木屋 Check-in。", fee: "免費", note: "入住山區景觀小木屋" }
-        ]
-      },
-      {
-        day: 19, date: "2026-10-12", weekday: "週一", location: "告別挪威 ➔ 飛往斯德哥爾摩", city: "Stockholm", lat: 59.3293, lon: 18.0686,
-        hotel: "Generator Stockholm", hotelAddress: "Torsgatan 10, 北島區, 11123 斯德哥爾摩, 瑞典",
-        spots: [
-          { name: "奧斯陸機場還車 ➔ 飛往斯德哥爾摩", transport: "自駕 + 飛機 SK882 (16:10-17:10)", desc: "驅車返回奧斯陸機場（還車前於 P10 附近加油），預計 13:00 完成還車並搭機前往瑞典。", fee: "加油自理 / 已含機票", station: "Gardermoen Airport (OSL) ➔ Stockholm Arlanda Airport (ARN)", note: "注意還車前加油" },
-          { name: "搭乘 SL 交通工具至 Generator", transport: "SL 電車/巴士", desc: "抵達斯德哥爾摩後搭乘 SL 大眾運輸前往 Generator Stockholm 辦理入住。", fee: "使用 SL 交通卡", note: "購買 SL 24小時交通卡" }
-        ]
-      },
-      {
-        day: 20, date: "2026-10-13", weekday: "週二", location: "斯德哥爾摩 (瓦薩博物館 & 老城區)", city: "Stockholm", lat: 59.3293, lon: 18.0686,
-        hotel: "Generator Stockholm (連住)", hotelAddress: "Torsgatan 10, 北島區, 11123 斯德哥爾摩, 瑞典",
-        spots: [
-          { name: "瓦薩沉船博物館 (Vasa Museum)", transport: "SL 7號電車 / 67號巴士", desc: "參觀打撈重現的 17 世紀戰艦 Vasa 號沉船史詩，10:00 營業。", fee: "約 190-200 SEK", station: "下車站: Nordiska museet / Vasamuseet", note: "建議提早抵達" },
-          { name: "渡輪前往老城區 (Gamla Stan)", transport: "FERRY 82號渡輪", desc: "博物館出來向左沿水邊步行 5-8 分鐘至碼頭，搭渡輪直達老城區入口。", fee: "SL 24h Pass 含", station: "上船碼頭: Allmänna Gränd ➔ 下船碼頭: Slussen (Räntmästartrappan)", note: "下船處即為老城區入口" },
-          { name: "老城區大廣場、王宮 & 諾貝爾博物館", transport: "步行 + 地鐵 (紅/綠線)", desc: "漫步大廣場、大教堂與斯德哥爾摩王宮，隨後搭地鐵返回飯店。", fee: "門票視場館而定", station: "地鐵上車站: Gamla Stan ➔ 下車站: T-Centralen", note: "出 Vasagatan 出口左轉沿 Vasagatan 往北走" }
-        ]
-      },
-      {
-        day: 21, date: "2026-10-14", weekday: "週三", location: "波羅的海過夜郵輪 (塔林客)", city: "Stockholm", lat: 59.3293, lon: 18.0686,
-        hotel: "塔林客矽麗雅號 (Tallink Silja Line)", hotelAddress: "Stockholm Värtahamnen 碼頭",
-        spots: [
-          { name: "斯德哥爾摩市區購物與最後採買", transport: "SL 大眾運輸", desc: "市區進行紀念品購物與最後採買與午茶休閒。", fee: "自由消費", note: "市區購物巡禮" },
-          { name: "登船塔林客矽麗雅號 (Tallink Silja)", transport: "專車 / SL 交通至碼頭", desc: "前往 Värtahamnen 碼頭辦理登船，登上過夜奢華郵輪穿越波羅的海前往赫爾辛基。", fee: "已預訂郵輪艙房", station: "Stockholm Värtahamnen 碼頭", note: "享受船上自助晚餐與表演設施" }
-        ]
-      },
-      {
-        day: 22, date: "2026-10-15", weekday: "週四", location: "赫爾辛基抵港 ➔ 啟程返航", city: "Helsinki", lat: 60.1699, lon: 24.9384,
-        hotel: "夜宿機上", hotelAddress: "",
-        spots: [
-          { name: "郵輪抵達赫爾辛基 & 快線至機場", transport: "機場快線", desc: "郵輪抵達赫爾辛基後，搭乘快線前往萬塔機場 (HEL)。", fee: "快線票價", station: "Kauppatori / 西碼頭 ➔ HEL Airport", note: "提前 3 小時抵達機場辦理退稅" },
-          { name: "赫爾辛基 HEL ➔ 東京成田 NRT", transport: "飛機 JL6800 (17:45 - 13:05 +1)", desc: "完成退稅與登機手續，搭乘 JL6800 長途班機返航東京。", fee: "已含機票", note: "夜宿機上" }
-        ]
-      },
-      {
-        day: 23, date: "2026-10-16", weekday: "週五", location: "抵達東京成田機場", city: "Tokyo", lat: 35.7720, lon: 140.3929,
-        hotel: "成田東武機場酒店", hotelAddress: "日本成田機場周邊",
-        spots: [
-          { name: "抵達東京成田 NRT (13:05) & 入住飯店", transport: "飯店免費接駁巴士", desc: "班機順利抵達東京成田機場，搭乘接駁車入住成田東武機場酒店休息。", fee: "免費接駁", station: "成田機場 NRT ➔ 成田東武機場酒店", note: "充分休息恢復體力" }
-        ]
-      },
-      {
-        day: 24, date: "2026-10-17", weekday: "週六", location: "東京 ➔ 返抵台北 (溫暖的家)", city: "Taipei", lat: 25.0330, lon: 121.5654,
-        hotel: "溫暖的家", hotelAddress: "",
-        spots: [
-          { name: "東京成田 NRT ➔ 桃園 TPE", transport: "飛機 JL8663 (08:55 - 11:35)", desc: "搭乘 JL8663 班機返抵台北桃園國際機場。", fee: "已含機票", note: "順利返抵台灣" },
-          { name: "高鐵專車接送返家", transport: "高鐵接送", desc: "搭乘專車返回溫暖的家，結束 24 天完美豐富的北歐之旅！", fee: "免額外付費", note: "平安順利歸家" }
+        day: 7,
+        date: "2026-09-21",
+        dateStr: "9/21",
+        week: "週一",
+        city: "東京 / 返台",
+        lat: 35.7719,
+        lng: 140.3929,
+        items: [
+          {
+            title: "市區悠閒半日遊 ➡️ 前往成田機場 (NRT)",
+            type: "flight",
+            time: "14:30 抵達航廈",
+            desc: "退房後錦糸町採買最後伴手禮，搭乘成田特快 N'EX 或 Access 特快抵達 T1。",
+            ticket: "預留出境安全檢查時間",
+            hours: "起飛前 2.5 - 3 小時報到",
+            map: "https://maps.google.com/?q=成田機場第1候機樓"
+          },
+          {
+            title: "搭乘 UA 839 班機返港 (高雄 KHH)",
+            type: "plane",
+            time: "17:50 - 21:00",
+            desc: "UA 839 NRT(T1) 17:50 起飛，預計 21:00 返抵高雄小港機場，行李限額 23KG/人。",
+            ticket: "登機證行李：每人23KG (含小孩)",
+            hours: "登機門以當日機場公告為準",
+            map: "https://maps.google.com/?q=成田國際機場"
+          }
         ]
       }
     ];
 
-    const flightTicketData = [
-      {
-        date: "2026/09/24",
-        tag: "妙，爸",
-        legs: [
-          { depCode: "TPE", depName: "桃園", depTime: "10:55", arrCode: "NRT", arrName: "成田", arrTime: "14:55", duration: "04h00m", code: "JL802" },
-          { depCode: "HND", depName: "羽田", depTime: "21:50", arrCode: "HEL", arrName: "赫爾辛基", arrTime: "04:40 (+1)", duration: "11h50m", code: "JL6877" }
-        ]
-      },
-      {
-        date: "2026/09/24",
-        tag: "",
-        legs: [
-          { depCode: "TPE", depName: "桃園", depTime: "12:45", arrCode: "NRT", arrName: "成田", arrTime: "17:15", duration: "04h30m", code: "JL8664" },
-          { depCode: "NRT", depName: "成田", depTime: "23:05", arrCode: "HEL", arrName: "赫爾辛基", arrTime: "05:55 (+1)", duration: "11h50m", code: "JL6801" }
-        ]
-      },
-      {
-        date: "2026/09/27",
-        tag: "",
-        legs: [
-          { depCode: "RVN", depName: "羅瓦涅米", depTime: "09:45", arrCode: "TOS", arrName: "特羅姆瑟", arrTime: "10:05", duration: "01h20m", code: "DY381 (挪威航空)" }
-        ]
-      },
-      {
-        date: "2026/10/04",
-        tag: "",
-        legs: [
-          { depCode: "TOS", depName: "特羅姆瑟", depTime: "12:55", arrCode: "OSL", arrName: "奧斯陸", arrTime: "14:50", duration: "01h55m", code: "SAS / 挪航" }
-        ]
-      },
-      {
-        date: "2026/10/12",
-        tag: "",
-        legs: [
-          { depCode: "OSL", depName: "奧斯陸", depTime: "16:10", arrCode: "ARN", arrName: "斯德哥爾摩", arrTime: "17:10", duration: "01h00m", code: "SK882 (北歐航空)" }
-        ]
-      },
-      {
-        date: "2026/10/15",
-        tag: "",
-        legs: [
-          { depCode: "HEL", depName: "赫爾辛基", depTime: "17:45", arrCode: "NRT", arrName: "成田", arrTime: "13:05 (+1)", duration: "12h20m", code: "JL6800 (日本航空)" }
-        ]
-      },
-      {
-        date: "2026/10/17",
-        tag: "",
-        legs: [
-          { depCode: "NRT", depName: "成田", depTime: "08:55", arrCode: "TPE", arrName: "桃園", arrTime: "11:35", duration: "03h40m", code: "JL8663 (日本航空)" }
-        ]
-      }
-    ];
+    let currentDayIndex = 0;
 
-    const hotelData = [
-      { date: "09/23", name: "雀客旅館台北站前", address: "台北中正區襄陽路4號", rooms: "3間", breakfast: "無", washer: "無", parking: "無" },
-      { date: "09/25", name: "VR 北極夜舖火車", address: "Helsinki Central to Rovaniemi", rooms: "4包廂", breakfast: "無", washer: "無", parking: "無" },
-      { date: "09/26", name: "Apukka Resort 極光小屋", address: "Tutkijantie 28, 96900 Rovaniemi, FI", rooms: "4間", breakfast: "含早餐", washer: "無", parking: "免費" },
-      { date: "09/27", name: "Staying Apt 3 - New and modern", address: "16 Kaare Moursunds veg, 9007 特羅姆瑟, 挪威", rooms: "1棟", breakfast: "廚房自理", washer: "有", parking: "免費" },
-      { date: "09/28", name: "Fjellkysten 旅館", address: "Soløyveien 190, 9357 滕內沃爾, 挪威", rooms: "4間", breakfast: "含早餐", washer: "無", parking: "收費" },
-      { date: "09/29-10/01", name: "Rorbuene Svolvær Havn (連住3晚)", address: "Vesterøyveien 52-57, 8300 斯沃爾韋爾, 挪威", rooms: "1棟", breakfast: "廚房自理", washer: "無", parking: "免費" },
-      { date: "10/02", name: "KAB Guesthouse", address: "33 Niingsveien, 8533 博根, 挪威", rooms: "1棟", breakfast: "廚房自理", washer: "有", parking: "免費" },
-      { date: "10/03", name: "House in the heart of tromsdalen", address: "1 Fugløyvegen, 9020 特羅姆瑟, 挪威", rooms: "1棟", breakfast: "廚房自理", washer: "有", parking: "免費" },
-      { date: "10/04", name: "Spacious Five Bedroom Central Oslo", address: "Korsgata 30B, 0551 奧斯陸, 挪威", rooms: "1棟", breakfast: "無", washer: "有", parking: "路邊收費" },
-      { date: "10/05", name: "Grimstad Vertshus", address: "Frivoldveien 11-13, 4877 格里姆斯塔, 挪威", rooms: "2間", breakfast: "含早餐", washer: "有", parking: "免費" },
-      { date: "10/06-10/07", name: "Central Guest House (連住2晚)", address: "Lysefjordgata 12, 4014 斯塔萬格, 挪威", rooms: "3間", breakfast: "廚房自理", washer: "有", parking: "預約免費" },
-      { date: "10/08-10/09", name: "City Centrum Villa Apartments w parking (連住2晚)", address: "Forskjønnelsen 41, Bergenhus, 5018 卑爾根, 挪威", rooms: "2間", breakfast: "廚房自理", washer: "有", parking: "免費" },
-      { date: "10/10", name: "Flåm Holiday Home", address: "Brekkevegen 24, 5743 弗洛姆, 挪威", rooms: "1棟", breakfast: "廚房自理", washer: "有", parking: "免費" },
-      { date: "10/11", name: "New Cab in With Views Of Tisleiefjorden", address: "3550 高爾, 挪威", rooms: "1棟", breakfast: "廚房自理", washer: "有", parking: "免費" },
-      { date: "10/12-10/13", name: "Generator Stockholm (連住2晚)", address: "Torsgatan 10, 北島區, 11123 斯德哥爾摩, 瑞典", rooms: "3間", breakfast: "無", washer: "無", parking: "無租車" },
-      { date: "10/14", name: "塔林客矽麗雅號 (Tallink Silja)", address: "波羅的海過夜郵輪", rooms: "3艙房", breakfast: "供餐", washer: "無", parking: "無" },
-      { date: "10/16", name: "成田東武機場酒店", address: "日本成田機場周邊", rooms: "3間", breakfast: "有", washer: "無", parking: "無" }
-    ];
+    // ==========================================
+    // 2. 渲染橫向滑動日期選單
+    // ==========================================
+    function renderDateTabs() {
+      const container = document.getElementById('date-scroll-container');
+      container.innerHTML = '';
 
-    const checklistData = [
-      {
-        category: "文件類",
-        note: "▲ 信用卡需先在國內申請 PIN 碼 ▲",
-        items: [
-          "護照", "行程表", "國內駕照", "住宿訂單", "國際駕照", "租車訂單",
-          "2吋照片 * 2", "身分證(影本)", "紙本機票", "外幣現金", "旅遊保險單", "信用卡(V M各一)"
-        ]
-      },
-      {
-        category: "盥洗用品類 & 衣物",
-        note: "▲ 外衣以防風防水為主 ▲",
-        items: [
-          "盥洗用品(牙刷 / 牙膏)", "洗面乳", "浴巾 / 小毛巾", "濕紙巾", "衛生紙",
-          "生理用品", "眼鏡 / 隱眼(藥水)", "泳衣", "個人換洗衣物", "毛帽",
-          "手套", "圍巾", "襪子", "發熱衣 / 褲"
-        ]
-      },
-      {
-        category: "日常用品類",
-        note: "",
-        items: [
-          "國際電壓吹風機", "萬國插座 (歐洲通用2圓孔)", "充電線", "行動電源",
-          "車用手機座", "梳子 / 電棒類", "保溫瓶", "太陽眼鏡", "小剪刀 / 指甲剪",
-          "輕便拖鞋", "輕便購物袋", "輕便雨衣", "防水袋 / 手機防水袋", "各式夾鏈袋 / 壓縮袋",
-          "護手霜", "護唇膏", "自用藥品 / 常備藥品", "行李秤", "頸枕", "乳液",
-          "髮油", "保養品", "眼藥水", "筆", "口罩", "眼罩", "數個小錢包",
-          "免洗餐具幾個", "便條紙(要寫停車單)"
-        ]
-      },
-      {
-        category: "不需每個人都帶 (食品類)",
-        note: "",
-        items: [
-          "泡麵(不能含有肉類)", "咖哩塊", "石頭火鍋粉", "飲品沖泡包", "乾燥速泡飯"
-        ]
-      }
-    ];
+      tripData.forEach((day, index) => {
+        const btn = document.createElement('button');
+        const isActive = index === currentDayIndex;
+        btn.className = `flex-shrink-0 px-4 py-2.5 rounded-2xl flex flex-col items-center justify-center transition-all duration-200 ${
+          isActive 
+            ? 'bg-sakura text-white shadow-btn scale-105 font-bold' 
+            : 'bg-white text-gray-500 hover:bg-rose-50/70 border border-orange-100/60'
+        }`;
 
-    // Global Selection: 'thsr' or integer index (0..23)
-    let selectedSelection = 0;
-    let weatherCache = {};
+        btn.innerHTML = `
+          <span class="text-[10px] tracking-wider uppercase">${day.week}</span>
+          <span class="text-sm font-extrabold mt-0.5">${day.dateStr}</span>
+          <span class="text-[10px] opacity-80">Day ${day.day}</span>
+        `;
 
-    async function fetchWeather(lat, lon, dateStr) {
-      const cacheKey = `${lat},${lon},${dateStr}`;
-      if (weatherCache[cacheKey]) return weatherCache[cacheKey];
+        btn.addEventListener('click', () => {
+          currentDayIndex = index;
+          renderDateTabs();
+          renderDayItinerary();
+          fetchWeather(tripData[currentDayIndex]);
+        });
+
+        container.appendChild(btn);
+      });
+    }
+
+    // ==========================================
+    // 3. 渲染當日行程卡片
+    // ==========================================
+    function renderDayItinerary() {
+      const day = tripData[currentDayIndex];
+      const list = document.getElementById('itinerary-list');
+      list.innerHTML = '';
+
+      day.items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-3xl p-4.5 shadow-cute border border-orange-100/60 space-y-2.5 transition";
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <div class="space-y-0.5">
+              <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full inline-block">
+                ${item.time}
+              </span>
+              <h3 class="text-sm font-black text-charcoal leading-snug pt-1">${item.title}</h3>
+            </div>
+            ${item.map ? `
+              <a href="${item.map}" target="_blank" class="flex-shrink-0 bg-cream text-charcoal hover:bg-rose-100 p-2 rounded-2xl border border-orange-100 transition flex items-center gap-1 text-xs font-bold">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sakura"></i>
+                導航
+              </a>
+            ` : ''}
+          </div>
+          <p class="text-xs text-gray-600 leading-relaxed">${item.desc}</p>
+          <div class="bg-cream/70 rounded-2xl p-2.5 text-[11px] space-y-1 text-gray-600 border border-orange-100/40">
+            ${item.hours ? `<div class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3 h-3 text-matcha"></i> <span>營業時間：${item.hours}</span></div>` : ''}
+            ${item.ticket ? `<div class="flex items-center gap-1.5"><i data-lucide="ticket" class="w-3 h-3 text-amber-500"></i> <span>費用/門票：${item.ticket}</span></div>` : ''}
+          </div>
+        `;
+        list.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    // ==========================================
+    // 4. 動態天氣 API (Open-Meteo)
+    // ==========================================
+    async function fetchWeather(day) {
+      const locLabel = document.getElementById('weather-loc');
+      const tempLabel = document.getElementById('weather-temp');
+      const iconLabel = document.getElementById('weather-icon');
+
+      locLabel.innerText = `${day.city} 天氣觀測中...`;
+      tempLabel.innerText = '讀取氣溫...';
 
       try {
-        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`);
+        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${day.lat}&longitude=${day.lng}&current=temperature_2m,weather_code&timezone=Asia%2FTokyo`);
         const data = await res.json();
         
-        if (data && data.daily) {
-          const idx = data.daily.time.indexOf(dateStr);
-          const targetIdx = idx !== -1 ? idx : 0;
-          const maxTemp = Math.round(data.daily.temperature_2m_max[targetIdx]);
-          const minTemp = Math.round(data.daily.temperature_2m_min[targetIdx]);
-          const code = data.daily.weathercode[targetIdx];
+        if (data && data.current) {
+          const temp = Math.round(data.current.temperature_2m);
+          const code = data.current.weather_code;
+          
+          let wIcon = '🌤️';
+          let wText = '晴時多雲';
+          if (code === 0) { wIcon = '☀️'; wText = '晴朗陽光'; }
+          else if ([1, 2, 3].includes(code)) { wIcon = '⛅'; wText = '多雲舒適'; }
+          else if ([45, 48].includes(code)) { wIcon = '🌫️'; wText = '起霧'; }
+          else if ([51, 53, 55, 61, 63, 65, 80, 81].includes(code)) { wIcon = '🌧️'; wText = '有局部陣雨'; }
 
-          const result = { minTemp, maxTemp, icon: getWeatherIcon(code) };
-          weatherCache[cacheKey] = result;
-          return result;
+          locLabel.innerText = `${day.city} 當地氣候・${wText}`;
+          tempLabel.innerText = `${temp}°C (今日實況)`;
+          iconLabel.innerText = wIcon;
+        } else {
+          throw new Error('API 無回傳');
         }
-      } catch (e) {
-        console.warn("Weather fetch error", e);
-      }
-      return { minTemp: 3, maxTemp: 11, icon: "cloud" };
-    }
-
-    function getWeatherIcon(code) {
-      if (code === 0) return "sun";
-      if (code >= 1 && code <= 3) return "cloud-sun";
-      if (code >= 45 && code <= 48) return "cloud-fog";
-      if (code >= 51 && code <= 67) return "cloud-rain";
-      if (code >= 71) return "snowflake";
-      return "cloud";
-    }
-
-    // Render Date Slider with Special THSR button on the very left
-    function renderDateSlider() {
-      const slider = document.getElementById('date-slider');
-      
-      const isThsrActive = selectedSelection === 'thsr';
-      const thsrBtnClass = isThsrActive 
-        ? 'bg-muji-orange text-white border-white shadow-md font-bold' 
-        : 'bg-white/20 text-white hover:bg-white/30 border-white/30 backdrop-blur';
-
-      let html = `
-        <button onclick="selectItem('thsr')" class="flex-shrink-0 px-3.5 py-1.5 rounded-xl text-center border transition-all ${thsrBtnClass}">
-          <div class="text-[10px] uppercase flex items-center justify-center gap-0.5">
-            <i data-lucide="train" class="w-3 h-3"></i>
-            <span>台灣</span>
-          </div>
-          <div class="text-xs font-bold">高鐵</div>
-          <div class="text-[9px] opacity-80">9/23-24</div>
-        </button>
-      `;
-
-      html += tripData.map((item, idx) => {
-        const isSelected = selectedSelection === idx;
-        const displayDate = item.date.substring(5).replace('-', '/');
-        const activeClass = isSelected ? 'bg-white text-muji-dark border-white shadow-md font-bold' : 'bg-white/15 text-white/90 border-white/20 hover:bg-white/30 backdrop-blur';
-        return `
-          <button onclick="selectItem(${idx})" class="flex-shrink-0 px-3.5 py-1.5 rounded-xl text-center border transition-all ${activeClass}">
-            <div class="text-[10px] uppercase">${item.weekday}</div>
-            <div class="text-xs font-bold">${displayDate}</div>
-            <div class="text-[9px] opacity-75">D${item.day}</div>
-          </button>
-        `;
-      }).join('');
-
-      slider.innerHTML = html;
-      lucide.createIcons();
-
-      // Auto scroll to active button
-      const activeIdx = selectedSelection === 'thsr' ? 0 : selectedSelection + 1;
-      const activeBtn = slider.children[activeIdx];
-      if (activeBtn) {
-        activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      } catch (err) {
+        locLabel.innerText = `${day.city} 氣溫預估`;
+        tempLabel.innerText = `約 22°C - 26°C (秋季宜人)`;
+        iconLabel.innerText = '🍁';
       }
     }
 
-    async function renderItineraryDetail() {
-      const container = document.getElementById('itinerary-detail-card');
+    // ==========================================
+    // 5. 記帳功能 (LocalStorage + 匯率轉換)
+    // ==========================================
+    const STORAGE_KEY = 'izutrip_expenses_v1';
+    let expenses = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
-      // If THSR is selected
-      if (selectedSelection === 'thsr') {
-        container.innerHTML = `
-          <div class="space-y-4">
-            <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm flex justify-between items-start">
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-white bg-muji-orange px-2.5 py-0.5 rounded">台灣出發</span>
-                  <span class="text-xs font-medium text-muji-muted">2026.09.23 - 09.24</span>
-                </div>
-                <h2 class="text-lg font-bold text-muji-dark mt-1">台灣高鐵搭乘資訊 (三組)</h2>
-              </div>
-              <div class="p-2 bg-muji-bg rounded-xl border border-muji-border text-muji-orange">
-                <i data-lucide="train" class="w-5 h-5"></i>
-              </div>
-            </div>
+    const jpyInput = document.getElementById('exp-jpy');
+    const twdPreview = document.getElementById('exp-twd-preview');
+    const rateInput = document.getElementById('exchange-rate');
+    const dateInput = document.getElementById('exp-date');
 
-            <div class="space-y-3">
-              ${thsrGroups.map((g, i) => `
-                <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-2.5">
-                  <div class="flex justify-between items-start border-b border-muji-border pb-2">
-                    <div>
-                      <span class="text-xs font-bold text-muji-accent bg-muji-accentLight px-2 py-0.5 rounded font-mono">${g.date}</span>
-                      <h3 class="text-base font-bold text-muji-dark mt-1">組別 ${i + 1}：${g.members}</h3>
-                    </div>
-                    <span class="text-xs font-bold text-white bg-muji-orange px-2.5 py-1 rounded-full">${g.trainNo}</span>
-                  </div>
+    // 預設今日日期為 2026-09-15
+    dateInput.value = "2026-09-15";
 
-                  <div class="grid grid-cols-2 gap-2 text-sm pt-1">
-                    <div class="bg-muji-bg p-2.5 rounded-xl border border-muji-border space-y-0.5">
-                      <span class="text-muji-muted text-xs block">搭乘區間</span>
-                      <p class="font-bold text-muji-dark">${g.route}</p>
-                    </div>
-                    <div class="bg-muji-bg p-2.5 rounded-xl border border-muji-border space-y-0.5">
-                      <span class="text-muji-muted text-xs block">發車 - 抵達時間</span>
-                      <p class="font-bold text-muji-dark">${g.time}</p>
-                    </div>
-                  </div>
-
-                  <div class="flex justify-between items-center text-xs text-muji-muted pt-1">
-                    <span class="font-bold text-muji-dark bg-muji-accentLight px-2.5 py-1 rounded-lg">${g.carNo}</span>
-                    <span>${g.note}</span>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-        lucide.createIcons();
-        return;
-      }
-
-      // Daily Trip Schedule
-      const day = tripData[selectedSelection];
-      container.innerHTML = `<div class="p-8 text-center text-sm text-muji-muted">載入行程與天氣資訊中...</div>`;
-
-      const weather = await fetchWeather(day.lat, day.lon, day.date);
-      const mapBtn = day.hotelAddress ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(day.hotelAddress)}" target="_blank" class="text-muji-accent hover:underline flex items-center gap-0.5 font-medium"><span>導航地圖</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>` : '';
-
-      container.innerHTML = `
-        <div class="space-y-4">
-          <!-- Day Header -->
-          <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm flex justify-between items-start">
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-muji-accent bg-muji-accentLight px-2.5 py-0.5 rounded">Day ${day.day}</span>
-                <span class="text-xs font-medium text-muji-muted">${day.date} (${day.weekday})</span>
-              </div>
-              <h2 class="text-lg font-bold text-muji-dark mt-1">${day.location}</h2>
-            </div>
-            <div class="flex items-center gap-1.5 bg-muji-bg px-3 py-1.5 rounded-xl border border-muji-border text-xs font-semibold">
-              <i data-lucide="${weather.icon}" class="w-4 h-4 text-muji-accent"></i>
-              <span class="text-muji-dark">${weather.minTemp}°C - ${weather.maxTemp}°C</span>
-            </div>
-          </div>
-
-          <!-- Individual Spot Cards -->
-          <div class="space-y-3">
-            <div class="text-xs font-bold text-muji-muted px-1 flex items-center gap-1">
-              <i data-lucide="map-pin" class="w-4 h-4 text-muji-accent"></i>
-              <span>景點與活動細節 (${day.spots.length})</span>
-            </div>
-
-            ${day.spots.map((spot, i) => {
-              const spotMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + day.city)}`;
-              
-              const stationHtml = spot.station ? `
-                <div class="pt-1.5 flex items-center gap-1.5 text-xs text-muji-muted font-medium">
-                  <i data-lucide="bus" class="w-3.5 h-3.5 text-muji-accent flex-shrink-0"></i>
-                  <span>車站/碼頭: ${spot.station}</span>
-                </div>
-              ` : '';
-
-              const noteHtml = spot.note ? `
-                <div class="pt-1.5 flex items-start gap-1.5 text-xs text-muji-orange font-medium">
-                  <i data-lucide="info" class="w-3.5 h-3.5 flex-shrink-0 mt-0.5"></i>
-                  <span>備註: ${spot.note}</span>
-                </div>
-              ` : '';
-
-              return `
-                <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-2.5 relative">
-                  <div class="flex justify-between items-start">
-                    <h3 class="text-base font-bold text-muji-dark">${i + 1}. ${spot.name}</h3>
-                    <span class="text-xs font-medium text-muji-accent bg-muji-accentLight px-2.5 py-0.5 rounded border border-muji-border flex-shrink-0">${spot.fee}</span>
-                  </div>
-                  
-                  <p class="text-sm text-muji-text leading-relaxed">${spot.desc}</p>
-                  
-                  ${stationHtml}
-                  ${noteHtml}
-
-                  <div class="pt-2 border-t border-muji-border flex items-center justify-between text-xs text-muji-muted font-medium">
-                    <div class="flex items-center gap-1.5">
-                      <i data-lucide="navigation" class="w-3.5 h-3.5 text-muji-accent"></i>
-                      <span>交通: ${spot.transport}</span>
-                    </div>
-
-                    <!-- Google Maps Button at Bottom-Right -->
-                    <a href="${spotMapUrl}" target="_blank" class="flex items-center gap-1 bg-muji-bg px-2.5 py-1 rounded-lg border border-muji-border text-muji-accent hover:bg-muji-accentLight transition-all text-[11px] font-semibold flex-shrink-0">
-                      <i data-lucide="map" class="w-3 h-3"></i>
-                      <span>地圖</span>
-                      <i data-lucide="external-link" class="w-2.5 h-2.5"></i>
-                    </a>
-                  </div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-
-          <!-- Accommodation Summary Card -->
-          <div class="bg-muji-card rounded-xl p-3.5 border border-muji-border flex justify-between items-center text-xs">
-            <div class="flex items-center gap-1.5 text-muji-muted">
-              <i data-lucide="bed" class="w-4 h-4 text-muji-accent"></i>
-              <span>預定住宿：</span>
-              <span class="font-bold text-muji-dark text-sm">${day.hotel}</span>
-            </div>
-            ${mapBtn}
-          </div>
-        </div>
-      `;
-      lucide.createIcons();
+    function updateTwdPreview() {
+      const jpy = parseFloat(jpyInput.value) || 0;
+      const rate = parseFloat(rateInput.value) || 0.215;
+      const twd = Math.round(jpy * rate);
+      twdPreview.value = jpy > 0 ? `約 NT$ ${twd.toLocaleString()}` : '';
     }
 
-    function selectItem(selection) {
-      selectedSelection = selection;
-      switchTab('itinerary');
-      renderDateSlider();
-      renderItineraryDetail();
-    }
-
-    function renderFlightTickets() {
-      const list = document.getElementById('flight-ticket-list');
-      list.innerHTML = flightTicketData.map(t => {
-        const tagBadge = t.tag ? `<span class="bg-muji-accent text-white px-2.5 py-0.5 rounded-md font-semibold text-xs">${t.tag}</span>` : '';
-        
-        const legsHtml = t.legs.map(leg => `
-          <div class="space-y-1.5 pt-2 first:pt-0 border-t border-muji-border first:border-0">
-            <div class="text-center text-xs text-muji-accent font-bold font-mono">${leg.code}</div>
-            <div class="flex justify-between items-center text-center">
-              <!-- Departure -->
-              <div class="w-24 text-left">
-                <div class="text-2xl font-bold text-muji-dark tracking-tight font-mono">${leg.depCode}</div>
-                <div class="text-xl font-bold text-muji-dark">${leg.depTime}</div>
-                <span class="inline-block mt-1 text-xs font-semibold text-white bg-muji-green px-2.5 py-0.5 rounded-full">${leg.depName}</span>
-              </div>
-
-              <!-- Upward Flying Plane -->
-              <div class="flex-1 px-2 flex flex-col items-center">
-                <span class="text-xs text-muji-muted mb-1 font-mono">${leg.duration}</span>
-                <div class="w-full flex items-center gap-1">
-                  <div class="h-[1px] bg-muji-border flex-1 border-b border-dashed border-muji-muted"></div>
-                  <i data-lucide="plane" class="w-4 h-4 text-muji-blue transform -rotate-45"></i>
-                  <div class="h-[1px] bg-muji-border flex-1 border-b border-dashed border-muji-muted"></div>
-                </div>
-              </div>
-
-              <!-- Arrival -->
-              <div class="w-24 text-right">
-                <div class="text-2xl font-bold text-muji-dark tracking-tight font-mono">${leg.arrCode}</div>
-                <div class="text-xl font-bold text-muji-dark">${leg.arrTime}</div>
-                <span class="inline-block mt-1 text-xs font-semibold text-white bg-muji-orange px-2.5 py-0.5 rounded-full">${leg.arrName}</span>
-              </div>
-            </div>
-          </div>
-        `).join('');
-
-        return `
-          <div class="bg-muji-card rounded-3xl p-5 border border-muji-border shadow-sm space-y-3 relative overflow-hidden">
-            <div class="flex justify-between items-center text-sm text-muji-muted font-medium border-b border-muji-border pb-2.5">
-              <span class="font-bold text-muji-dark">${t.date}</span>
-              ${tagBadge}
-            </div>
-            ${legsHtml}
-          </div>
-        `;
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function renderHotels() {
-      const list = document.getElementById('hotel-list');
-      list.innerHTML = hotelData.map(h => {
-        const query = encodeURIComponent(`${h.name} ${h.address}`);
-        return `
-          <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-3 text-sm">
-            <div class="flex justify-between items-start">
-              <div>
-                <span class="text-xs text-muji-accent bg-muji-accentLight px-2.5 py-0.5 rounded font-mono font-medium">${h.date}</span>
-                <h3 class="text-base font-bold text-muji-dark mt-1">${h.name}</h3>
-              </div>
-              <a href="https://www.google.com/maps/search/?api=1&query=${query}" target="_blank" class="flex items-center gap-1 bg-muji-bg px-3 py-1.5 rounded-xl border border-muji-border text-muji-accent hover:bg-muji-accentLight font-medium transition-all flex-shrink-0">
-                <i data-lucide="map" class="w-4 h-4"></i>
-                <span>導航</span>
-              </a>
-            </div>
-
-            <p class="text-xs text-muji-muted leading-relaxed">${h.address}</p>
-
-            <div class="grid grid-cols-3 gap-2 pt-2 border-t border-muji-border text-center text-xs">
-              <div class="bg-muji-bg p-2 rounded-xl border border-muji-border">
-                <span class="text-muji-muted block text-[11px] mb-0.5">房間數</span>
-                <span class="font-bold text-muji-dark">${h.rooms}</span>
-              </div>
-              <div class="bg-muji-bg p-2 rounded-xl border border-muji-border">
-                <span class="text-muji-muted block text-[11px] mb-0.5">早餐</span>
-                <span class="font-bold text-muji-dark">${h.breakfast}</span>
-              </div>
-              <div class="bg-muji-bg p-2 rounded-xl border border-muji-border">
-                <span class="text-muji-muted block text-[11px] mb-0.5">洗衣機</span>
-                <span class="font-bold text-muji-dark">${h.washer}</span>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function getSavedChecklist() {
-      return JSON.parse(localStorage.getItem('nordic_checklist') || '{}');
-    }
-
-    function toggleCheckitem(key) {
-      const state = getSavedChecklist();
-      state[key] = !state[key];
-      localStorage.setItem('nordic_checklist', JSON.stringify(state));
-      renderChecklist();
-    }
-
-    function resetChecklist() {
-      if (confirm("確定要重設所有物品勾選狀態嗎？")) {
-        localStorage.removeItem('nordic_checklist');
-        renderChecklist();
-      }
-    }
-
-    function renderChecklist() {
-      const container = document.getElementById('packing-checklist-container');
-      const savedState = getSavedChecklist();
-
-      let totalCount = 0;
-      let checkedCount = 0;
-
-      container.innerHTML = checklistData.map((cat, cIdx) => {
-        const noteHtml = cat.note ? `<p class="text-xs text-red-500 font-bold mb-2">${cat.note}</p>` : '';
-        
-        const itemsHtml = cat.items.map((item, iIdx) => {
-          totalCount++;
-          const itemKey = `item_${cIdx}_${iIdx}`;
-          const isChecked = !!savedState[itemKey];
-          if (isChecked) checkedCount++;
-
-          return `
-            <label class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-muji-bg cursor-pointer transition-all">
-              <input type="checkbox" onchange="toggleCheckitem('${itemKey}')" ${isChecked ? 'checked' : ''} class="w-4 h-4 rounded text-muji-accent accent-muji-accent">
-              <span class="text-sm font-medium ${isChecked ? 'line-through text-muji-muted' : 'text-muji-dark'}">${item}</span>
-            </label>
-          `;
-        }).join('');
-
-        return `
-          <div class="bg-muji-card rounded-2xl p-4 border border-muji-border shadow-sm space-y-2">
-            <h3 class="text-base font-bold text-muji-dark border-b border-muji-border pb-2">${cat.category}</h3>
-            ${noteHtml}
-            <div class="grid grid-cols-2 gap-1 pt-1">
-              ${itemsHtml}
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      const percent = totalCount > 0 ? Math.round((checkedCount / totalCount) * 100) : 0;
-      document.getElementById('checklist-progress-text').textContent = `${checkedCount} / ${totalCount} (${percent}%)`;
-      document.getElementById('checklist-progress-bar').style.width = `${percent}%`;
-    }
-
-    function getExpenses() {
-      return JSON.parse(localStorage.getItem('nordic_expenses') || '[]');
-    }
-
-    function saveExpenses(expenses) {
-      localStorage.setItem('nordic_expenses', JSON.stringify(expenses));
-    }
-
-    function renderExpenses() {
-      const expenses = getExpenses();
-      const list = document.getElementById('expense-list');
-      const totalTwdEl = document.getElementById('total-expense-twd');
-
-      let totalEUR = 0;
-
-      if (expenses.length === 0) {
-        list.innerHTML = `<p class="text-center text-sm text-muji-muted py-5">目前尚無消費記錄</p>`;
-        totalTwdEl.textContent = `NT$ 0`;
-        return;
-      }
-
-      list.innerHTML = expenses.map((item, idx) => {
-        const eur = parseFloat(item.amount);
-        const twd = Math.round(eur * EUR_RATE);
-        totalEUR += eur;
-
-        return `
-          <div class="flex justify-between items-center bg-muji-bg p-3 rounded-xl border border-muji-border text-sm">
-            <div class="space-y-0.5">
-              <div class="flex items-center gap-1.5">
-                <span class="font-bold text-muji-dark">${item.note || item.category}</span>
-                <span class="text-xs px-2 py-0.5 bg-muji-card border border-muji-border rounded text-muji-muted font-medium">${item.category}</span>
-                <span class="text-xs text-muji-accent font-semibold">${item.payment}</span>
-              </div>
-              <div class="text-xs text-muji-muted">${item.date}</div>
-            </div>
-            <div class="text-right flex items-center gap-2.5">
-              <div>
-                <div class="font-bold text-muji-dark text-base">€${eur.toFixed(2)}</div>
-                <div class="text-xs text-muji-muted font-medium">NT$ ${twd.toLocaleString()}</div>
-              </div>
-              <button onclick="deleteExpense(${idx})" class="text-muji-muted hover:text-red-500 p-1 transition-colors">
-                <i data-lucide="trash-2" class="w-4 h-4"></i>
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      const totalTWD = Math.round(totalEUR * EUR_RATE);
-      totalTwdEl.textContent = `NT$ ${totalTWD.toLocaleString()} (€${totalEUR.toFixed(2)})`;
-      lucide.createIcons();
-    }
-
-    function deleteExpense(index) {
-      const expenses = getExpenses();
-      expenses.splice(index, 1);
-      saveExpenses(expenses);
+    jpyInput.addEventListener('input', updateTwdPreview);
+    rateInput.addEventListener('input', () => {
+      updateTwdPreview();
       renderExpenses();
-    }
+    });
 
     document.getElementById('expense-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      const date = document.getElementById('exp-date').value || new Date().toISOString().split('T')[0];
-      const category = document.getElementById('exp-category').value;
-      const amount = document.getElementById('exp-amount').value;
-      const payment = document.getElementById('exp-payment').value;
-      const note = document.getElementById('exp-note').value;
+      const jpy = parseFloat(jpyInput.value);
+      if (!jpy || jpy <= 0) return;
 
-      const newExpense = { date, category, amount, payment, note };
-      const expenses = getExpenses();
-      expenses.unshift(newExpense);
-      saveExpenses(expenses);
+      const newExp = {
+        id: Date.now(),
+        date: dateInput.value,
+        cat: document.getElementById('exp-cat').value,
+        jpy: jpy,
+        method: document.querySelector('input[name="pay-method"]:checked').value
+      };
 
-      document.getElementById('exp-amount').value = '';
-      document.getElementById('exp-note').value = '';
-      document.getElementById('exp-twd-preview').textContent = 'NT$ 0';
-
+      expenses.unshift(newExp);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
+      
+      // 清空輸入
+      jpyInput.value = '';
+      twdPreview.value = '';
       renderExpenses();
     });
 
-    document.getElementById('exp-amount').addEventListener('input', (e) => {
-      const val = parseFloat(e.target.value) || 0;
-      const twd = Math.round(val * EUR_RATE);
-      document.getElementById('exp-twd-preview').textContent = `NT$ ${twd.toLocaleString()}`;
-    });
+    window.deleteExpense = function(id) {
+      expenses = expenses.filter(item => item.id !== id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
+      renderExpenses();
+    };
 
-    function switchTab(tabName) {
-      const tabs = ['itinerary', 'flights', 'cars', 'hotels', 'checklist', 'accounting'];
-      tabs.forEach(t => {
-        document.getElementById(`tab-${t}`).classList.add('hidden');
-        const navBtn = document.getElementById(`nav-${t}`);
-        if (navBtn) {
-          navBtn.classList.remove('text-muji-accent');
-          navBtn.classList.add('text-muji-muted');
-        }
-      });
+    function renderExpenses() {
+      const list = document.getElementById('expense-items');
+      const totalJpyEl = document.getElementById('total-jpy');
+      const totalTwdEl = document.getElementById('total-twd');
+      const rate = parseFloat(rateInput.value) || 0.215;
 
-      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-      const activeNav = document.getElementById(`nav-${tabName}`);
-      if (activeNav) {
-        activeNav.classList.add('text-muji-accent');
-        activeNav.classList.remove('text-muji-muted');
+      list.innerHTML = '';
+      let sumJpy = 0;
+
+      if (expenses.length === 0) {
+        list.innerHTML = `<div class="text-center text-gray-500 py-3 text-xs">目前尚無記帳紀錄</div>`;
+      } else {
+        expenses.forEach(item => {
+          sumJpy += item.jpy;
+          const twd = Math.round(item.jpy * rate);
+          const el = document.createElement('div');
+          el.className = "flex justify-between items-center bg-cream/60 p-2.5 rounded-xl text-xs";
+          el.innerHTML = `
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-charcoal">${item.cat}</span>
+              <span class="text-[10px] text-gray-500">${item.date.slice(5)} (${item.method})</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="text-right font-mono">
+                <div class="font-bold text-charcoal">¥${item.jpy.toLocaleString()}</div>
+                <div class="text-[10px] text-gray-500">NT$${twd.toLocaleString()}</div>
+              </div>
+              <button onclick="deleteExpense(${item.id})" class="text-gray-500 hover:text-rose-500 p-1">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          `;
+          list.appendChild(el);
+        });
       }
+
+      totalJpyEl.innerText = `¥${sumJpy.toLocaleString()}`;
+      totalTwdEl.innerText = `(NT$${Math.round(sumJpy * rate).toLocaleString()})`;
+      lucide.createIcons();
     }
 
+    // ==========================================
+    // 初始化啟動
+    // ==========================================
     window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('exp-date').value = "2026-09-24";
-      renderDateSlider();
-      renderItineraryDetail();
-      renderFlightTickets();
-      renderHotels();
-      renderChecklist();
+      renderDateTabs();
+      renderDayItinerary();
+      fetchWeather(tripData[0]);
       renderExpenses();
       lucide.createIcons();
     });
